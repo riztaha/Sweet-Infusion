@@ -57,6 +57,10 @@ app.get("/menu", (req, res) => {
   res.render("menu");
 });
 
+// app.post("/menu", (req, res) => {
+//   ITEMS EDITED FROM rest-menu
+// })
+
 app.get("/cart", (req, res) => {
   res.render("cart");
 });
@@ -69,13 +73,13 @@ app.get("/rest-menu", function (req, res) {
   res.render("rest-menu");
 });
 
-// app.post("/menu", (req, res) => {
-//   ITEMS EDITED FROM rest-menu
-// })
-
 app.get("/orders", function (req, res) {
   res.render("orders");
 });
+
+// app.post("/orders", function (req, res) {
+//     POST ORDER INFO/TIME
+// });
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);

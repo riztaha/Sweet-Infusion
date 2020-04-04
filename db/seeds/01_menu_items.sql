@@ -1,10 +1,10 @@
 -- Pies
 INSERT INTO menu_items (name, price, prep_time, category, description, photo)
-VALUES ('Cherry Pie', 500, 2, 'pies', 'Chocolate lollipop halvah pie sweet roll gummi bears caramels. Tiramisu pastry wafer jujubes dessert gingerbread gummi bears chocolate candy canes.', 'absent photo URL');
+VALUES ('Cherry Pie', 500, 2, 'pies', 'Chocolate lollipop halvah pie sweet roll gummi bears caramels. Tiramisu pastry wafer jujubes dessert gingerbread gummi bears chocolate candy canes.', '../../db/queries/queries.js');
 INSERT INTO menu_items (name, price, prep_time, category, description, photo)
-VALUES ('Chocolate Pie', 600, 3, 'pies', 'Chocolate cake tiramisu marshmallow. Candy tart sugar plum.', 'absent photo URL');
+VALUES ('Chocolate Pie', 600, 3, 'pies', 'Chocolate cake tiramisu marshmallow. Candy tart sugar plum.', '../../db/queries/queries.js');
 INSERT INTO menu_items (name, price, prep_time, category, description, photo)
-VALUES ('Apple Pie', 650, 2, 'pies', 'Liquorice pastry cotton candy lemon drops cake ice cream sugar plum. Chocolate cake tiramisu cupcake tart oat cake candy canes halvah liquorice sweet roll.', 'absent photo URL');
+VALUES ('Apple Pie', 650, 2, 'pies', 'Liquorice pastry cotton candy lemon drops cake ice cream sugar plum. Chocolate cake tiramisu cupcake tart oat cake candy canes halvah liquorice sweet roll.', '../../db/queries/queries.js');
 
 -- Cakes
 INSERT INTO menu_items (name, price, prep_time, category, description, photo)

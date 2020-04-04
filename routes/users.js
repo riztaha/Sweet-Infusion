@@ -7,7 +7,7 @@
 
 const express = require("express");
 const router = express.Router();
-const app = express();
+// const app = express();
 
 module.exports = (db) => {
   router.get("/", (req, res) => {

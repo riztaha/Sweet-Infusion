@@ -9,6 +9,7 @@ const bodyParser = require("body-parser");
 const sass = require("node-sass-middleware");
 const app = express();
 const morgan = require("morgan");
+// const cookieSession = require("cookie-session");
 
 // PG database client/connection setup
 const { Pool } = require("pg");
@@ -38,11 +39,14 @@ app.use(express.static("public"));
 // Note: Feel free to replace the example routes below with your own
 const usersRoutes = require("./routes/users");
 const widgetsRoutes = require("./routes/widgets");
+const menuRoutes = require("./routes/menu");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/api/users", usersRoutes(db));
 app.use("/api/widgets", widgetsRoutes(db));
+app.use("/api/menu", menuRoutes(db));
+
 // Note: mount other resources here, using the same pattern above
 
 // Home page
@@ -56,6 +60,8 @@ app.get("/", (req, res) => {
 app.get("/menu", (req, res) => {
   res.render("menu");
 });
+
+//template file do ajax request make a request to /api/menu
 
 // app.post("/menu", (req, res) => {
 //   ITEMS EDITED FROM rest-menu

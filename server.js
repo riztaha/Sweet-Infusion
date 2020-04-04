@@ -73,7 +73,7 @@ app.get("/rest-menu", function (req, res) {
 //   ITEMS EDITED FROM rest-menu
 // })
 
-app.get("orders", function (req, res) {
+app.get("/orders", function (req, res) {
   res.render("orders");
 });
 

@@ -61,7 +61,7 @@ app.get("/menu", (req, res) => {
   res.render("menu");
 });
 
-//template file do ajax request make a request to /api/menu
+//template file do ajax request make a request to /api/menu... this is done in app.js
 
 // app.post("/menu", (req, res) => {
 //   ITEMS EDITED FROM rest-menu

@@ -15,5 +15,5 @@ CREATE TABLE customers (
   postal_code TEXT NOT NULL,
 
   credit_card TEXT NOT NULL,
-  credit_card_exp DATE NOT NULL,
+  credit_card_exp DATE NOT NULL
 );

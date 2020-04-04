@@ -5,7 +5,7 @@ CREATE TABLE menu_items (
   name TEXT NOT NULL,
 
   price INTEGER NOT NULL,
-  prep_time TIME NOT NULL,
+  prep_time INTEGER NOT NULL,
 
   category TEXT NOT NULL,
   description TEXT NOT NULL,

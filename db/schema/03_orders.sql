@@ -4,8 +4,8 @@ CREATE TABLE orders (
 
   customer_id INTEGER REFERENCES customers(id) ON DELETE CASCADE,
 
-  order_date DATE NOT NULL,
-  order_time TIME NOT NULL,
+  order_date TEXT NOT NULL,
+  order_time TEXT NOT NULL,
   order_quantity INTEGER DEFAULT 1,
 
   is_payment_correct BOOLEAN NOT NULL DEFAULT TRUE,

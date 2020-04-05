@@ -19,6 +19,15 @@
   </head>
 
   <body>
+    <!-- here we are passing the database object,
+    Nazia, you can go through the menu_items and place them
+    where they need to be -->
+    <!-- <% if (menu_items) { %>
+      <pre>  <%- JSON.stringify(menu_items) %>      </pre>
+      <% } else { %>
+        <h4>its not here</h4>
+
+      <% } %> -->
     <!-- nav bar -->
     <nav>
       <div class="nav wrapper">
@@ -52,37 +61,45 @@
     <!-- main body page -->
     <main class="wrapper">
       <section class="menu_section">
-        <div>
+        <div class="container">
           <img class="image_home" src="images/dessert1.jpg" alt="">
-          <div>
-            <h5>Icecream</h5>
+          <div class='overlay'>
+            <h5><%=menu_items[0].name%></h5>
+            <p><%=menu_items[0].description%></p>
+          </div>
+      </div>
+      <div class="container">
+          <img class="image_home" src="images/dessert2.jpg" alt="">
+          <div class='overlay'>
+            <h5><%=menu_items[1].name%></h5>
+            <p><%=menu_items[1].description%></p>
+          </div>
+      </div>
+      <div class="container">
+          <img class="image_home" src="images/dessert3.jpg" alt="">
+          <div class='overlay'>
+            <h5><%=menu_items[2].name%></h5>
+            <p><%=menu_items[2].description%></p>
+          </div>
+      </div>
+        <div class="container">
+          <img class="image_home" src="images/dessert4.jpg" alt="">
+          <div class='overlay'>
+            <h5><%=menu_items[3].name%></h5>
+            <p><%=menu_items[3].description%></p>
           </div>
         </div>
-        <div>
-          <img class="image_home" src="images/dessert2.jpg" alt="">
-          <div>
-            <h5 id="go"></h5>
-        </div>
-      </div>
-        <div>
-          <img class="image_home" src="images/dessert3.jpg" alt="">
-          <div>
-            <h5>Icecream</h5>
-        </div>
-      </div>
-        <div>
-          <img class="image_home" src="images/dessert4.jpg" alt="">
-          <div>
-            <h5>Icecream</h5>
-        </div>
-      </div>
-        <div>
+        <div class="container">
           <img class="image_home" src="images/dessert5.jpg" alt="">
-          <div>
-            <h5>Icecream</h5>
+          <div class='overlay'>
+            <h5><%=menu_items[4].name%></h5>
+            <p><%=menu_items[4].description%></p>
+          </div>
         </div>
-      </div>
       </section>
+      <!-- end of section 2 -->
+
+      <!-- footer section -->
       <section class="bottom_section">
         <div>
           <h3>Location</h3>
@@ -95,6 +112,15 @@
         </div>
       </section>
     </main>
+    <footer>
+      <section>
+        <p>&copy Copyrights by Sweet infusion</p>
+        <div>
+          <p>linkedin</p>
+          <p>instagram</p>
+        </div>
+      </section>
+    </footer>
 
 
     <script>

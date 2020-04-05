@@ -47,15 +47,23 @@ const menuRoutes = require("./routes/menu");
 // Note: Feel free to replace the example routes below with your own
 app.use("/api/users", usersRoutes(db));
 app.use("/api/widgets", widgetsRoutes(db));
-app.use("/api/menu", menuRoutes(db));
+// app.use("/api/menu", menuRoutes(db));
 
 // Note: mount other resources here, using the same pattern above
 
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
-app.get("/", (req, res) => {
-  res.render("index");
+app.get("/", (req, res, next) => {
+  menuRoutes
+    .getAllMenuItems(db)
+    .then((obj) => {
+      res.render("index", { menu_items: obj });
+    })
+    .catch((err) => {
+      console.log(err.stack);
+      res.render("error");
+    });
 });
 
 // Menu Page

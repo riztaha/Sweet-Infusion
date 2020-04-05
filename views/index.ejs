@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;500&family=Varela+Round&display=swap" rel="stylesheet">
 
 
+    <script type="text/javascript" src="db/queries/queries.js"></script>
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
   </head>
@@ -31,11 +32,23 @@
     </nav>
     <!-- header -->
     <header class="wrapper">
-      <div class="header">
+      <div class="header mySlides fade">
+        <img src="images/background2.jpg" alt="Background orange pie">
+        <h2>Sweet Infusion</h2>
+      </div>
+      <div class="header mySlides fade">
         <img src="images/background1.jpg" alt="Background orange pie">
         <h2>Sweet Infusion</h2>
       </div>
+      <!-- for slide show -->
+      <div style="text-align:center">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+      </div>
     </header>
+
+
     <!-- main body page -->
     <main class="wrapper">
       <section class="menu_section">
@@ -48,7 +61,7 @@
         <div>
           <img class="image_home" src="images/dessert2.jpg" alt="">
           <div>
-            <h5>Icecream</h5>
+            <h5 id="go"></h5>
         </div>
       </div>
         <div>
@@ -70,8 +83,35 @@
         </div>
       </div>
       </section>
-
-
+      <section class="bottom_section">
+        <div>
+          <h3>Location</h3>
+        </div>
+        <div>
+          <h3>Track Order</h3>
+        </div>
+        <div>
+          <h3>Review Us</h3>
+        </div>
+      </section>
     </main>
+
+
+    <script>
+    var slideIndex = 0;
+showSlides();
+
+function showSlides() {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  slideIndex++;
+  if (slideIndex > slides.length) {slideIndex = 1}
+  slides[slideIndex-1].style.display = "block";
+  setTimeout(showSlides, 3000); // Change image every 2 seconds
+}
+      </script>
   </body>
 </html>

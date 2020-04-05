@@ -10,14 +10,14 @@
 // });
 
 //API for Menu Items
-$(() => {
-  $.ajax({
-    method: "GET",
-    url: "/api/menu",
-  });
-  // .done((menu) => {
-  //   for (let item of menu) {
-  //     $("<div>").text(item).appendTo($("body"));
-  //   }
-  // });
-});
+// $(() => {
+//   $.ajax({
+//     method: "GET",
+//     url: "/api/menu",
+//   });
+// .done((menu) => {
+//   for (let item of menu) {
+//     $("<div>").text(item).appendTo($("body"));
+//   }
+// });
+// });

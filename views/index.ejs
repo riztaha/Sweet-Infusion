@@ -18,6 +18,15 @@
   </head>
 
   <body>
+    <!-- here we are passing the database object,
+    Nazia, you can go through the menu_items and place them
+    where they need to be -->
+    <% if (menu_items) { %>
+      <pre>  <%- JSON.stringify(menu_items) %>      </pre>
+      <% } else { %>
+        <h4>its not here</h4>
+
+      <% } %>
     <!-- nav bar -->
     <nav>
       <div class="nav wrapper">

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
     <link rel="stylesheet" href="/styles/header.css" type="text/css" />
     <link rel="stylesheet" href="/styles/main_index.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
     <link rel="stylesheet" id="fontawesome_css-css" href="//use.fontawesome.com/releases/v5.9.0/css/all.css?ver=5.4.1" type="text/css" media="all">
     <!-- googleFonts -->
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;500&family=Varela+Round&display=swap" rel="stylesheet">
@@ -54,7 +55,6 @@
       <div style="text-align:center">
         <span class="dot" onclick="currentSlide(1)"></span>
         <span class="dot" onclick="currentSlide(2)"></span>
-        <span class="dot" onclick="currentSlide(3)"></span>
       </div>
     </header>
 
@@ -92,9 +92,19 @@
         </div>
         <div class="container">
           <img class="image_home" src="images/dessert5.jpg" alt="">
+          <div class="add_order_btn">
+            <button>+</button>
+            <button class="btn peach-gradient">Peach</button>
+            <button>-</button>
+        </div>
           <div class='overlay'>
             <h5><%=menu_items[4].name%></h5>
             <p><%=menu_items[4].description%></p>
+            <div>
+              <button>+</button>
+              <button class="btn peach-gradient">Peach</button>
+              <button>-</button>
+          </div>
           </div>
         </div>
       </section>
@@ -102,7 +112,7 @@
 
       <!-- footer section -->
     </main>
-    <footer>
+    <footer class="footer_color">
       <section class="wrapper footer">
         <p>&copy Sweet Infusion 2020 All Rights Reserved</p>
         <div class="media">

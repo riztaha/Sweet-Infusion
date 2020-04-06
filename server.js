@@ -61,14 +61,17 @@ app.get("/", (req, res, next) => {
       res.render("index", { menu_items: obj });
     })
     .catch((err) => {
-      console.log(err.stack);
       res.render("error");
     });
 });
 
 // Menu Page
 app.get("/menu", (req, res) => {
-  res.render("menu");
+  menuRoutes
+    .getAllMenuItems(db)
+    .then((obj) => {
+    res.render("menu", { menu_items: obj });
+  })
 });
 
 //template file do ajax request make a request to /api/menu... this is done in app.js

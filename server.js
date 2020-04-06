@@ -17,6 +17,9 @@ const dbParams = require("./lib/db.js");
 const db = new Pool(dbParams);
 db.connect();
 
+// Load SMS API - Twilio
+const MessagingResponse = require('twilio').twiml.MessagingResponse;
+
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
@@ -95,6 +98,17 @@ app.get("/orders", function (req, res) {
 // app.post("/orders", function (req, res) {
 //     POST ORDER INFO/TIME
 // });
+
+// This posts to /sms, but I don't think we actually need the /sms page.
+// This is used for the SMS API. When it recieved a text from a customer,
+// it immediatly responds back with a message. -> twiml.message();
+app.post('/sms', (req, res) => {
+  const twiml = new MessagingResponse();
+  twiml.message('Your order is ready for pick-up!!!');
+  res.writeHead(200, {'Content-Type': 'text/xml'});
+  res.end(twiml.toString());
+});
+
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);

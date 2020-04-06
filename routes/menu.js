@@ -18,7 +18,7 @@ const router = express.Router();
 }*/
 const getAllMenuItems = (db) => {
   const promise = new Promise((resolve, reject) => {
-    console.log("in getAllMenuItems");
+    // console.log("in getAllMenuItems");
     //Grabbing the function from queries.js
     queries
       .getAllMenuItems()

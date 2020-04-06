@@ -6,32 +6,67 @@
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/header.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/main_index.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/menu.css" type="text/css" />
+    <link rel="stylesheet" id="fontawesome_css-css" href="//use.fontawesome.com/releases/v5.9.0/css/all.css?ver=5.4.1" type="text/css" media="all">
+    <!-- googleFonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;500&family=Varela+Round&display=swap" rel="stylesheet">
 
+
+    <script type="text/javascript" src="db/queries/queries.js"></script>
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
-    <style>
-      * {
-          margin: 0;
-          padding: 0;
-      }
-      .imgbox {
-          display: grid;
-          height: 100%;
-      }
-      .center-fit {
-          max-width: 100%;
-          max-height: 100vh;
-          margin: auto;
-      }
-  </style>
   </head>
+
   <body>
-    <h1>Welcome to our menu (in construction) page:</h1>
-    <h2>Here is what our menu may look similar:</h2>
-    <div class="imgbox">
-      <img class="center-fit" src=https://www.dspotdessert.com/wp-content/uploads/2019/12/Dspot_Menu_01-scaled.jpg>
-    </div>
-    <div>Stay tuned for live updates coming your way!</div>
-    :)
+    <nav>
+      <div class="nav wrapper">
+        <a href="/"><img class="logo" src="images/logo.png" alt="logo image"></a>
+        <p class="blinking">Order now to pick-up in less than an hour!</p>
+        <div>
+          <a href="/menu"><h4>Menu</h4></a>
+          <a href="/cart"><h4 class="cart">Cart</h4></a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="wrapper">
+      <ul>
+        <li class="menu_container">
+          <img class="image_home image_menu" src="images/dessert5.jpg" alt="">
+          <div class='aside'>
+            <h5><%=menu_items[0].name%></h5>
+            <p><%=menu_items[0].description%></p>
+            <div>
+              <button>+</button>
+              <button class="btn peach-gradient">Peach</button>
+              <button>-</button>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <section>
+        <ul>
+          <li></li>
+        </ul>
+      </section>
+
+      <!-- end of section 2 -->
+    </main>
+      <!-- footer section -->
+
+    <footer>
+      <section class="wrapper footer">
+        <p>&copy Sweet Infusion 2020 All Rights Reserved</p>
+        <div class="media">
+          <span class="follow">Follow Us on</span>
+          <a href="https://www.instagram.com/accounts/login/?hl=en"><span class="fab fa-instagram"> </span></a>
+          <a href="https://www.facebook.com"><span class="fab fa-facebook"></span></a>
+        </div>
+      </section>
+    </footer>
   </body>
 </html>

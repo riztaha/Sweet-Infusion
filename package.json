@@ -20,9 +20,11 @@
     "morgan": "^1.9.1",
     "node-sass-middleware": "^0.11.0",
     "pg": "^6.4.2",
-    "pg-native": "^3.0.0"
+    "pg-native": "^3.0.0",
+    "twilio": "^3.42.0"
   },
   "devDependencies": {
+    "ngrok": "^3.2.7",
     "nodemon": "^1.19.1"
   }
 }

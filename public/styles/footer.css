@@ -1,0 +1,38 @@
+.footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: brown;
+  font-size: 16px;
+}
+
+.fab {
+  padding: 10px 30px;
+  padding-right: 0;
+  font-size: 18px;
+  text-decoration: none;
+
+  color: inherit;
+}
+a {
+  color: brown;
+  text-decoration: none;
+}
+
+.fa-instagram {
+  padding-left: 10px;
+}
+
+.fab:hover {
+  transform: scale(1.2);
+  color: rgba(240, 131, 69, 0.59);
+}
+
+.footer_color {
+  background-color: rgba(240, 131, 69, 0.59);
+  margin: 0;
+  margin-top: 10px;
+  padding: 0;
+
+
+}

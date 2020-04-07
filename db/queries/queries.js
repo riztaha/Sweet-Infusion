@@ -103,7 +103,7 @@ const getCustomers = function () {
 exports.getCustomers = getCustomers;
 
 // Function to place an order
-const placeOrders = function (customer_id) {
+const placeOrder = function (customer_id) {
   const queryString = `
   INSERT INTO orders (customer_id, is_order_complete)
   VALUES ($1, true);
@@ -116,7 +116,7 @@ const placeOrders = function (customer_id) {
     })
     .catch((err) => console.error("query error", err.stack));
 };
-exports.placeOrders = placeOrders;
+exports.placeOrder = placeOrder;
 
 // Function to place customer's information into db
 const placeCustomerInfo = function (customer) {

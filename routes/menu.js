@@ -1,21 +1,7 @@
 const express = require("express");
 const queries = require("../db/queries/queries");
-const router = express.Router();
-// const queryString = `
-// SELECT *
-// FROM menu_items;
-// `;
-/*{
+// const router = express.Router();
 
-  db.query(queryString)
-    .then((data) => {
-      const menu_items = data.rows;
-      res.json({ menu_items });
-      return menu_items;
-    })
-    // (res) => res.rows)
-    .catch((err) => console.error("query error", err.stack));
-}*/
 const getAllMenuItems = (db) => {
   const promise = new Promise((resolve, reject) => {
     // console.log("in getAllMenuItems");

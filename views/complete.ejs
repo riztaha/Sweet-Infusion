@@ -25,6 +25,11 @@
       }
   </style>
   </head>
+  <% if (orders) { %>
+    <pre>  <%- JSON.stringify(orders) %>      </pre>
+    <% } else { %>
+      <h4>its not here</h4>
+    <% } %>
   <body>
     <h1>Welcome to our temp orders page:</h1>
     <div class="imgbox">

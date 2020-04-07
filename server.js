@@ -122,18 +122,18 @@ app.post("/sms", (req, res) => {
 
 // This is a function that sends a text message when called with the
 // message as an argument
-const accountSid = 'ACff54dd8a8a41fad9925151ba8804230f';
-const authToken = 'b89b41a023202ded9a466d6fd93c0d12';
-const client = require('twilio')(accountSid, authToken);
-let toPhoneNumber = '+14165353345'
-const sendSMSText = function(message) {
-  client.messages
-    .create({
-      body: message,
-      from: '+15406573369',
-      to: toPhoneNumber
-    }).then(message => console.log(message.sid));
-};
+// const accountSid = '';
+// const authToken = '=';
+// const client = require('twilio')(accountSid, authToken);
+// let toPhoneNumber = '+14165353345'
+// const sendSMSText = function(message) {
+//   client.messages
+//     .create({
+//       body: message,
+//       from: '+15406573369',
+//       to: toPhoneNumber
+//     }).then(message => console.log(message.sid));
+// };
 
 
 

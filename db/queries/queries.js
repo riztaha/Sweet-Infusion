@@ -58,12 +58,12 @@ exports.getOneMenuItem = getOneMenuItem;
 const getOrders = function () {
   const queryString = `
   SELECT *
-  FROM orders
+  FROM orders;
   `;
   return pool
     .query(queryString)
     .then((res) => {
-      return res.rows[0];
+      return res.rows;
     })
     .catch((err) => console.error("query error", err.stack));
 };
@@ -80,7 +80,7 @@ const getCustomerOrder = function (customer_id) {
   return pool
     .query(queryString, values)
     .then((res) => {
-      return res.rows[0];
+      return res.rows;
     })
     .catch((err) => console.error("query error", err.stack));
 };

@@ -20,8 +20,6 @@ db.connect();
 // Load SMS API - Twilio
 const MessagingResponse = require("twilio").twiml.MessagingResponse;
 
-
-
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
@@ -45,6 +43,7 @@ app.use(express.static("public"));
 const usersRoutes = require("./routes/users");
 const widgetsRoutes = require("./routes/widgets");
 const menuRoutes = require("./routes/menu");
+const orderRoutes = require("./routes/orders");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -64,15 +63,20 @@ app.get("/", (req, res) => {
       res.render("index", { menu_items: obj });
     })
     .catch((err) => {
-      res.render("error");
+      res.render("error", err);
     });
 });
 
 // Menu Page
 app.get("/menu", (req, res) => {
-  menuRoutes.getAllMenuItems(db).then((obj) => {
-    res.render("menu", { menu_items: obj });
-  });
+  menuRoutes
+    .getAllMenuItems(db)
+    .then((obj) => {
+      res.render("menu", { menu_items: obj });
+    })
+    .catch((err) => {
+      res.render("error", err);
+    });
 });
 
 //template file do ajax request make a request to /api/menu... this is done in app.js
@@ -85,27 +89,28 @@ app.get("/cart", (req, res) => {
   res.render("cart");
 });
 
-app.post("/cart", function (req, res) {
-
-});
+app.post("/cart", function (req, res) {});
 
 app.get("/restaurant", function (req, res) {
   res.render("restaurant");
 });
 
 app.get("/complete", function (req, res) {
-  res.render("complete");
+  orderRoutes
+    .getOrders(db)
+    .then((obj) => {
+      res.render("complete", { orders: obj });
+    })
+    .catch((err) => {
+      res.render("error", err);
+    });
 });
 
 app.post("/complete", function (req, res) {
-  let time = 0 // get from data from form from cart POST
+  let time = 0; // get from data from form from cart POST
   // sendSMSText(time) // this calls function to send text with time as argument
   // req.body
 });
-
-
-
-
 
 // This posts to /sms, but I don't think we actually need the /sms page.
 // This is used for the SMS API (Twilio). When it recieves a text from a customer,
@@ -131,9 +136,6 @@ app.post("/sms", (req, res) => {
 //       to: toPhoneNumber
 //     }).then(message => console.log(message.sid));
 // };
-
-
-
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);

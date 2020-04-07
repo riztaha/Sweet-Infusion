@@ -16,7 +16,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;500&family=Varela+Round&display=swap" rel="stylesheet">
 
 
-    <script type="text/javascript" src="db/queries/queries.js"></script>
+    <!-- <script type="text/javascript" src="db/queries/queries.js"></script> -->
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
   </head>
@@ -148,7 +148,7 @@
       <!-- section 2 Aside for order -->
       <section class="aside_order">
         <aside>
-          <form id="order_form" action="POST">
+          <form id="order_form" action="/cart" method="POST">
             <h2>Your New Order Takeout</h2>
             <div class="flex">
               <div class="order-buttons">
@@ -192,5 +192,6 @@
         </div>
       </section>
     </footer>
+
   </body>
 </html>

@@ -20,6 +20,8 @@ db.connect();
 // Load SMS API - Twilio
 const MessagingResponse = require("twilio").twiml.MessagingResponse;
 
+
+
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
@@ -83,9 +85,12 @@ app.get("/cart", (req, res) => {
   res.render("cart");
 });
 
-// app.post("/cart", (req, res) => {
-//   ITEMS EDITED FROM cart
-// })
+// Jason put this code in. I am trying to get the SMS to work.
+// This works. When the checkout button is clicked, it
+// sends a text message.
+app.post("/cart", function (req, res) {
+  sendSMSText('Hello from Jason again!')
+});
 
 app.get("/rest-menu", function (req, res) {
   res.render("rest-menu");
@@ -99,6 +104,10 @@ app.post("/orders", function (req, res) {
   // req.body
 });
 
+
+
+
+
 // This posts to /sms, but I don't think we actually need the /sms page.
 // This is used for the SMS API (Twilio). When it recieves a text from a customer,
 // it immediatly responds back with a message. -> twiml.message();
@@ -108,6 +117,25 @@ app.post("/sms", (req, res) => {
   res.writeHead(200, { "Content-Type": "text/xml" });
   res.end(twiml.toString());
 });
+
+// This is a test... The message code is set into a function
+// WHen the function is called, it's sends a text.
+// Need to figure out how to call this function when a button
+// is clicked.
+const accountSid = 'ACff54dd8a8a41fad9925151ba8804230f';
+const authToken = '4bf62499cab45663b917cf5f7182c4b3';
+const client = require('twilio')(accountSid, authToken);
+const sendSMSText = function(message) {
+  client.messages
+    .create({
+      body: message,
+      from: '+15406573369',
+      to: '+14165353345'
+    }).then(message => console.log(message.sid));
+};
+// sendSMSText('Hello from Jason again!')
+
+
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);

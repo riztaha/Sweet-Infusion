@@ -100,7 +100,7 @@ app.post("/orders", function (req, res) {
 });
 
 // This posts to /sms, but I don't think we actually need the /sms page.
-// This is used for the SMS API. When it recieved a text from a customer,
+// This is used for the SMS API (Twilio). When it recieves a text from a customer,
 // it immediatly responds back with a message. -> twiml.message();
 app.post("/sms", (req, res) => {
   const twiml = new MessagingResponse();

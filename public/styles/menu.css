@@ -72,4 +72,25 @@ aside {
   text-align: right;
 }
 
+.checkout {
+  /* background-color: rgb(109, 240, 240); */
+  color: #fff;
+text-transform: uppercase;
+text-decoration: none;
+background: rgb(89, 170, 170);
+padding: 20px;
+border-radius: 15px;
+display: inline-block;
+border: none;
+transition: all 0.4s ease 0s;
+width: 100%;
+}
+
+.checkout:hover {
+  text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
+-webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+-moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+transition: all 0.4s ease 0s;
+}
+
 

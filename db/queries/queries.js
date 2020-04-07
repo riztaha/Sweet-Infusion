@@ -52,7 +52,6 @@ const getOneMenuItem = function (id) {
     })
     .catch((err) => console.error("query error", err.stack));
 };
-
 exports.getOneMenuItem = getOneMenuItem;
 
 // Function to Get all orders
@@ -143,7 +142,7 @@ const placeCustomerInfo = function (customer) {
     customer["credit_card_exp"],
   ];
   return pool
-    .query(queryString, values)
+    .query(queryString, queryParams)
     .then((res) => {
       return res.rows[0];
     })

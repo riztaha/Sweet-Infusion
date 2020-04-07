@@ -44,9 +44,9 @@
             <h5><%=menu_items[0].name%></h5>
             <p><%=menu_items[0].description%></p>
             <div>
-              <button class="plus-btn" type="button" name="button">+</button>
-              <input type="text" name="name" value="0">
               <button class="minus-btn" type="button" name="button">-</button>
+              <input type="text" name="name" value="0">
+              <button class="plus-btn" type="button" name="button">+</button>
             </div>
           </div>
         </li>
@@ -58,9 +58,9 @@
             <h5><%=menu_items[0].name%></h5>
             <p><%=menu_items[0].description%></p>
             <div>
-              <button class="plus-btn" type="button" name="button">+</button>
-              <input type="text" name="name" value="0">
               <button class="minus-btn" type="button" name="button">-</button>
+              <input type="text" name="name" value="0">
+              <button class="plus-btn" type="button" name="button">+</button>
             </div>
           </div>
         </li>
@@ -70,9 +70,9 @@
             <h5><%=menu_items[1].name%></h5>
             <p><%=menu_items[1].description%></p>
             <div>
-              <button class="plus-btn" type="button" name="button">+</button>
-              <input type="text" name="name" value="0">
               <button class="minus-btn" type="button" name="button">-</button>
+              <input type="text" name="name" value="0">
+              <button class="plus-btn" type="button" name="button">+</button>
             </div>
           </div>
         </li>
@@ -82,9 +82,9 @@
             <h5><%=menu_items[2].name%></h5>
             <p><%=menu_items[2].description%></p>
             <div>
-              <button class="plus-btn" type="button" name="button">+</button>
-              <input type="text" name="name" value="0">
               <button class="minus-btn" type="button" name="button">-</button>
+              <input type="text" name="name" value="0">
+              <button class="plus-btn" type="button" name="button">+</button>
             </div>
           </div>
         </li>
@@ -94,9 +94,9 @@
             <h5><%=menu_items[3].name%></h5>
             <p><%=menu_items[3].description%></p>
             <div>
-              <button class="plus-btn" type="button" name="button">+</button>
-              <input type="text" name="name" value="0">
               <button class="minus-btn" type="button" name="button">-</button>
+              <input type="text" name="name" value="0">
+              <button class="plus-btn" type="button" name="button">+</button>
             </div>
           </div>
         </li>
@@ -106,9 +106,9 @@
             <h5><%=menu_items[4].name%></h5>
             <p><%=menu_items[4].description%></p>
             <div>
-              <button class="plus-btn" type="button" name="button">+</button>
-              <input type="text" name="name" value="0">
               <button class="minus-btn" type="button" name="button">-</button>
+              <input type="text" name="name" value="0">
+              <button class="plus-btn" type="button" name="button">+</button>
             </div>
           </div>
         </li>
@@ -118,9 +118,9 @@
             <h5><%=menu_items[5].name%></h5>
             <p><%=menu_items[5].description%></p>
             <div>
-              <button class="plus-btn" type="button" name="button">+</button>
-              <input type="text" name="name" value="0">
               <button class="minus-btn" type="button" name="button">-</button>
+              <input type="text" name="name" value="0">
+              <button class="plus-btn" type="button" name="button">+</button>
             </div>
           </div>
         </li>
@@ -130,9 +130,9 @@
             <h5><%=menu_items[6].name%></h5>
             <p><%=menu_items[6].description%></p>
             <div>
-              <button class="plus-btn" type="button" name="button">+</button>
-              <input type="text" name="name" value="0">
               <button class="minus-btn" type="button" name="button">-</button>
+              <input type="text" name="name" value="0">
+              <button class="plus-btn" type="button" name="button">+</button>
             </div>
           </div>
         </li><li class="menu_container">
@@ -141,9 +141,9 @@
             <h5><%=menu_items[7].name%></h5>
             <p><%=menu_items[7].description%></p>
             <div>
-              <button class="plus-btn" type="button" name="button">+</button>
-              <input type="text" name="name" value="0">
               <button class="minus-btn" type="button" name="button">-</button>
+              <input type="text" name="name" value="0">
+              <button class="plus-btn" type="button" name="button">+</button>
             </div>
           </div>
         </li><li class="menu_container">
@@ -152,9 +152,9 @@
             <h5><%=menu_items[8].name%></h5>
             <p><%=menu_items[8].description%></p>
             <div>
-              <button class="plus-btn" type="button" name="button">+</button>
-              <input type="text" name="name" value="0">
               <button class="minus-btn" type="button" name="button">-</button>
+              <input type="text" name="name" value="0">
+              <button class="plus-btn" type="button" name="button">+</button>
             </div>
           </div>
         </li>
@@ -185,7 +185,8 @@
           </div>
           <!-- order total placed here -->
           <hr>
-          <h3 class="total_amount">Total:   $<%- (menu_items[1].price/100 + menu_items[1].price/100).toFixed(2)%></h3>
+
+          <h3 class="total_amount">Total: $<%- (menu_items[1].price/100 + menu_items[1].price/100).toFixed(2)%></h3>
           <h3 class="total_amount tax_total_amount">Order Total <span class="tax">(Incl. Tax:13%) </span>:$ 15.13</h3>
           <hr>
           <button type="submit" class="checkout">Checkout</button>

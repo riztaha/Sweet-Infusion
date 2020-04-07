@@ -85,9 +85,6 @@ app.get("/cart", (req, res) => {
   res.render("cart");
 });
 
-// Jason put this code in. I am trying to get the SMS to work.
-// This works. When the checkout button is clicked, it
-// sends a text message.
 app.post("/cart", function (req, res) {
 
 });
@@ -101,8 +98,8 @@ app.get("/complete", function (req, res) {
 });
 
 app.post("/complete", function (req, res) {
-  let message = "Hello from Jason again!"
-  sendSMSText(message) // this calls function to send text
+  let time = 0 // get from data from form from cart POST
+  // sendSMSText(time) // this calls function to send text with time as argument
   // req.body
 });
 
@@ -121,15 +118,15 @@ app.post("/sms", (req, res) => {
 });
 
 // This is a function that sends a text message when called with the
-// message as an argument
+// time as an argument for the message body
 // const accountSid = '';
-// const authToken = '=';
+// const authToken = '';
 // const client = require('twilio')(accountSid, authToken);
-// let toPhoneNumber = '+14165353345'
-// const sendSMSText = function(message) {
+// let toPhoneNumber = '+14165353345' // get from data from form from cart POST
+// const sendSMSText = function(time) {
 //   client.messages
 //     .create({
-//       body: message,
+//       body: `Thank you for your order. It will be ready for pick up in ${time} minutes.`,
 //       from: '+15406573369',
 //       to: toPhoneNumber
 //     }).then(message => console.log(message.sid));

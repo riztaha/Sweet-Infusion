@@ -60,4 +60,16 @@ aside {
 
 }
 
+.order-buttons {
+  margin: 21px 0;
+}
+
+#order_form {
+  margin: 0 20px;
+}
+
+#total_amount {
+  text-align: right;
+}
+
 

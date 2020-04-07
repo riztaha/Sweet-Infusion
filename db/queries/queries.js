@@ -36,7 +36,6 @@ const getAllMenuItems = function () {
 };
 exports.getAllMenuItems = getAllMenuItems;
 
-
 // This FXN will return an object of all information
 // of one menu item taken in as argument as the menu_item id.
 const getOneMenuItem = function (id) {
@@ -55,3 +54,99 @@ const getOneMenuItem = function (id) {
 };
 
 exports.getOneMenuItem = getOneMenuItem;
+
+// Function to Get all orders
+const getOrders = function () {
+  const queryString = `
+  SELECT *
+  FROM orders
+  `;
+  return pool
+    .query(queryString)
+    .then((res) => {
+      return res.rows[0];
+    })
+    .catch((err) => console.error("query error", err.stack));
+};
+exports.getOrders = getOrders;
+
+// Function to get a specific customer's order
+const getCustomerOrder = function (customer_id) {
+  const queryString = `
+  SELECT *
+  FROM orders
+  WHERE customer_id = $1;
+  `;
+  const values = [customer_id];
+  return pool
+    .query(queryString, values)
+    .then((res) => {
+      return res.rows[0];
+    })
+    .catch((err) => console.error("query error", err.stack));
+};
+exports.getCustomerOrder = getCustomerOrder;
+
+// Function to get all customers
+const getCustomers = function () {
+  const queryString = `
+  SELECT *
+  FROM customers;
+  `;
+  return pool
+    .query(queryString, values)
+    .then((res) => {
+      return res.rows[0];
+    })
+    .catch((err) => console.error("query error", err.stack));
+};
+exports.getCustomers = getCustomers;
+
+// Function to place an order
+const placeOrders = function (customer_id) {
+  const queryString = `
+  INSERT INTO orders (customer_id, is_order_complete)
+  VALUES ($1, true);
+  `;
+  const values = [customer_id];
+  return pool
+    .query(queryString, values)
+    .then((res) => {
+      return res.rows[0];
+    })
+    .catch((err) => console.error("query error", err.stack));
+};
+exports.placeOrders = placeOrders;
+
+// Function to place customer's information into db
+const placeCustomerInfo = function (customer) {
+  const queryString = `
+  INSERT INTO customers
+  (first_name, last_name, email, phone, street,
+  city, province, country, postal_code,
+  credit_card, credit_card_exp)
+  VALUES ($1, $2, $3,
+  $4, $5, $6, $7,
+  $8, $9, $10, $11);
+  `;
+  const queryParams = [
+    customer["first_name"],
+    customer["last_name"],
+    customer["email"],
+    customer["phone"],
+    customer["street"],
+    customer["city"],
+    customer["province"],
+    customer["country"],
+    customer["postal_code"],
+    customer["credit_card"],
+    customer["credit_card_exp"],
+  ];
+  return pool
+    .query(queryString, values)
+    .then((res) => {
+      return res.rows[0];
+    })
+    .catch((err) => console.error("query error", err.stack));
+};
+exports.placeCustomerInfo = placeCustomerInfo;

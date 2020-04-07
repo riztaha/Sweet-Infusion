@@ -89,18 +89,18 @@ app.get("/cart", (req, res) => {
 // This works. When the checkout button is clicked, it
 // sends a text message.
 app.post("/cart", function (req, res) {
-  sendSMSText('Hello from Jason again!')
+  // sendSMSText('Hello from Jason again!')
 });
 
-app.get("/rest-menu", function (req, res) {
-  res.render("rest-menu");
+app.get("/restaurant", function (req, res) {
+  res.render("restaurant");
 });
 
-app.get("/orders", function (req, res) {
-  res.render("orders");
+app.get("/complete", function (req, res) {
+  res.render("complete");
 });
 
-app.post("/orders", function (req, res) {
+app.post("/complete", function (req, res) {
   // req.body
 });
 
@@ -122,17 +122,17 @@ app.post("/sms", (req, res) => {
 // WHen the function is called, it's sends a text.
 // Need to figure out how to call this function when a button
 // is clicked.
-const accountSid = '';
-const authToken = '';
-const client = require('twilio')(accountSid, authToken);
-const sendSMSText = function(message) {
-  client.messages
-    .create({
-      body: message,
-      from: '+15406573369',
-      to: '+14165353345'
-    }).then(message => console.log(message.sid));
-};
+// const accountSid = '';
+// const authToken = '';
+// const client = require('twilio')(accountSid, authToken);
+// const sendSMSText = function(message) {
+//   client.messages
+//     .create({
+//       body: message,
+//       from: '+15406573369',
+//       to: '+14165353345'
+//     }).then(message => console.log(message.sid));
+// };
 // sendSMSText('Hello from Jason again!')
 
 

@@ -1,29 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Orders Page</title>
+    <title>Menu</title>
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/header.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/main_index.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/menu.css" type="text/css" />
+    <link rel="stylesheet" id="fontawesome_css-css" href="//use.fontawesome.com/releases/v5.9.0/css/all.css?ver=5.4.1" type="text/css" media="all">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- googleFonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;500&family=Varela+Round&display=swap" rel="stylesheet">
 
+
+    <script type="text/javascript" src="db/queries/queries.js"></script>
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
-    <style>
-      * {
-          margin: 0;
-          padding: 0;
-      }
-      .imgbox {
-          display: grid;
-          height: 100%;
-      }
-      .center-fit {
-          max-width: 100%;
-          max-height: 100vh;
-          margin: auto;
-      }
-  </style>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   </head>
   <% if (orders) { %>
     <pre>  <%- JSON.stringify(orders) %>      </pre>
@@ -31,16 +30,35 @@
       <h4>its not here</h4>
     <% } %>
   <body>
-    <h1>Welcome to our temp orders page:</h1>
-    <div class="imgbox">
-      <h2>Here is what our orders may look like from the client or restaraunt side:</h2>
-      <img class="center-fit" src="https://storage.googleapis.com/ssg-website-images/5%20Startups%20Using%20React%20Native/ubereats%20restaurant%20dashboard.png">
-      <img class="center-fit" src="https://cdn.dribbble.com/users/224693/screenshots/2944376/017.png">
-      <img class="center-fit" src="https://stormotion.io/blog/content/images/2017/05/imgonline-com-ua-Resize-Wuhy0qucoKFlL-min.png">
-      <img class="center-fit" src="https://woxapp.com/uploads/images/prilozhenie_analogichnoe_ubereats_08.png">
+    <nav>
+      <div class="nav_orders wrapper">
+        <a href="/"><img class="logo" src="images/logo.png" alt="logo image"></a>
+      </div>
+    </nav>
+    <!-- main content here -->
+    <main>
+      <div class="order_note">
+        <p>Order # 1</p>
+        <h4>Details</h4>
+        <div>
+          <ul>
 
-    </div>
-    <div>Stay tuned for live updates coming your way!</div>
-    :)
+            <li>Customer name: #Customer_Name</li>
+
+          </ul>
+        </div>
+      </div>
+    </main>
+    <!-- main content ends here -->
+    <footer>
+      <section class="wrapper footer">
+        <p>&copy Sweet Infusion 2020 All Rights Reserved</p>
+        <div class="media">
+          <span class="follow">Follow Us on</span>
+          <a href="https://www.instagram.com/accounts/login/?hl=en"><span class="fab fa-instagram"> </span></a>
+          <a href="https://www.facebook.com"><span class="fab fa-facebook"></span></a>
+        </div>
+      </section>
+    </footer>
   </body>
 </html>

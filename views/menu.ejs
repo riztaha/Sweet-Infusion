@@ -147,8 +147,9 @@
       </ul>
       <!-- section 2 Aside for order -->
       <section class="aside_order">
-        <aside>
-          <form id="order_form" action="/cart" method="POST">
+
+          <form id="order_form" action="/cart" method="POST" >
+
             <h2>Your New Order Takeout</h2>
             <div class="flex">
               <div class="order-buttons">
@@ -170,13 +171,13 @@
           </div>
           <!-- order total placed here -->
           <hr>
-          <h3 id="total_amount">Order Total:   $<%- (menu_items[1].price/100 + menu_items[1].price/100).toFixed(2)%></h3>
+          <h3 class="total_amount">Total:   $<%- (menu_items[1].price/100 + menu_items[1].price/100).toFixed(2)%></h3>
+          <h3 class="total_amount tax_total_amount">Order Total <span class="tax">(Incl. Tax:13%) </span>:$ 15.13</h3>
           <hr>
-          <button class="checkout">Checkout</button>
+          <button type="submit" class="checkout">Checkout</button>
           </form>
         </aside>
       </section>
-
 
       <!-- end of section 2 -->
     </main>

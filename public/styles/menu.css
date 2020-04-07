@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  width: 100%;
 }
 
 .menu_container img {
@@ -24,7 +25,7 @@
   justify-content: space-between;
 }
 
-.dish-card, aside {
+.dish-card, .aside_order {
   background: rgb(238, 236, 236);
   box-shadow: 5px 10px 10px 5px rgba(0,0,0,0.05);
   border-radius: 4px;
@@ -44,20 +45,19 @@ li {
   list-style: none;
 }
 
-.menu_heading, aside h2 {
+.menu_heading, .aside_order h2 {
   text-align: center;
   font-size: 24px;
   font-family: 'Raleway', sans-serif, bold;
 }
 
-aside {
-  width: 500px;
+.aside_order {
+  width: 70%;
   height: 50%;
   margin: 10% 0;
   position: -webkit-sticky;
   position: sticky;
   top: 0;
-
 }
 
 .order-buttons {

@@ -1,4 +1,4 @@
-generateRandomString = () => {
+const generateRandomString = () => {
   let result           = '#';
   let characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
   let stringLength = characters.length;
@@ -7,5 +7,9 @@ generateRandomString = () => {
   }
   return result;
 };
+
+const orderTotal = function() {
+
+}
 
 module.exports = { generateRandomString };

@@ -2,38 +2,98 @@
 <html lang="en">
   <head>
     <title>Menu</title>
+     <!-- Bootstrap -->
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+      <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
+
+    <!-- googleFonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;500&family=Varela+Round&display=swap" rel="stylesheet">
+
+
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
-    <style>
-      * {
-          margin: 0;
-          padding: 0;
-      }
-      .imgbox {
-          display: grid;
-          height: 100%;
-      }
-      .center-fit {
-          max-width: 100%;
-          max-height: 100vh;
-          margin: auto;
-      }
-  </style>
   </head>
   <body>
-    <h1>Welcome to our carts (in construction) page:</h1>
-      <form action="/complete" method="POST" >
-        <button type="submit">Submit</button>
-      </form>
-    <div class="imgbox">
-      <img class="center-fit" src=https://www.dspotdessert.com/wp-content/uploads/2019/12/home-1-mobile.jpg>
-    </div>
-    <div>Stay tuned for live updates coming your way!</div>
+    <nav>
+      <div class="nav wrapper">
+        <a href="/"><img class="logo" src="images/logo.png" alt="logo image"></a>
 
+        <div>
+          <a href="/menu"><h4>Menu</h4></a>
+          <a href="/cart"><h4 class="cart">Cart</h4></a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- form starts here -->
+    <div class="container-fluid py-3">
+      <div class="row">
+          <div class="col-12 col-sm-8 col-md-6 col-lg-4 mx-auto">
+              <div id="pay-invoice" class="card">
+                  <div class="card-body">
+                      <div class="card-title">
+                          <h3 class="text-center">Payment</h3>
+                      </div>
+                      <hr>
+                      <form action="/complete" method="POST">
+                          <div class="form-group">
+                              <label for="cc-number" class="control-label mb-1">Card number</label>
+                              <input id="cc-number" name="cc-number" type="tel" class="form-control cc-number identified visa" required autocomplete="off"  >
+                              <span class="invalid-feedback">Enter a valid 12 to 16 digit card number</span>
+                          </div>
+                          <div class="row">
+                              <div class="col-6">
+                                  <div class="form-group">
+                                      <label for="cc-exp" class="control-label mb-1">Expiration</label>
+                                      <input id="cc-exp" name="cc-exp" type="tel" class="form-control cc-exp" required placeholder="MM / YY" autocomplete="cc-exp">
+                                      <span class="invalid-feedback">Enter the expiration date</span>
+                                  </div>
+                              </div>
+                              <div class="col-6">
+                                  <label for="x_card_code" class="control-label mb-1">CVV</label>
+                                  <div class="input-group">
+                                      <input id="x_card_code" name="x_card_code" type="tel" class="form-control cc-cvc" required autocomplete="off">
+                                      <span class="invalid-feedback order-last">Enter the 3-digit code on back</span>
+                                      <div class="input-group-append">
+                                          <div class="input-group-text">
+                                          <span class="fa fa-question-circle fa-lg" data-toggle="popover" data-container="body" data-html="true" data-title="CVV"
+                                          data-content="<div class='text-center one-card'>The 3 digit code on back of the card..<div class='visa-mc-cvc-preview'></div></div>"
+                                          data-trigger="hover"></span>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label for="x_zip" class="control-label mb-1">Postal code</label>
+                              <input id="x_zip" name="x_zip" type="text" class="form-control" value="" data-val="true" data-val-required="Please enter the ZIP/Postal code" autocomplete="postal-code">
+                              <span class="help-block" data-valmsg-for="x_zip" data-valmsg-replace="true"></span>
+                          </div>
+                           <div class="form-group">
+                              <label for="Phone Number" class="control-label mb-1">Contact Number</label>
+                              <input id="phone_number" name="x_prom"class="form-control" data-val="true">
+                          </div>
+                          <div>
+                              <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
+                                  <span id="payment-button-amount">Pay </span>
+                                  <span id="payment-button-sending" style="display:none;">Sending…</span>
+                              </button>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
   </body>
 </html>

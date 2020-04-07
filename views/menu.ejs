@@ -16,7 +16,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;500&family=Varela+Round&display=swap" rel="stylesheet">
 
 
-    <script type="text/javascript" src="db/queries/queries.js"></script>
+    <!-- <script type="text/javascript" src="db/queries/queries.js"></script> -->
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
   </head>
@@ -39,7 +39,7 @@
       <!-- Menu List starts here -->
       <ul>
         <li class="menu_container">
-          <img class="image_home image_menu" src="images/dessert1.jpg" alt="">
+          <img class="image_home image_menu" src="<%=menu_items[0].photo%>" alt="">
           <div class='dish-card'>
             <h5><%=menu_items[0].name%></h5>
             <p><%=menu_items[0].description%></p>
@@ -51,7 +51,7 @@
           </div>
         </li>
         <li class="menu_container">
-          <img class="image_home image_menu" src="images/dessert2.jpg" alt="">
+          <img class="image_home image_menu" src="<%=menu_items[1].photo%>" alt="">
           <div class='dish-card'>
             <h5><%=menu_items[1].name%></h5>
             <p><%=menu_items[1].description%></p>
@@ -63,7 +63,7 @@
           </div>
         </li>
         <li class="menu_container">
-          <img class="image_home image_menu" src="images/dessert3.jpg" alt="">
+          <img class="image_home image_menu" src="<%=menu_items[2].photo%>" alt="">
           <div class='dish-card'>
             <h5><%=menu_items[2].name%></h5>
             <p><%=menu_items[2].description%></p>
@@ -75,7 +75,7 @@
           </div>
         </li>
         <li class="menu_container">
-          <img class="image_home image_menu" src="images/dessert4.jpg" alt="">
+          <img class="image_home image_menu" src="<%=menu_items[3].photo%>" alt="">
           <div class='dish-card'>
             <h5><%=menu_items[3].name%></h5>
             <p><%=menu_items[3].description%></p>
@@ -87,7 +87,7 @@
           </div>
         </li>
         <li class="menu_container">
-          <img class="image_home image_menu" src="images/dessert5.jpg" alt="">
+          <img class="image_home image_menu" src="<%=menu_items[4].photo%>" alt="">
           <div class='dish-card'>
             <h5><%=menu_items[4].name%></h5>
             <p><%=menu_items[4].description%></p>
@@ -99,10 +99,10 @@
           </div>
         </li>
         <li class="menu_container">
-          <img class="image_home image_menu" src="images/dessert2.jpg" alt="">
+          <img class="image_home image_menu" src="<%=menu_items[5].photo%>" alt="">
           <div class='dish-card'>
-            <h5><%=menu_items[1].name%></h5>
-            <p><%=menu_items[1].description%></p>
+            <h5><%=menu_items[5].name%></h5>
+            <p><%=menu_items[5].description%></p>
             <div>
               <button>-</button>
               <button class="btn peach-gradient">Peach</button>
@@ -111,10 +111,10 @@
           </div>
         </li>
         <li class="menu_container">
-          <img class="image_home image_menu" src="images/dessert2.jpg" alt="">
+          <img class="image_home image_menu" src="<%=menu_items[6].photo%>" alt="">
           <div class='dish-card'>
-            <h5><%=menu_items[1].name%></h5>
-            <p><%=menu_items[1].description%></p>
+            <h5><%=menu_items[6].name%></h5>
+            <p><%=menu_items[6].description%></p>
             <div>
               <button>-</button>
               <button class="btn peach-gradient">Peach</button>
@@ -122,10 +122,10 @@
             </div>
           </div>
         </li><li class="menu_container">
-          <img class="image_home image_menu" src="images/dessert2.jpg" alt="">
+          <img class="image_home image_menu" src="<%=menu_items[7].photo%>" alt="">
           <div class='dish-card'>
-            <h5><%=menu_items[1].name%></h5>
-            <p><%=menu_items[1].description%></p>
+            <h5><%=menu_items[7].name%></h5>
+            <p><%=menu_items[7].description%></p>
             <div>
               <button>-</button>
               <button class="btn peach-gradient">Peach</button>
@@ -133,10 +133,10 @@
             </div>
           </div>
         </li><li class="menu_container">
-          <img class="image_home image_menu" src="images/dessert2.jpg" alt="">
+          <img class="image_home image_menu" src="<%=menu_items[8].photo%>" alt="">
           <div class='dish-card'>
-            <h5><%=menu_items[1].name%></h5>
-            <p><%=menu_items[1].description%></p>
+            <h5><%=menu_items[8].name%></h5>
+            <p><%=menu_items[8].description%></p>
             <div>
               <button>-</button>
               <button class="btn peach-gradient">Peach</button>
@@ -147,8 +147,9 @@
       </ul>
       <!-- section 2 Aside for order -->
       <section class="aside_order">
-        <aside>
+
           <form id="order_form" action="/cart" method="POST" >
+
             <h2>Your New Order Takeout</h2>
             <div class="flex">
               <div class="order-buttons">
@@ -165,8 +166,8 @@
               <button class="btn peach-gradient">Peach</button>
               <button>+</button>
             </div>
-            <h4>Cherry Pie</h4>
-            <h4>$5.00</h4>
+            <h4><%=menu_items[2].name%></h4>
+            <h4>$<%=(menu_items[2].price/100).toFixed(2)%></h4>
           </div>
           <!-- order total placed here -->
           <hr>
@@ -192,5 +193,6 @@
         </div>
       </section>
     </footer>
+
   </body>
 </html>

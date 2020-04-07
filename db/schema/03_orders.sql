@@ -4,8 +4,8 @@ CREATE TABLE orders (
 
   customer_id INTEGER REFERENCES customers(id) ON DELETE CASCADE,
 
-  order_date TEXT NOT NULL,
-  order_time TEXT NOT NULL,
+  order_date DATE NOT NULL DEFAULT CURRENT_DATE,
+  order_time TEXT NOT NULL DEFAULT to_char(NOW()::TIME, 'HH12:MI AM'),
   order_quantity INTEGER DEFAULT 1,
 
   is_payment_correct BOOLEAN NOT NULL DEFAULT TRUE,

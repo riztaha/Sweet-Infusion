@@ -19,7 +19,9 @@ const db = new Pool(dbParams);
 db.connect();
 
 // Load SMS API - Twilio
-const MessagingResponse = require('twilio').twiml.MessagingResponse;
+const MessagingResponse = require("twilio").twiml.MessagingResponse;
+
+
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -84,31 +86,57 @@ app.get("/cart", (req, res) => {
   res.render("cart");
 });
 
-// app.post("/cart", (req, res) => {
-//   ITEMS EDITED FROM cart
-// })
+// Jason put this code in. I am trying to get the SMS to work.
+// This works. When the checkout button is clicked, it
+// sends a text message.
+app.post("/cart", function (req, res) {
 
-app.get("/rest-menu", function (req, res) {
-  res.render("rest-menu");
 });
 
-app.get("/orders", function (req, res) {
-  res.render("orders");
+app.get("/restaurant", function (req, res) {
+  res.render("restaurant");
 });
 
-// app.post("/orders", function (req, res) {
-//     POST ORDER INFO/TIME
-// });
+app.get("/complete", function (req, res) {
+  res.render("complete");
+});
+
+app.post("/complete", function (req, res) {
+  let message = "Hello from Jason again!"
+  sendSMSText(message) // this calls function to send text
+  // req.body
+});
+
+
+
+
 
 // This posts to /sms, but I don't think we actually need the /sms page.
-// This is used for the SMS API. When it recieved a text from a customer,
+// This is used for the SMS API (Twilio). When it recieves a text from a customer,
 // it immediatly responds back with a message. -> twiml.message();
-app.post('/sms', (req, res) => {
+app.post("/sms", (req, res) => {
   const twiml = new MessagingResponse();
-  twiml.message('Your order is ready for pick-up!!!');
-  res.writeHead(200, {'Content-Type': 'text/xml'});
+  twiml.message("Your order is ready for pick-up!!!");
+  res.writeHead(200, { "Content-Type": "text/xml" });
   res.end(twiml.toString());
 });
+
+// This is a function that sends a text message when called with the
+// message as an argument
+// const accountSid = '';
+// const authToken = '=';
+// const client = require('twilio')(accountSid, authToken);
+// let toPhoneNumber = '+14165353345'
+// const sendSMSText = function(message) {
+//   client.messages
+//     .create({
+//       body: message,
+//       from: '+15406573369',
+//       to: toPhoneNumber
+//     }).then(message => console.log(message.sid));
+// };
+
+
 
 
 app.listen(PORT, () => {

@@ -122,8 +122,8 @@ app.post("/sms", (req, res) => {
 // WHen the function is called, it's sends a text.
 // Need to figure out how to call this function when a button
 // is clicked.
-const accountSid = 'ACff54dd8a8a41fad9925151ba8804230f';
-const authToken = '4bf62499cab45663b917cf5f7182c4b3';
+const accountSid = '';
+const authToken = '';
 const client = require('twilio')(accountSid, authToken);
 const sendSMSText = function(message) {
   client.messages

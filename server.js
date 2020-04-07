@@ -89,7 +89,7 @@ app.get("/cart", (req, res) => {
 // This works. When the checkout button is clicked, it
 // sends a text message.
 app.post("/cart", function (req, res) {
-  // sendSMSText('Hello from Jason again!')
+
 });
 
 app.get("/restaurant", function (req, res) {
@@ -101,6 +101,8 @@ app.get("/complete", function (req, res) {
 });
 
 app.post("/complete", function (req, res) {
+  let message = "Hello from Jason again!"
+  sendSMSText(message) // this calls function to send text
   // req.body
 });
 
@@ -118,22 +120,21 @@ app.post("/sms", (req, res) => {
   res.end(twiml.toString());
 });
 
-// This is a test... The message code is set into a function
-// WHen the function is called, it's sends a text.
-// Need to figure out how to call this function when a button
-// is clicked.
+// This is a function that sends a text message when called with the
+// message as an argument
 // const accountSid = '';
-// const authToken = '';
+// const authToken = '=';
 // const client = require('twilio')(accountSid, authToken);
+// let toPhoneNumber = '+14165353345'
 // const sendSMSText = function(message) {
 //   client.messages
 //     .create({
 //       body: message,
 //       from: '+15406573369',
-//       to: '+14165353345'
+//       to: toPhoneNumber
 //     }).then(message => console.log(message.sid));
 // };
-// sendSMSText('Hello from Jason again!')
+
 
 
 

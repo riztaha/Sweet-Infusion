@@ -1,11 +1,15 @@
-// Is this code given to us?? Do we need it?
+
+// // document ready
 // $(() => {
 //   $.ajax({
 //     method: "GET",
-//     url: "/api/users"
+//     url: "/api/menu"
 //   }).done((users) => {
 //     for(user of users) {
 //       $("<div>").text(user.name).appendTo($("body"));
 //     }
 //   });;
 // });
+
+
+

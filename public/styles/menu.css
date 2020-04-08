@@ -99,9 +99,9 @@ width: 100%;
 
 
 
-button:focus,
+button:hover,
 input:focus {
-  outline:0;
+  color: gray;
 }
 
 input {
@@ -113,3 +113,10 @@ input {
   color: #43484D;
   font-weight: 300;
 }
+
+.price {
+  padding: 0 25px 0 0;
+  color: black;
+  font-size: large;
+}
+

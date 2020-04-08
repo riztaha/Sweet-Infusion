@@ -125,10 +125,10 @@ const placeCustomerInfo = function (customer) {
   INSERT INTO customers
   (first_name, last_name, email, phone, street,
   city, province, country, postal_code,
-  credit_card, credit_card_exp)
+  credit_card, credit_card_exp, credit_card_code)
   VALUES ($1, $2, $3,
   $4, $5, $6, $7,
-  $8, $9, $10, $11);
+  $8, $9, $10, $11, $12);
   `;
   const queryParams = [
     customer["first_name"],
@@ -142,6 +142,7 @@ const placeCustomerInfo = function (customer) {
     customer["postal_code"],
     customer["credit_card"],
     customer["credit_card_exp"],
+    customer["credit_card_code"],
   ];
   return pool
     .query(queryString, queryParams)

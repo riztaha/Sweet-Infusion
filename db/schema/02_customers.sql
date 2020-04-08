@@ -16,5 +16,5 @@ CREATE TABLE customers (
 
   credit_card TEXT NOT NULL,
   credit_card_exp TEXT NOT NULL,
-  credit_card_code TEXT NOT NULL,
+  credit_card_code TEXT NOT NULL
 );

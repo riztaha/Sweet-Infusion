@@ -94,6 +94,7 @@ let maxPrepTime = 0;
 let orderToRestaurant = "";
 app.post("/cart", function (req, res) {
   console.log("CART ITEMS -------->", req.body);
+  
   // This code takes prep times from order and order details and is used to send
   // text to customer and restaurant with that information.
   let prepTimeArray = req.body.item_prep_time

@@ -51,13 +51,14 @@ let customer = {
   last_name: "last Name",
   email: "Email@email.com",
   phone: "+12912959",
-  street: "21 brooklen st.",
+  street: "21 brook st.",
   city: "toronto",
   province: "ON",
   country: "Canada",
   postal_code: "L5w0gw",
   credit_card: "12314512512521",
   credit_card_exp: "0120",
+  credit_card_code: "123",
 };
 
 // console.log(getCustomers());

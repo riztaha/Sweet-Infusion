@@ -39,15 +39,16 @@
       <!-- Menu List starts here -->
       <ul>
         <li class="menu_container quantity">
-          <img class="image_home image_menu" src="<%=menu_items[0].photo%>" alt="">
+          <!-- use index (repeater) instead of hardcoding numbers -->
+          <img class="image_home image_menu" src="<%=menu_items[index].photo%>" alt="">
           <div class='dish-card'>
-            <h5><%=menu_items[0].name%></h5>
-            <p><%=menu_items[0].description%></p>
+            <h5><%=menu_items[index].name%></h5>
+            <p><%=menu_items[index].description%></p>
             <form id="f1">
-              <span class="price">$<%=(menu_items[0].price/100).toFixed(2)%></span>
+              <span class="price">$<%=(menu_items[index].price/100).toFixed(2)%></span>
               <input type='button' name='subtract' onclick='javascript: subtractQty();' value='-'/>
               <input type='text' name='qty' id='qty' value="0" />
-              <input type='button' name='add' onclick='javascript: document.getElementById("qty").value++;' value='+'/>
+              <input type='button' name='add' onclick='javascript: document.getElementById("qty" + index).value++;' value='+'/>
             </form>
           </div>
         </li>
@@ -61,7 +62,7 @@
               <span class="price">$<%=(menu_items[1].price/100).toFixed(2)%></span>
               <input type='button' name='subtract' onclick='javascript: subtractQty();' value='-'/>
               <input type='text' name='qty' id='qty' value="0" />
-              <input type='button' name='add' onclick='javascript: document.getElementById("qty").value++;' value='+'/>
+              <input type='button' name='add' onclick='javascript: document.getElementById("qty" + index).value++;' value='+'/>
             </form>
           </div>
         </li>
@@ -74,7 +75,7 @@
               <span class="price">$<%=(menu_items[2].price/100).toFixed(2)%></span>
               <input type='button' name='subtract' onclick='javascript: subtractQty();' value='-'/>
               <input type='text' name='qty' id='qty' value="0" />
-              <input type='button' name='add' onclick='javascript: document.getElementById("qty").value++;' value='+'/>
+              <input type='button' name='add' onclick='javascript: document.getElementById("qty" + index).value++;' value='+'/>
             </form>
           </div>
         </li>
@@ -87,7 +88,7 @@
               <span class="price">$<%=(menu_items[3].price/100).toFixed(2)%></span>
               <input type='button' name='subtract' onclick='javascript: subtractQty();' value='-'/>
               <input type='text' name='qty' id='qty' value="0" />
-              <input type='button' name='add' onclick='javascript: document.getElementById("qty").value++;' value='+'/>
+              <input type='button' name='add' onclick='javascript: document.getElementById("qty" + index).value++;' value='+'/>
             </form>
           </div>
         </li>
@@ -100,7 +101,7 @@
               <span class="price">$<%=(menu_items[4].price/100).toFixed(2)%></span>
               <input type='button' name='subtract' onclick='javascript: subtractQty();' value='-'/>
               <input type='text' name='qty' id='qty' value="0" />
-              <input type='button' name='add' onclick='javascript: document.getElementById("qty").value++;' value='+'/>
+              <input type='button' name='add' onclick='javascript: document.getElementById("qty" + index).value++;' value='+'/>
             </form>
           </div>
         </li>
@@ -113,7 +114,7 @@
               <span class="price">$<%=(menu_items[5].price/100).toFixed(2)%></span>
               <input type='button' name='subtract' onclick='javascript: subtractQty();' value='-'/>
               <input type='text' name='qty' id='qty' value="0" />
-              <input type='button' name='add' onclick='javascript: document.getElementById("qty").value++;' value='+'/>
+              <input type='button' name='add' onclick='javascript: document.getElementById("qty" + index).value++;' value='+'/>
             </form>
           </div>
         </li>
@@ -126,7 +127,7 @@
               <span class="price">$<%=(menu_items[6].price/100).toFixed(2)%></span>
               <input type='button' name='subtract' onclick='javascript: subtractQty();' value='-'/>
               <input type='text' name='qty' id='qty' value="0" />
-              <input type='button' name='add' onclick='javascript: document.getElementById("qty").value++;' value='+'/>
+              <input type='button' name='add' onclick='javascript: document.getElementById("qty" + index).value++;' value='+'/>
             </form>
           </div>
         </li><li class="menu_container">
@@ -138,7 +139,7 @@
               <span class="price">$<%=(menu_items[7].price/100).toFixed(2)%></span>
               <input type='button' name='subtract' onclick='javascript: subtractQty();' value='-'/>
               <input type='text' name='qty' id='qty' value="0" />
-              <input type='button' name='add' onclick='javascript: document.getElementById("qty").value++;' value='+'/>
+              <input type='button' name='add' onclick='javascript: document.getElementById("qty" + index).value++;' value='+'/>
             </form>
           </div>
         </li><li class="menu_container">
@@ -150,7 +151,7 @@
               <span class="price">$<%=(menu_items[8].price/100).toFixed(2)%></span>
               <input type='button' name='subtract' onclick='javascript: subtractQty();' value='-'/>
               <input type='text' name='qty' id='qty' value="0" />
-              <input type='button' name='add' onclick='javascript: document.getElementById("qty").value++;' value='+'/>
+              <input type='button' name='add' onclick='javascript: document.getElementById("qty" + index).value++;' value='+'/>
             </form>
           </div>
         </li>
@@ -159,7 +160,9 @@
       <section class="aside_order">
 
           <form id="order_form" action="/cart" method="POST" >
-
+            <!-- create dynamic items using repeater -->
+            <!-- hidden input fields, as they are the only things transmitted during post -->
+            <input style="display: none;" type="text" name="menu_item" value="<%=menu_items[1].name%>">
             <h2>Your New Order Takeout</h2>
             <div class="flex">
               <div class="order-buttons">

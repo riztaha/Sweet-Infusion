@@ -1,7 +1,7 @@
 // const express = require("express");
 const queries = require("../db/queries/queries");
 
-const getOrders = (db) => {
+const getOrders = () => {
   const promise = new Promise((resolve, reject) => {
     // console.log("in getOrders function");
     //Grabbing the function from queries.js
@@ -24,12 +24,12 @@ const getOrders = (db) => {
 exports.getOrders = getOrders;
 
 // Function to get a specific customer's order
-const getCustomerOrder = function (db) {
+const getCustomerOrder = function (customer_id) {
   const promise = new Promise((resolve, reject) => {
     // console.log("in getAllMenuItems");
     //Grabbing the function from queries.js
     queries
-      .getCustomerOrder()
+      .getCustomerOrder(customer_id)
       // db.query(queryString)
       .then((data) => {
         // console.log("in getAllMenuItems");

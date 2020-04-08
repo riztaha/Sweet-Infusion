@@ -2,7 +2,7 @@
 const queries = require("../db/queries/queries");
 // const router = express.Router();
 
-const getAllMenuItems = (db) => {
+const getAllMenuItems = () => {
   const promise = new Promise((resolve, reject) => {
     // console.log("in getAllMenuItems");
     //Grabbing the function from queries.js

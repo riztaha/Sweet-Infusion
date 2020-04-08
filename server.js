@@ -71,7 +71,7 @@ app.get("/", (req, res) => {
 // Menu Page
 app.get("/menu", (req, res) => {
   menuRoutes
-    .getAllMenuItems(db)
+    .getAllMenuItems()
     .then((obj) => {
       res.render("menu", { menu_items: obj });
     })
@@ -93,7 +93,10 @@ app.get("/cart", (req, res) => {
 app.post("/cart", function (req, res) {
   console.log("CART ITEMS -------->", req.body);
   // Create customer table, with empty stuff
+  // console.log(order)
+  // orderRoutes.placeOrder(order)
   // Create new order with the menu items at the same time
+  // Add the data into the customer table
   // Create a order_menu_item with the menu_items and orders
   res.render("cart");
 });
@@ -103,8 +106,10 @@ app.get("/restaurant", function (req, res) {
 });
 
 app.get("/complete", function (req, res) {
+  // Show customer's info
+  // Show order info
   orderRoutes
-    .getOrders(db)
+    .getOrders(db, req["customer_id"])
     .then((obj) => {
       res.render("complete", { orders: obj });
     })
@@ -117,8 +122,7 @@ app.post("/complete", function (req, res) {
   let time = 0;
   // get from data from form from cart POST
   // sendSMSText(time) // this calls function to send text with time as argument
-  // req.body
-  console.log('CREDIT CARD CUSTOMER INFO --------> ',req.body);
+  console.log("CREDIT CARD CUSTOMER INFO --------> ", req.body);
 
   orderRoutes
     .getOrders(db)

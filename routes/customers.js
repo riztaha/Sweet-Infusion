@@ -61,4 +61,4 @@ let customer = {
 };
 
 // console.log(getCustomers());
-placeCustomerInfo(customer);
+// placeCustomerInfo(customer);

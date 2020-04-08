@@ -90,8 +90,17 @@ app.get("/cart", (req, res) => {
   res.render("cart");
 });
 
+let maxPrepTime = 0;
 app.post("/cart", function (req, res) {
   console.log("CART ITEMS -------->", req.body);
+  // This code takes prep times from order and returns the longest time to be used to send
+  // text to customer with that information.
+  let prepTimeArray = req.body.item_prep_time;
+  prepTimeArray = prepTimeArray.map((x) => Number.parseInt(x));
+  maxPrepTime = prepTimeArray.reduce(function (a, b) {
+    return Math.max(a, b);
+  });
+
   // Create customer table, with empty stuff
 
   // console.log(order)
@@ -121,8 +130,9 @@ app.get("/complete", function (req, res) {
 });
 
 app.post("/complete", function (req, res) {
-  let time = 0;
-  let phone = `+1${req.body.phone.split("-").join("")}`;
+  let time = maxPrepTime;
+  let phone = `+1${req.body.x_prom.split("-").join("")}`;
+
   // sendCustomerSMSText(phone, time) // this calls function to send text with phone, time
   // as argument to customer
   let order = "";

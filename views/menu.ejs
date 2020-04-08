@@ -41,23 +41,26 @@
         <% for(let i = 0; i < menu_items.length; i ++) { %>
         <li class="menu_container quantity">
           <!-- use index (repeater) instead of hardcoding numbers -->
-          <img class="image_home image_menu" src="<%=menu_items[i].photo%>" alt="">
+          <img class="image_home image_menu" src="<%=menu_items[i].photo%>" alt="Item Image">
           <div class='dish-card'>
             <h5><%=menu_items[i].name%></h5>
             <p><%=menu_items[i].description%></p>
-            <div id="<%=menu_items[0].id%>">
+            <div id="<%=menu_items[i].id%>">
               <span class="price">$<%=(menu_items[i].price/100).toFixed(2)%></span>
-              <input type='button' name='subtract' onclick='javascript: subtractQty();' value='-'/>
-              <input type='text' name='qty' value="0" />
-              <input type='button' name='add' onclick='javascript: document.getElementsByName("qty").value++;' value='+'/>
-              <!-- add button 'add to cart' with class name -->
+              <button class="add_to_cart" data-name="<%=menu_items[i].name%>" data-price="<%=(menu_items[i].price/100).toFixed(2)%>"> Add</button>
+              <!-- add button 'add to cart' with class name add -->
             </div>
           </div>
         </li>
         <% } %>
       </ul>
+
+
       <!-- section 2 Aside for order -->
       <section class="aside_order">
+
+
+     
 
           <form id="order_form" action="/cart" method="POST">
             <!-- create dynamic items using repeater -->
@@ -77,29 +80,19 @@
               <input style="display: none;" type="text" name="item_price" value="<%=menu_items[2].price%>">
               <input style="display: none;" type="text" name="item_prep_time" value="<%=menu_items[2].prep_time%>">
             </div>
+
             <h2>Your New Order Takeout</h2>
-            <div class="flex">
-              <div class="order-buttons">
-                <button>-</button>
-                <button class="btn peach-gradient">Peach</button>
-                <button>+</button>
-              </div>
-              <h4><%=menu_items[1].name%></h4>
-              <h4>$<%=(menu_items[1].price/100).toFixed(2)%></h4>
+
+          <div id="cart-container">
+
           </div>
-          <div class="flex">
-            <div class="order-buttons">
-              <button>-</button>
-              <button class="btn peach-gradient">Peach</button>
-              <button>+</button>
-            </div>
-            <h4><%=menu_items[2].name%></h4>
-            <h4>$<%=(menu_items[2].price/100).toFixed(2)%></h4>
-          </div>
+
+
           <!-- order total placed here -->
           <hr>
 
           <h3 class="total_amount">Total: $<%- (menu_items[1].price/100 + menu_items[1].price/100).toFixed(2)%></h3>
+
           <h3 class="total_amount tax_total_amount">Order Total <span class="tax">(Incl. Tax:13%) </span>:$ 15.13</h3>
           <hr>
           <button type="submit" class="checkout">Checkout</button>
@@ -121,15 +114,6 @@
         </div>
       </section>
     </footer>
-    <!-- JS functions -->
-    <script>
-    function subtractQty(){
-  if(document.getElementById("qty").value - 1 < 0)
-  return;
-  else
-  document.getElementById("qty").value--;
-  }
-    </script>
 
   </body>
 </html>

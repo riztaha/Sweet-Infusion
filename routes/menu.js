@@ -11,7 +11,7 @@ const getAllMenuItems = (db) => {
       // db.query(queryString)
       .then((data) => {
         // console.log("in getAllMenuItems");
-        console.log(data);
+        // console.log(data);
         // res.json({ menu_items });
         resolve(data);
       })

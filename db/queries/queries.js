@@ -69,11 +69,13 @@ const getOrders = function () {
 };
 exports.getOrders = getOrders;
 
-// Function to get a specific customer's order
+// Function to get a specific customer's order using the order_menu_item table
 const getCustomerOrder = function (customer_id) {
   const queryString = `
   SELECT *
-  FROM orders
+  FROM order_menu_item
+  JOIN menu_items ON menu_item_id = menu_items.id
+  JOIN orders ON order_id = orders.id
   WHERE customer_id = $1;
   `;
   const values = [customer_id];

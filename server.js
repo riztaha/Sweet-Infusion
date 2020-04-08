@@ -82,15 +82,21 @@ app.get("/menu", (req, res) => {
 
 //template file do ajax request make a request to /api/menu... this is done in app.js
 
-// app.post("/menu", (req, res) => {
-//   ITEMS EDITED FROM rest-menu
-// })
+app.post("/menu", (req, res) => {
+  console.log("Menu Req Body ------>", req.body);
+});
 
 app.get("/cart", (req, res) => {
   res.render("cart");
 });
 
-app.post("/cart", function (req, res) {});
+app.post("/cart", function (req, res) {
+  console.log("CART ITEMS -------->", req.body);
+  // Create customer table, with empty stuff
+  // Create new order with the menu items at the same time
+  // Create a order_menu_item with the menu_items and orders
+  res.render("cart");
+});
 
 app.get("/restaurant", function (req, res) {
   res.render("restaurant");
@@ -108,9 +114,20 @@ app.get("/complete", function (req, res) {
 });
 
 app.post("/complete", function (req, res) {
-  let time = 0; // get from data from form from cart POST
+  let time = 0;
+  // get from data from form from cart POST
   // sendSMSText(time) // this calls function to send text with time as argument
   // req.body
+  console.log('CREDIT CARD CUSTOMER INFO --------> ',req.body);
+
+  orderRoutes
+    .getOrders(db)
+    .then((obj) => {
+      res.render("complete", { orders: obj });
+    })
+    .catch((err) => {
+      res.render("error", err);
+    });
 });
 
 // This posts to /sms, but I don't think we actually need the /sms page.

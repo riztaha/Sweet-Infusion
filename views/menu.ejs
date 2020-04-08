@@ -38,123 +38,23 @@
 
       <!-- Menu List starts here -->
       <ul>
+        <% for(let i = 0; i < menu_items.length; i ++) { %>
         <li class="menu_container quantity">
           <!-- use index (repeater) instead of hardcoding numbers -->
-          <img class="image_home image_menu" src="<%=menu_items[0].photo%>" alt="">
+          <img class="image_home image_menu" src="<%=menu_items[i].photo%>" alt="">
           <div class='dish-card'>
-            <h5><%=menu_items[0].name%></h5>
-            <p><%=menu_items[0].description%></p>
-            <form id="f1">
-              <span class="price">$<%=(menu_items[0].price/100).toFixed(2)%></span>
+            <h5><%=menu_items[i].name%></h5>
+            <p><%=menu_items[i].description%></p>
+            <div id="<%=menu_items[0].id%>">
+              <span class="price">$<%=(menu_items[i].price/100).toFixed(2)%></span>
               <input type='button' name='subtract' onclick='javascript: subtractQty();' value='-'/>
-              <input type='text' name='qty' id='qty' value="0" />
-              <input type='button' name='add' onclick='javascript: document.getElementById("qty").value++;' value='+'/>
-            </form>
+              <input type='text' name='qty' value="0" />
+              <input type='button' name='add' onclick='javascript: document.getElementsByName("qty").value++;' value='+'/>
+              <!-- add button 'add to cart' with class name -->
+            </div>
           </div>
         </li>
-
-        <li class="menu_container">
-          <img class="image_home image_menu" src="<%=menu_items[1].photo%>" alt="">
-          <div class='dish-card'>
-            <h5><%=menu_items[1].name%></h5>
-            <p><%=menu_items[1].description%></p>
-            <form id="f1">
-              <span class="price">$<%=(menu_items[1].price/100).toFixed(2)%></span>
-              <input type='button' name='subtract' onclick='javascript: subtractQty();' value='-'/>
-              <input type='text' name='qty' id='qty' value="0" />
-              <input type='button' name='add' onclick='javascript: document.getElementById("qty").value++;' value='+'/>
-            </form>
-          </div>
-        </li>
-        <li class="menu_container">
-          <img class="image_home image_menu" src="<%=menu_items[2].photo%>" alt="">
-          <div class='dish-card'>
-            <h5><%=menu_items[2].name%></h5>
-            <p><%=menu_items[2].description%></p>
-            <form id="f1">
-              <span class="price">$<%=(menu_items[2].price/100).toFixed(2)%></span>
-              <input type='button' name='subtract' onclick='javascript: subtractQty();' value='-'/>
-              <input type='text' name='qty' id='qty' value="0" />
-              <input type='button' name='add' onclick='javascript: document.getElementById("qty").value++;' value='+'/>
-            </form>
-          </div>
-        </li>
-        <li class="menu_container">
-          <img class="image_home image_menu" src="<%=menu_items[3].photo%>" alt="">
-          <div class='dish-card'>
-            <h5><%=menu_items[3].name%></h5>
-            <p><%=menu_items[3].description%></p>
-            <form id="f1">
-              <span class="price">$<%=(menu_items[3].price/100).toFixed(2)%></span>
-              <input type='button' name='subtract' onclick='javascript: subtractQty();' value='-'/>
-              <input type='text' name='qty' id='qty' value="0" />
-              <input type='button' name='add' onclick='javascript: document.getElementById("qty").value++;' value='+'/>
-            </form>
-          </div>
-        </li>
-        <li class="menu_container">
-          <img class="image_home image_menu" src="<%=menu_items[4].photo%>" alt="">
-          <div class='dish-card'>
-            <h5><%=menu_items[4].name%></h5>
-            <p><%=menu_items[4].description%></p>
-            <form id="f1">
-              <span class="price">$<%=(menu_items[4].price/100).toFixed(2)%></span>
-              <input type='button' name='subtract' onclick='javascript: subtractQty();' value='-'/>
-              <input type='text' name='qty' id='qty' value="0" />
-              <input type='button' name='add' onclick='javascript: document.getElementById("qty").value++;' value='+'/>
-            </form>
-          </div>
-        </li>
-        <li class="menu_container">
-          <img class="image_home image_menu" src="<%=menu_items[5].photo%>" alt="">
-          <div class='dish-card'>
-            <h5><%=menu_items[5].name%></h5>
-            <p><%=menu_items[5].description%></p>
-            <form id="f1">
-              <span class="price">$<%=(menu_items[5].price/100).toFixed(2)%></span>
-              <input type='button' name='subtract' onclick='javascript: subtractQty();' value='-'/>
-              <input type='text' name='qty' id='qty' value="0" />
-              <input type='button' name='add' onclick='javascript: document.getElementById("qty").value++;' value='+'/>
-            </form>
-          </div>
-        </li>
-        <li class="menu_container">
-          <img class="image_home image_menu" src="<%=menu_items[6].photo%>" alt="">
-          <div class='dish-card'>
-            <h5><%=menu_items[6].name%></h5>
-            <p><%=menu_items[6].description%></p>
-            <form id="f1">
-              <span class="price">$<%=(menu_items[6].price/100).toFixed(2)%></span>
-              <input type='button' name='subtract' onclick='javascript: subtractQty();' value='-'/>
-              <input type='text' name='qty' id='qty' value="0" />
-              <input type='button' name='add' onclick='javascript: document.getElementById("qty").value++;' value='+'/>
-            </form>
-          </div>
-        </li><li class="menu_container">
-          <img class="image_home image_menu" src="<%=menu_items[7].photo%>" alt="">
-          <div class='dish-card'>
-            <h5><%=menu_items[7].name%></h5>
-            <p><%=menu_items[7].description%></p>
-            <form id="f1">
-              <span class="price">$<%=(menu_items[7].price/100).toFixed(2)%></span>
-              <input type='button' name='subtract' onclick='javascript: subtractQty();' value='-'/>
-              <input type='text' name='qty' id='qty' value="0" />
-              <input type='button' name='add' onclick='javascript: document.getElementById("qty").value++;' value='+'/>
-            </form>
-          </div>
-        </li><li class="menu_container">
-          <img class="image_home image_menu" src="<%=menu_items[8].photo%>" alt="">
-          <div class='dish-card'>
-            <h5><%=menu_items[8].name%></h5>
-            <p><%=menu_items[8].description%></p>
-            <form id="f1">
-              <span class="price">$<%=(menu_items[8].price/100).toFixed(2)%></span>
-              <input type='button' name='subtract' onclick='javascript: subtractQty();' value='-'/>
-              <input type='text' name='qty' id='qty' value="0" />
-              <input type='button' name='add' onclick='javascript: document.getElementById("qty").value++;' value='+'/>
-            </form>
-          </div>
-        </li>
+        <% } %>
       </ul>
       <!-- section 2 Aside for order -->
       <section class="aside_order">

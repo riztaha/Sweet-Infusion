@@ -91,19 +91,19 @@ app.get("/cart", (req, res) => {
 });
 
 let maxPrepTime = 0;
+let orderToRestaurant = "";
 app.post("/cart", function (req, res) {
   console.log("CART ITEMS -------->", req.body);
-  // This code takes prep times from order and returns the longest time to be used to send
-  // text to customer with that information.
+  // This code takes prep times from order and order details and is used to send
+  // text to customer and restaurant with that information.
   let prepTimeArray = req.body.item_prep_time
   prepTimeArray = prepTimeArray.map(x => Number.parseInt(x))
   maxPrepTime = prepTimeArray.reduce(function(a,b) {
     return Math.max(a, b)
   });
-
+  orderToRestaurant = req.body.item_name
 
   // Create customer table, with empty stuff
-
   // console.log(order)
   // orderRoutes.placeOrder(order)
   // Create new order with the menu items at the same time
@@ -131,14 +131,11 @@ app.get("/complete", function (req, res) {
 });
 
 app.post("/complete", function (req, res) {
-  let time = maxPrepTime;
-  let phone = `+1${req.body.x_prom.split('-').join('')}`;
+  // let time = maxPrepTime;
+  // let phone = `+1${req.body.x_prom.split('-').join('')}`;
+  // sendCustomerSMSText(phone, time) // this calls function to send text with phone, time as argument to customer
+  // sendRestaurantSMSText(orderToRestaurant) // this calls function to send text to with order as argument to restaurant.
 
-  // sendCustomerSMSText(phone, time) // this calls function to send text with phone, time
-  // as argument to customer
-  let order = "";
-  // sendRestaurantSMSText(order) // this calls function to send text to with order as argument
-  // to restaurant.
   console.log("CREDIT CARD CUSTOMER INFO --------> ", req.body);
 
   orderRoutes
@@ -176,10 +173,11 @@ app.post("/complete", function (req, res) {
 //     }).then(message => console.log(message.sid));
 // };
 
-// const sendRestaurantSMSText = function(order) {
+// This function sends the order to the restaurant via text
+// const sendRestaurantSMSText = function(orderToRestaurant) {
 //   client.messages
 //     .create({
-//       body: `An order has been placed: ${order}`,
+//       body: `An order has been placed: ${orderToRestaurant}`,
 //       from: '+15406573369',
 //       to: '+14165353345'
 //     }).then(message => console.log(message.sid));

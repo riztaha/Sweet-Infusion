@@ -62,7 +62,9 @@
           <form id="order_form" action="/cart" method="POST">
             <!-- create dynamic items using repeater -->
             <!-- hidden input fields, as they are the only things transmitted during post -->
-            <input style="display: none;" type="text" name="menu_item" value="<%=menu_items[1].name%>">
+            <input style="display: none;" type="text" name="item_name" value="<%=menu_items[0].name%>">
+            <input style="display: none;" type="text" name="item_price" value="<%=menu_items[0].price%>">
+            <input style="display: none;" type="text" name="item_prep_time" value="<%=menu_items[0].prep_time%>">
             <h2>Your New Order Takeout</h2>
             <div class="flex">
               <div class="order-buttons">

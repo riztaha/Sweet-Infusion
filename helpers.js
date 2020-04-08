@@ -8,8 +8,21 @@ const generateRandomString = () => {
   return result;
 };
 
-const orderTotal = function() {
-
+const price = function(item) {
+  let price = 0;
+    for (let item in obj) {
+      price += obj[item].price/100;
+    }
+    return price;
 }
 
-module.exports = { generateRandomString };
+function subtractQty(){
+  if(document.getElementById("qty").value - 1 < 0)
+  return;
+  else
+  document.getElementById("qty").value--;
+  }
+
+
+
+module.exports = { subtractQty, generateRandomString, price};

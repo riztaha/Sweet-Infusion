@@ -120,8 +120,8 @@ app.get("/complete", function (req, res) {
 
 app.post("/complete", function (req, res) {
   let time = 0;
-  // get from data from form from cart POST
-  // sendSMSText(time) // this calls function to send text with time as argument
+  let phone = `+1${req.body.x_prom.split('-').join('')}`;
+  // sendSMSText(phone, time) // this calls function to send text with time as argument
   console.log("CREDIT CARD CUSTOMER INFO --------> ", req.body);
 
   orderRoutes
@@ -149,13 +149,12 @@ app.post("/sms", (req, res) => {
 // const accountSid = '';
 // const authToken = '';
 // const client = require('twilio')(accountSid, authToken);
-// let toPhoneNumber = '+14165353345' // get from data from form from cart POST
-// const sendSMSText = function(time) {
+// const sendSMSText = function(phone, time) {
 //   client.messages
 //     .create({
 //       body: `Thank you for your order. It will be ready for pick up in ${time} minutes.`,
 //       from: '+15406573369',
-//       to: toPhoneNumber
+//       to: phone
 //     }).then(message => console.log(message.sid));
 // };
 

@@ -94,7 +94,7 @@ let maxPrepTime = 0;
 let orderToRestaurant = "";
 app.post("/cart", function (req, res) {
   console.log("CART ITEMS -------->", req.body);
-  
+
   // This code takes prep times from order and order details and is used to send
   // text to customer and restaurant with that information.
   let prepTimeArray = req.body.item_prep_time
@@ -117,9 +117,9 @@ app.get("/restaurant", function (req, res) {
   res.render("restaurant");
 });
 
+
 app.get("/complete", function (req, res) {
   // Show customer's info
-
   // Show order info
   orderRoutes
     .getCustomerOrder(db, req["customer_id"])
@@ -137,8 +137,9 @@ app.post("/complete", function (req, res) {
   // sendCustomerSMSText(phone, time) // this calls function to send text with phone, time as argument to customer
   // sendRestaurantSMSText(orderToRestaurant) // this calls function to send text to with order as argument to restaurant.
 
+  let order = {"order": orderToRestaurant}
+  console.log(order)
   console.log("CREDIT CARD CUSTOMER INFO --------> ", req.body);
-
   orderRoutes
     .getOrders(db)
     .then((obj) => {

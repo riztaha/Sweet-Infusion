@@ -121,7 +121,11 @@ app.get("/complete", function (req, res) {
 app.post("/complete", function (req, res) {
   let time = 0;
   let phone = `+1${req.body.x_prom.split('-').join('')}`;
-  // sendSMSText(phone, time) // this calls function to send text with time as argument
+  // sendCustomerSMSText(phone, time) // this calls function to send text with phone, time
+  // as argument to customer
+  let order = ''
+  // sendRestaurantSMSText(order) // this calls function to send text to with order as argument
+  // to restaurant.
   console.log("CREDIT CARD CUSTOMER INFO --------> ", req.body);
 
   orderRoutes
@@ -134,22 +138,23 @@ app.post("/complete", function (req, res) {
     });
 });
 
-// This posts to /sms, but I don't think we actually need the /sms page.
+// This posts to /sms, but I don't think we actually need the /sms page or this code.
+// To be determined.
 // This is used for the SMS API (Twilio). When it recieves a text from a customer,
 // it immediatly responds back with a message. -> twiml.message();
-app.post("/sms", (req, res) => {
-  const twiml = new MessagingResponse();
-  twiml.message("Your order is ready for pick-up!!!");
-  res.writeHead(200, { "Content-Type": "text/xml" });
-  res.end(twiml.toString());
-});
+// app.post("/sms", (req, res) => {
+//   const twiml = new MessagingResponse();
+//   twiml.message("Your order is ready for pick-up!!!");
+//   res.writeHead(200, { "Content-Type": "text/xml" });
+//   res.end(twiml.toString());
+// });
 
 // This is a function that sends a text message when called with the
 // time as an argument for the message body
 // const accountSid = '';
 // const authToken = '';
 // const client = require('twilio')(accountSid, authToken);
-// const sendSMSText = function(phone, time) {
+// const sendCustomerSMSText = function(phone, time) {
 //   client.messages
 //     .create({
 //       body: `Thank you for your order. It will be ready for pick up in ${time} minutes.`,
@@ -158,6 +163,19 @@ app.post("/sms", (req, res) => {
 //     }).then(message => console.log(message.sid));
 // };
 
+// const sendRestaurantSMSText = function(order) {
+//   client.messages
+//     .create({
+//       body: `An order has been placed: ${order}`,
+//       from: '+15406573369',
+//       to: '+14165353345'
+//     }).then(message => console.log(message.sid));
+// };
+
+
+
+
+//Server is listening.
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });

@@ -45,7 +45,7 @@ const usersRoutes = require("./routes/users");
 const widgetsRoutes = require("./routes/widgets");
 const menuRoutes = require("./routes/menu");
 const orderRoutes = require("./routes/orders");
-const customerRouters = require("./routes/customers");
+const customerRoutes = require("./routes/customers");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -94,18 +94,32 @@ let maxPrepTime = 0;
 let orderToRestaurant = "";
 app.post("/cart", function (req, res) {
   console.log("CART ITEMS -------->", req.body);
-  
+
   // This code takes prep times from order and order details and is used to send
   // text to customer and restaurant with that information.
-  let prepTimeArray = req.body.item_prep_time
-  prepTimeArray = prepTimeArray.map(x => Number.parseInt(x))
-  maxPrepTime = prepTimeArray.reduce(function(a,b) {
-    return Math.max(a, b)
+  let prepTimeArray = req.body.item_prep_time;
+  prepTimeArray = prepTimeArray.map((x) => Number.parseInt(x));
+  maxPrepTime = prepTimeArray.reduce(function (a, b) {
+    return Math.max(a, b);
   });
-  orderToRestaurant = req.body.item_name
+  orderToRestaurant = req.body.item_name;
 
   // Create customer table, with empty stuff
-  // console.log(order)
+  let customer = {
+    first_name: "N/A",
+    last_name: "N/A",
+    email: "N/A",
+    phone: req.body.phone,
+    street: "N/A",
+    city: "N/A",
+    province: "N/A",
+    country: "N/A",
+    postal_code: req.body.zip_code,
+    credit_card: req.body.cc_number,
+    credit_card_exp: req.body.cc_exp,
+    credit_card_code: req.body.cc_code,
+  };
+  customerRoutes.placeCustomerInfo(customer);
   // orderRoutes.placeOrder(order)
   // Create new order with the menu items at the same time
   // Add the data into the customer table

@@ -121,7 +121,6 @@ exports.placeOrder = placeOrder;
 
 // Function to place customer's information into db
 const placeCustomerInfo = function (customer) {
-  console.log("Before Query String");
   const queryString = `
   INSERT INTO customers
   (first_name, last_name, email, phone, street,
@@ -131,7 +130,6 @@ const placeCustomerInfo = function (customer) {
   $4, $5, $6, $7,
   $8, $9, $10, $11, $12);
   `;
-  console.log("before query Params");
   const queryParams = [
     customer["first_name"],
     customer["last_name"],
@@ -146,7 +144,6 @@ const placeCustomerInfo = function (customer) {
     customer["credit_card_exp"],
     customer["credit_card_code"],
   ];
-  console.log("Query Params --------->", queryParams);
   return pool
     .query(queryString, queryParams)
     .then((res) => {

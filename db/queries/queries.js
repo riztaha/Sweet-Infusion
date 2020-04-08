@@ -95,9 +95,9 @@ const getCustomers = function () {
   FROM customers;
   `;
   return pool
-    .query(queryString, values)
+    .query(queryString)
     .then((res) => {
-      return res.rows[0];
+      return res.rows;
     })
     .catch((err) => console.error("query error", err.stack));
 };
@@ -113,7 +113,7 @@ const placeOrder = function (customer_id) {
   return pool
     .query(queryString, values)
     .then((res) => {
-      return res.rows[0];
+      return res.rows;
     })
     .catch((err) => console.error("query error", err.stack));
 };
@@ -146,7 +146,7 @@ const placeCustomerInfo = function (customer) {
   return pool
     .query(queryString, queryParams)
     .then((res) => {
-      return res.rows[0];
+      return res.rows;
     })
     .catch((err) => console.error("query error", err.stack));
 };

@@ -131,9 +131,9 @@ app.get("/restaurant", function (req, res) {
   res.render("restaurant");
 });
 
+
 app.get("/complete", function (req, res) {
   // Show customer's info
-
   // Show order info
   orderRoutes
     .getCustomerOrder(db, req["customer_id"])
@@ -151,8 +151,9 @@ app.post("/complete", function (req, res) {
   // sendCustomerSMSText(phone, time) // this calls function to send text with phone, time as argument to customer
   // sendRestaurantSMSText(orderToRestaurant) // this calls function to send text to with order as argument to restaurant.
 
+  let order = {"order": orderToRestaurant}
+  console.log(order)
   console.log("CREDIT CARD CUSTOMER INFO --------> ", req.body);
-
   orderRoutes
     .getOrders(db)
     .then((obj) => {

@@ -22,7 +22,8 @@ $(() => {
   function removeFromCart(id) {
     let quantity = cart[id] ? cart[id].quantity - 1 : 0;
     if (quantity === 0) {
-      cart[id] = undefined;
+      //TODO, remove id from cart entirely
+      delete cart[id];
     } else {
       cart[id].quantity = quantity;
     }
@@ -73,6 +74,10 @@ $(() => {
                     </section>`;
 
       $("#cart-container").append(cartHtml);
+      //TODO: Fix this object, it should not be
+      //'{"1":{"name":"Cherry Pie","price":"5.00","prep_time":2,"quantity":1}}' } }
+      //should be:
+      //[{"name":"Cherry Pie","price":"5.00","prep_time":2,"quantity":1}}, {}, ...]
       $("#cart").val(JSON.stringify(cart));
     }
 

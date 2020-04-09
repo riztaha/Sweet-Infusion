@@ -45,20 +45,20 @@ const placeCustomerInfo = function (customer) {
 };
 exports.placeCustomerInfo = placeCustomerInfo;
 
-let customer = {
-  first_name: "N/A",
-  last_name: "N/A",
-  email: "N/A",
-  phone: "+12912959",
-  street: "N/A",
-  city: "N/A",
-  province: "N/A",
-  country: "N/A",
-  postal_code: "N/A",
-  credit_card: "12314512512521",
-  credit_card_exp: "0120",
-  credit_card_code: "123",
-};
+// let customer = {
+//   first_name: "N/A",
+//   last_name: "N/A",
+//   email: "N/A",
+//   phone: "+12912959",
+//   street: "N/A",
+//   city: "N/A",
+//   province: "N/A",
+//   country: "N/A",
+//   postal_code: "N/A",
+//   credit_card: "12314512512521",
+//   credit_card_exp: "0120",
+//   credit_card_code: "123",
+// };
 
 // console.log(getCustomers());
 // placeCustomerInfo(customer); //THIS IS NOW WORKING!!!!!

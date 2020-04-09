@@ -104,23 +104,17 @@ app.post("/cart", function (req, res) {
   });
   orderToRestaurant = req.body.item_name;
 
-  // Create customer table, with empty stuff
+  // Create customer table and empty order table to be used later
   let customer = {
     first_name: "N/A",
-    last_name: "N/A",
-    email: "N/A",
-    phone: req.body.phone,
-    street: "N/A",
-    city: "N/A",
-    province: "N/A",
-    country: "N/A",
-    postal_code: req.body.zip_code,
-    credit_card: req.body.cc_number,
-    credit_card_exp: req.body.cc_exp,
-    credit_card_code: req.body.cc_code,
   };
-  customerRoutes.placeCustomerInfo(customer);
-  // orderRoutes.placeOrder(order)
+  customerRoutes.placeCustomerInfo(customer).then((results) => {
+    console.log("This is the new customer's ID ------>", results[0].id);
+    let order = { customer_id: results[0].id, is_order_complete: "false" };
+    console.log(order);
+    orderRoutes.placeOrder(order);
+    console.log("placeOrder function has executed.");
+  });
   // Create new order with the menu items at the same time
   // Add the data into the customer table
   // Create a order_menu_item with the menu_items and orders
@@ -130,6 +124,7 @@ app.post("/cart", function (req, res) {
 app.get("/restaurant", function (req, res) {
   res.render("restaurant");
 });
+
 
 let phone = "";
 app.post("/restaurant", function (req, res) {
@@ -155,6 +150,7 @@ app.post("/complete", function (req, res) {
   // let time = maxPrepTime;
   // sendCustomerOrderText(phone, time) // this calls function to send text with phone, time as argument to customer
   // sendRestaurantSMSText(orderToRestaurant) // this calls function to send text to with order as argument to restaurant.
+
 
   // let order = {"order": orderToRestaurant}
   // console.log(order)

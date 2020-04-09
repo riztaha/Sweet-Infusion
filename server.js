@@ -41,16 +41,16 @@ app.use(express.static("public"));
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
-const usersRoutes = require("./routes/users");
-const widgetsRoutes = require("./routes/widgets");
+// const usersRoutes = require("./routes/users");
+// const widgetsRoutes = require("./routes/widgets");
 const menuRoutes = require("./routes/menu");
 const orderRoutes = require("./routes/orders");
 const customerRoutes = require("./routes/customers");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
-app.use("/api/users", usersRoutes(db));
-app.use("/api/widgets", widgetsRoutes(db));
+// app.use("/api/users", usersRoutes(db));
+// app.use("/api/widgets", widgetsRoutes(db));
 
 // Note: mount other resources here, using the same pattern above
 
@@ -88,32 +88,61 @@ app.post("/menu", (req, res) => {
   console.log("POST menu");
 });
 
-app.get("/cart", (req, res, err) => {
-  if (err) {
-    res.render("error");
-  } else {
-    res.render("cart", { tempVar: JSON.stringify(order) });
-  }
-});
+// app.get("/cart", (req, res, err) => {
+//   if (err) {
+//     res.render("error");
+//   } else {
+//     res.render("cart", { order_id: JSON.stringify(order) });
+//   }
+// });
 
 app.post("/cart", function (req, res) {
-  console.log("CART ITEMS -------->", req.body);
+  let cart = JSON.parse(req.body.cart);
 
   // Create customer table and empty order table to be used later
   customerRoutes.createEmptyCustomer().then((results) => {
-    //TODO: Clean up order.cart to be what you need
-    //i.e. { cart: '{"1":{"name":"Cherry Pie","price":"5.00","prep_time":2,"quantity":1}}' } } }
     let order = {
       customer_id: results[0].id,
       is_order_complete: "false",
-      cart: req.body,
+      cart: cart,
     };
-    orderRoutes.placeOrder(order);
-    res.render("cart", { tempVar: JSON.stringify(order) });
-  });
+    orderRoutes.placeOrder(order).then((results) => {
+      let invoiceNumber = results[0].id;
+      console.log("Invoice Number ------------>", invoiceNumber);
 
+      let promises = [];
+      cart.forEach((item) => {
+        let order = {
+          order_id: invoiceNumber,
+          menu_item_id: item.id,
+          item_quantity: item.quantity,
+        };
+
+        promises.push(orderRoutes.createOrder(order));
+
+        Promise.all(promises)
+          .then((resolvedPromise) => {
+            if (promises.length === resolvedPromise.length) {
+              console.log("all promises fulfilled, orders are now in db");
+              res.render("cart", {
+                order_id: JSON.stringify(invoiceNumber),
+              });
+            } else {
+              // not ideal, but if within 30 seconds not all the orders have been placed, show error
+              setTimeout(() => {
+                res.render("error");
+              }, 300);
+            }
+          })
+          .catch((e) => {
+            // handle errors here
+          });
+      });
+    });
+  });
   // Create new order with the menu items at the same time
 });
+// createOrder takes order_id, menu_item_id, and quantity
 
 app.get("/restaurant", function (req, res) {
   res.render("restaurant");
@@ -136,7 +165,6 @@ app.get("/complete", function (req, res) {
     .catch((err) => {
       res.render("error", err);
     });
-  res.render("complete"); // Isn't this redundent from 5 lines above?
 });
 
 app.get("/error", function (req, res) {
@@ -161,18 +189,13 @@ app.post("/complete", function (req, res) {
     .then(() => {
       res.render("complete", { customer });
       // console.log("-----This is customer", customer)
-      console.log(
-        "-----This is customer.order.cart.cart",
-        customer.order.cart.cart
-      );
+      console.log("This is customer.order.cart: ", customer.order.cart);
     })
     .catch((err) => {
       res.render("error", err);
     });
 
-  // console.log("THIS IS LINE 165 customer.order.cart.cart---->", typeof customer.order.cart.cart, customer.order.cart.cart);
-  let order = JSON.parse(customer.order.cart.cart);
-  // console.log("THIS IS LINE 167 order - post JSON---->", typeof order, order);
+  let order = JSON.parse(customer.order.cart);
   let timesArray = [];
   for (const item in order) {
     timesArray.push(order[item].prep_time);

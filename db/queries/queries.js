@@ -119,6 +119,25 @@ const placeOrder = function (order) {
 };
 exports.placeOrder = placeOrder;
 
+const createOrder = function (order) {
+  const queryString = `
+  INSERT INTO order_menu_items (order_id, menu_item_id, item_quantity)
+  VALUES ($1, $2, $3)
+  `;
+  const queryParams = [
+    order["order_id"],
+    order["menu_item_id"],
+    order["item_quantity"],
+  ];
+  return pool
+    .query(queryString, queryParams)
+    .then((res) => {
+      return res.rows;
+    })
+    .catch((err) => console.err("Query Error", err.stack));
+};
+exports.createOrder = createOrder;
+
 // Function to place customer's information into db
 const createEmptyCustomer = function () {
   const queryString = `
@@ -162,3 +181,20 @@ const placeCustomerInfo = function (customer) {
     .catch((err) => console.error("query error", err.stack));
 };
 exports.placeCustomerInfo = placeCustomerInfo;
+
+// Function to get all customers
+const getLastCustomer = function () {
+  const queryString = `
+  SELECT *
+  FROM customers
+  ORDER BY id
+  DESC LIMIT 1;
+  `;
+  return pool
+    .query(queryString)
+    .then((res) => {
+      return res.rows;
+    })
+    .catch((err) => console.error("query error", err.stack));
+};
+exports.getLastCustomer = getLastCustomer;

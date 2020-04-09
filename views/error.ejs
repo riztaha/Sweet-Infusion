@@ -15,16 +15,7 @@
   </head>
   <body>
     <!-- nav bar -->
-    <nav>
-      <div class="nav wrapper">
-        <a href="/"><img class="logo" src="images/logo.png" alt="logo image"></a>
-        <p class="blinking">Order now to pick-up in less than an hour!</p>
-        <div>
-          <a href="/menu"><h4>Menu</h4></a>
-          <a href="/cart"><h4 class="cart">Cart</h4></a>
-        </div>
-      </div>
-    </nav>
+    <%- include partials/header.ejs %>
     <!-- header -->
     <header class="wrapper">
       <div class="header mySlides fade">
@@ -43,15 +34,6 @@
       </section>
       <!-- footer section -->
     </main>
-    <footer class="footer_color">
-      <section class="wrapper footer">
-        <p>&copy Sweet Infusion 2020 All Rights Reserved</p>
-        <div class="media">
-          <span class="follow">Follow Us on</span>
-          <a href="https://www.instagram.com/accounts/login/?hl=en"><span class="fab fa-instagram"> </span></a>
-          <a href="https://www.facebook.com"><span class="fab fa-facebook"></span></a>
-        </div>
-      </section>
-    </footer>
+    <%- include partials/footer.ejs %>
   </body>
 </html>

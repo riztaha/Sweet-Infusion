@@ -30,7 +30,7 @@
   box-shadow: 5px 10px 10px 5px rgba(0,0,0,0.05);
   border-radius: 4px;
   overflow: hidden;
-  width: 50%;
+  width: 70%;
   margin: 10px;
 }
 
@@ -125,7 +125,8 @@ input {
 
 .price {
   padding: 0 25px 0 0;
-  font-size: large;
+  font-size: 1.1em;
+  color: gray;
 }
 
 
@@ -154,3 +155,23 @@ button:focus {
 .menu_details {
   margin: 5px;
 }
+
+.description {
+  color: gray;
+  font-size: 0.9em;
+  font-weight: light;
+}
+
+.time, .info {
+  font-size: 0.6em;
+  font-weight: bold;
+  color: gray;
+}
+
+.info {
+  text-align: center;
+  font-size: 0.8em;
+  color: #5AAAAA;
+
+}
+

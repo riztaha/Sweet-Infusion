@@ -22,16 +22,7 @@
   </head>
 
   <body>
-    <nav>
-      <div class="nav wrapper">
-        <a href="/"><img class="logo" src="images/logo.png" alt="logo image"></a>
-
-        <div>
-          <a href="/menu"><h4>Menu</h4></a>
-          <a href="/cart"><h4 class="cart">Cart</h4></a>
-        </div>
-      </div>
-    </nav>
+    <%- include partials/header.ejs %>
     <!-- Main menu starts here -->
     <h2 class="menu_heading">Menu</h2>
     <main class=" flex wrapper">
@@ -44,8 +35,8 @@
           <img class="image_home image_menu" src="<%=menu_items[i].photo%>" alt="Item Image">
           <div class='dish-card'>
             <h5><%=menu_items[i].name%></h5>
-            <p><%=menu_items[i].description%></p>
-            <h6>Approx. Prep Time: <%= menu_items[i].prep_time %> minutes</h6>
+            <p class="description"><%=menu_items[i].description%></p>
+            <p class="time">Approx. Prep Time: <%= menu_items[i].prep_time %> minutes</p>
             <div class="menu_details" id="<%=menu_items[i].id%>">
               <span class="price">$<%=(menu_items[i].price/100).toFixed(2)%></span>
               <button class="add_to_cart" data-prep_time="<%= menu_items[i].prep_time %>" data-name="<%=menu_items[i].name%>" data-price="<%=(menu_items[i].price/100).toFixed(2)%>"> Add</button>
@@ -60,8 +51,8 @@
       <!-- section 2 Aside for order -->
       <section class="aside_order">
           <form id="order_form" action="/cart" method="POST">
-            <h2>Your New Order Takeout</h2>
-          <div id="cart-container">Add Items From Menu</div>
+            <h2>Order Takeout</h2>
+          <div class="info" id="cart-container">Add Items From Menu</div>
           <hr>
 
           <h3 class="total_amount" >Subtotal : <span id="subtotal"></span></h3>
@@ -75,15 +66,6 @@
       </section>
 
     </main>
-    <footer>
-      <section class="wrapper footer">
-        <p>&copy Sweet Infusion 2020 All Rights Reserved</p>
-        <div class="media">
-          <span class="follow">Follow Us on</span>
-          <a href="https://www.instagram.com/accounts/login/?hl=en"><span class="fab fa-instagram"> </span></a>
-          <a href="https://www.facebook.com"><span class="fab fa-facebook"></span></a>
-        </div>
-      </section>
-    </footer>
+    <%- include partials/footer.ejs %>
   </body>
 </html>

@@ -32,7 +32,6 @@ $(() => {
     renderCart();
   }
 
-
   $("#order_form").on("click", ".subtractItem", function () {
     let id = $(this).data("id");
 

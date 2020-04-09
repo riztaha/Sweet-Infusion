@@ -120,27 +120,35 @@ const placeOrder = function (order) {
 exports.placeOrder = placeOrder;
 
 // Function to place customer's information into db
-const placeCustomerInfo = function (customer) {
+const createEmptyCustomer = function () {
   const queryString = `
   INSERT INTO customers
-  (first_name, last_name, email, phone, street,
-  city, province, country, postal_code,
-  credit_card, credit_card_exp, credit_card_code)
-  VALUES ($1, $2, $3,
-  $4, $5, $6, $7,
-  $8, $9, $10, $11, $12)
+  (name)
+  VALUES ('undefined')
   RETURNING id;
   `;
+  return pool
+    .query(queryString)
+    .then((res) => {
+      // console.log(res.rows);
+      return res.rows;
+    })
+    .catch((err) => console.error("query error", err.stack));
+};
+exports.createEmptyCustomer = createEmptyCustomer;
+
+// Function to edit a customer's information
+const placeCustomerInfo = function (customer) {
+  const queryString = `
+  UPDATE customers
+  SET name = $2, phone = $3, address = $4, credit_card = $5, credit_card_exp = $6, credit_card_code = $7
+  WHERE customer_id = $1
+  `;
   const queryParams = [
-    customer["first_name"],
-    customer["last_name"],
-    customer["email"],
+    customer["customer_id"],
+    customer["name"],
     customer["phone"],
-    customer["street"],
-    customer["city"],
-    customer["province"],
-    customer["country"],
-    customer["postal_code"],
+    customer["address"],
     customer["credit_card"],
     customer["credit_card_exp"],
     customer["credit_card_code"],

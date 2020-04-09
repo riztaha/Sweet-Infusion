@@ -78,16 +78,19 @@ app.get("/menu", (req, res) => {
     .catch((err) => {
       res.render("error", err);
     });
+    console.log("GET menu")
 });
 
 //template file do ajax request make a request to /api/menu... this is done in app.js
 
 app.post("/menu", (req, res) => {
   console.log("Menu Req Body ------>", req.body);
+  console.log("POST menu")
 });
 
 app.get("/cart", (req, res) => {
   res.render("cart");
+  console.log("GET cart")
 });
 
 app.post("/cart", function (req, res) {
@@ -107,6 +110,7 @@ app.post("/cart", function (req, res) {
   });
 
   // Create new order with the menu items at the same time
+  console.log("POST cart")
 });
 
 app.get("/restaurant", function (req, res) {
@@ -125,11 +129,12 @@ app.get("/complete", function (req, res) {
     .getLastCustomer()
     .then((obj) => {
       res.render("complete", { customer: obj });
+      // console.log(customer)
     })
     .catch((err) => {
       res.render("error", err);
     });
-  res.render("complete");
+  // res.render("complete"); // Isn't this redundent from 5 lines above?
 });
 
 app.get("/error", function (req, res) {
@@ -137,7 +142,6 @@ app.get("/error", function (req, res) {
 });
 
 app.post("/complete", function (req, res) {
-
   //Placing the customer's info into the database:
   let customer = {
     name: req.body.name,
@@ -150,18 +154,23 @@ app.post("/complete", function (req, res) {
     order: JSON.parse(req.body.order),
   };
   customerRoutes
-  .placeCustomerInfo(customer)
-  .then(res.render("complete"))
-  .catch((err) => {
-    res.render("error", err);
-  });
+    .placeCustomerInfo(customer)
+    .then(() => {
+      res.render("complete", { customer });
+      // console.log("-----This is customer", customer)
+      console.log("-----This is customer.order.cart.cart", customer.order.cart.cart)
 
-  // console.log("THIS IS LINE 160 customer.order.cart.cart---->", typeof customer.order.cart.cart, customer.order.cart.cart);
+    })
+    .catch((err) => {
+      res.render("error", err);
+    });
+
+  // console.log("THIS IS LINE 165 customer.order.cart.cart---->", typeof customer.order.cart.cart, customer.order.cart.cart);
   let order = JSON.parse(customer.order.cart.cart)
-  // console.log("THIS IS LINE 162 order - post JSON---->", typeof order, order);
+  // console.log("THIS IS LINE 167 order - post JSON---->", typeof order, order);
   let timesArray = []
   for (const item in order) {
-  timesArray.push(order[item].prep_time)
+    timesArray.push(order[item].prep_time)
   }
   timesArray = timesArray.map((x) => Number.parseInt(x));
   maxPrepTime = timesArray.reduce(function (a, b) {
@@ -177,7 +186,12 @@ app.post("/complete", function (req, res) {
   for (const item in order) {
     itemNameArray.push(order[item].name)
   }
+  itemNameString = itemNameArray.join(", ")
   // sendRestaurantSMSText(itemNameArray)
+  // console.log("--------FROM APP.POST ----- /complete-------")
+  // console.log("This is customer.name:", customer.name)
+  // console.log("This is order items:", itemNameArray)
+  // console.log("This is order completion time:", maxPrepTime)
 });
 
 //These are account login details for twilio to be able to send texts.
@@ -188,7 +202,7 @@ const authToken = '';
 const sendCustomerOrderText = function(phone, time) {
   client.messages
     .create({
-      body: `Thank you for your order. It will be ready for pick up in ${time} minutes.`,
+      body: `Thank you for your order of ${itemNameString}. It will be ready for pick up in ${time} minutes.`,
       from: '+15406573369',
       to: phone
     }).then(message => console.log(message.sid));
@@ -205,10 +219,10 @@ const sendOrderCompleteText = function(phone) {
 };
 
 // This function sends via text the order to the restaurant
-const sendRestaurantSMSText = function(itemNameArray) {
+const sendRestaurantSMSText = function(itemNameString) {
   client.messages
     .create({
-      body: `An order has been placed: ${itemNameArray}`,
+      body: `An order has been placed: ${itemNameString}`,
       from: '+15406573369',
       to: '+14165353345'
     }).then(message => console.log(message.sid));

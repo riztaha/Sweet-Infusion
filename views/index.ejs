@@ -23,18 +23,9 @@
   <body>
 
     <!-- nav bar -->
-    <nav>
-      <div class="nav wrapper">
-        <a href="/"><img class="logo" src="images/logo.png" alt="logo image"></a>
-        <p class="blinking">Order now to pick-up in less than an hour!</p>
-        <div>
-          <a href="/menu"><h4>Menu</h4></a>
-          <a href="/cart"><h4 class="cart">Cart</h4></a>
-        </div>
-      </div>
-    </nav>
+    <%- include partials/header.ejs %>
     <!-- header -->
-    <header class="wrapper">
+    <section class="wrapper">
       <div class="header mySlides fade">
         <img src="images/background2.jpg" alt="Background orange pie">
         <h2>Sweet Infusion</h2>
@@ -48,7 +39,7 @@
         <span class="dot" onclick="currentSlide(1)"></span>
         <span class="dot" onclick="currentSlide(2)"></span>
       </div>
-    </header>
+    </section>
 
 
     <!-- main body page -->
@@ -73,17 +64,7 @@
 
       <!-- footer section -->
 
-    <footer class="footer_color">
-      <section class="wrapper footer">
-        <p>&copy Sweet Infusion 2020 All Rights Reserved</p>
-        <div class="media">
-          <span class="follow">Follow Us on</span>
-          <a href="https://www.instagram.com/accounts/login/?hl=en"><span class="fab fa-instagram"> </span></a>
-          <a href="https://www.facebook.com"><span class="fab fa-facebook"></span></a>
-        </div>
-      </section>
-    </footer>
-
+      <%- include partials/footer.ejs %>
 
     <script>
     var slideIndex = 0;

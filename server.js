@@ -110,7 +110,6 @@ app.post("/cart", function (req, res) {
   });
 
   // Create new order with the menu items at the same time
-  console.log("POST cart")
 });
 
 app.get("/restaurant", function (req, res) {
@@ -134,7 +133,7 @@ app.get("/complete", function (req, res) {
     .catch((err) => {
       res.render("error", err);
     });
-  // res.render("complete"); // Isn't this redundent from 5 lines above?
+  res.render("complete"); // Isn't this redundent from 5 lines above?
 });
 
 app.get("/error", function (req, res) {

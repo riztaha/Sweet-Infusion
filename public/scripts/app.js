@@ -2,6 +2,7 @@
 $(() => {
   // <!-- add button 'add to cart' with class name add -->
   let cart = {};
+  let total = 0;
   $(".add_to_cart").click(function () {
     let name = $(this).data("name");
     let price = $(this).data("price");
@@ -13,14 +14,8 @@ $(() => {
     renderCart();
   });
 
-  function subtractQty() {
-    if (document.getElementById("qty").value - 1 < 0) return;
-    else document.getElementById("qty").value--;
-  }
 
-  function addQty() {
-    document.getElementById("qty").value++;
-  }
+
 
   function renderCart() {
     $("#cart-container").empty();
@@ -44,9 +39,15 @@ $(() => {
       $("#cart-container").append(cartItem);
     }
   }
+
+
 });
 
-// // onclick listenner with classname add, use this.
+function subtractQty() {
+  if (document.getElementsByName("qty").value - 1 < 0) return;
+  else document.getElementsByName("qty").value--;
+}
 
-// //need items id, name and price
-// //
+function addQty() {
+  document.getElementsByName("qty").value++;
+}

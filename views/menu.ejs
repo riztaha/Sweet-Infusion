@@ -45,9 +45,10 @@
           <div class='dish-card'>
             <h5><%=menu_items[i].name%></h5>
             <p><%=menu_items[i].description%></p>
+            <h6>Approx. Prep Time: <%= menu_items[i].prep_time %> minutes</h6>
             <div id="<%=menu_items[i].id%>">
               <span class="price">$<%=(menu_items[i].price/100).toFixed(2)%></span>
-              <button class="add_to_cart" data-name="<%=menu_items[i].name%>" data-price="<%=(menu_items[i].price/100).toFixed(2)%>"> Add</button>
+              <button class="add_to_cart" data-prep_time="<%= menu_items[i].prep_time %>" data-name="<%=menu_items[i].name%>" data-price="<%=(menu_items[i].price/100).toFixed(2)%>"> Add</button>
               <!-- add button 'add to cart' with class name add -->
             </div>
           </div>
@@ -60,10 +61,10 @@
       <section class="aside_order">
           <form id="order_form" action="/cart" method="POST">
             <div>
-              <input style="display: none;" type="text" name="item_name" value="<%=menu_items[1].name%>">
-              <input style="display: none;" type="text" name="item_price" value="<%=menu_items[1].price%>">
-              <input style="display: none;" type="text" name="item_prep_time" value="<%=menu_items[1].prep_time%> THE PREP TIME">
-            </div>
+              <!-- <input style="display: none;" type="text" name="menu_items" value="<%=menu_items%>"> -->
+              <!-- <input style="display: none;" type="text" name="item_price" value="<%=menu_items[1].price%>"> -->
+                <!-- <input style="display: none;" type="text" name="item_prep_time" value="<%=menu_items[1].prep_time%> THE PREP TIME"> -->
+              </div>
             <!-- create dynamic items using repeater -->
             <!-- hidden input fields, as they are the only things transmitted during post -->
             <!-- I've added the below to app.js so it is dynamic. However the prep time is showing undefined. -->

@@ -93,6 +93,7 @@ app.get("/cart", (req, res) => {
 let maxPrepTime = 0;
 app.post("/cart", function (req, res) {
   console.log("CART ITEMS -------->", req.body);
+  console.log("prep time ------->", req.body.item_prep_time);
 
   // This code takes prep times from order and order details and is used to send
   // text to customer and restaurant with that information.
@@ -124,7 +125,6 @@ app.get("/restaurant", function (req, res) {
   res.render("restaurant");
 });
 
-
 let phone = "";
 app.post("/restaurant", function (req, res) {
   // sendOrderCompleteText('+14165353345')
@@ -149,7 +149,6 @@ app.post("/complete", function (req, res) {
   // let time = maxPrepTime;
   // sendCustomerOrderText(phone, time) // this calls function to send text with phone, time as argument to customer
   // sendRestaurantSMSText(orderToRestaurant) // this calls function to send text to with order as argument to restaurant.
-
 
   // let order = {"order": orderToRestaurant}
   // console.log(order)

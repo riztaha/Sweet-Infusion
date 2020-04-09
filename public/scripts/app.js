@@ -8,7 +8,8 @@ $(() => {
     let prep_time = $(this).data("prep_time");
     let id = $(this).parent().attr("id");
     let quantity = (cart[id] && cart[id].quantity) || 1;
-    cart[id] = { name, price, quantity, prep_time };
+    cart[id] = { name, price, prep_time, quantity };
+    console.log(cart);
     renderCart();
   });
 
@@ -27,7 +28,7 @@ $(() => {
       let cartItem = `<section  class="flex">
                       <div class="order-buttons">
                         <input type='button' name='subtract' onclick='javascript: subtractQty();' value='-'/>
-                        <input type='text' name='qty' value='${cart[i].quantity}' />
+                        <input type='text' name='qty' value=${cart[i].quantity} />
                         <input type='button' name='add' onclick='javascript: addQty();' value='+'/>
                       </div>
                       <div class="flex">
@@ -35,10 +36,10 @@ $(() => {
                         <h5>${cart[i].price}</h5>
                       </div>
                       <div>
-                      <input style="display: none;" type="text" name="item_name" value="${cart[i].name}">
-                      <input style="display: none;" type="text" name="item_price" value="${cart[i].price}">
-                      <input style="display: none;" type="text" name="item_prep_time" value="${cart[i].prep_time}">
-                    </div>
+                      <input style="display: none;" type="text" name="item_name" value=${cart[i].name}>
+                      <input style="display: none;" type="text" name="item_price" value=${cart[i].price}>
+                      <input style="display: none;" type="text" name="item_prep_time" value=${cart[i].prep_time}>
+                      </div>
                     </section>`;
       $("#cart-container").append(cartItem);
     }

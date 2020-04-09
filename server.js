@@ -113,11 +113,12 @@ app.post("/cart", function (req, res) {
 });
 
 app.get("/restaurant", function (req, res) {
+
   res.render("restaurant");
 });
 
 app.post("/restaurant", function (req, res) {
-  sendOrderCompleteText('+14165353345')
+  // sendOrderCompleteText('+14165353345')
   res.render("restaurant");
 });
 
@@ -187,10 +188,6 @@ app.post("/complete", function (req, res) {
   }
   itemNameString = itemNameArray.join(", ")
   // sendRestaurantSMSText(itemNameArray)
-  // console.log("--------FROM APP.POST ----- /complete-------")
-  // console.log("This is customer.name:", customer.name)
-  // console.log("This is order items:", itemNameArray)
-  // console.log("This is order completion time:", maxPrepTime)
 });
 
 //These are account login details for twilio to be able to send texts.

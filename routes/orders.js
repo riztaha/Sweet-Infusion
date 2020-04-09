@@ -26,15 +26,9 @@ exports.getOrders = getOrders;
 // Function to get a specific customer's order
 const getCustomerOrder = function (customer_id) {
   const promise = new Promise((resolve, reject) => {
-    // console.log("in getAllMenuItems");
-    //Grabbing the function from queries.js
     queries
       .getCustomerOrder(customer_id)
-      // db.query(queryString)
       .then((data) => {
-        // console.log("in getAllMenuItems");
-        // console.log(data);
-        // res.json({ menu_items });
         resolve(data);
       })
       .catch((err) => {
@@ -48,7 +42,6 @@ exports.getCustomerOrder = getCustomerOrder;
 
 const placeOrder = function (order) {
   const promise = new Promise((resolve, reject) => {
-    console.log("in placeOrder function");
     //Grabbing the function from queries.js
     queries.placeOrder(order).catch((err) => {
       console.error("Promise error", err.stack);
@@ -59,10 +52,36 @@ const placeOrder = function (order) {
 };
 exports.placeOrder = placeOrder;
 
-// let order = {
-//   customer_id: "6",
-//   is_order_complete: "no",
-// };
-
-// placeOrder(order);
-// Function is working but it needs an object with the customer_id.
+//This is for the joint table in the sql database - Created a order_menu_item value
+const createOrder = function (order) {
+  const promise = new Promise((resolve, reject) => {
+    // console.log("in createOrder function");
+    queries
+      .createOrder(order)
+      .then((data) => {
+        console.log("Creating Order");
+        resolve(data);
+      })
+      .catch((err) => {
+        console.error("query error", err.stack);
+        reject(err.stack);
+      });
+  });
+  return promise;
+  // const queryString = `
+  // INSERT INTO order_menu_items (order_id, menu_item_id, item_quantity)
+  // VALUES ($1, $2, $3)
+  // `;
+  // const queryParams = [
+  //   order["order_id"],
+  //   order["menu_item_id"],
+  //   order["item_quantity"],
+  // ];
+  // return pool
+  //   .query(queryString, queryParams)
+  //   .then((res) => {
+  //     return res.rows;
+  //   })
+  //   .catch((err) => console.err("Query Error", err.stack));
+};
+exports.createOrder = createOrder;

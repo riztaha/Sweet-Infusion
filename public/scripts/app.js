@@ -2,7 +2,6 @@
 $(() => {
   // <!-- add button 'add to cart' with class name add -->
   let cart = {};
-  let total = 0;
 
   $(".add_to_cart").click(function () {
     let name = $(this).data("name");
@@ -12,7 +11,6 @@ $(() => {
 
     addToCart(name, price, prep_time, id);
   });
-
 
   function addToCart(name, price, prep_time, id) {
     let quantity = cart[id] ? cart[id].quantity + 1 : 1;
@@ -32,7 +30,6 @@ $(() => {
     renderCart();
   }
 
-
   $("#order_form").on("click", ".subtractItem", function () {
     let id = $(this).data("id");
 
@@ -50,15 +47,18 @@ $(() => {
     let subtotal = 0;
     let total = 0;
     for (let i in cart) {
-      subtotal =
-        (subtotal + parseFloat(cart[i].price)) * parseFloat(cart[i].quantity);
+      subtotal += parseFloat(cart[i].price) * parseFloat(cart[i].quantity);
       total = subtotal * 1.13;
       let cartHtml =
         `<section class="cart flex">
                       <div order-buttons">
-                        <input value='-' type='button' class='btn subtractItem' data-id=` + i + `>
+                        <input value='-' type='button' class='btn subtractItem' data-id=` +
+        i +
+        `>
                         <input type='text' disabled name='qty' value=${cart[i].quantity} />
-                        <input value='+' type='button' class='btn addItem' data-id=` + i +`>
+                        <input value='+' type='button' class='btn addItem' data-id=` +
+        i +
+        `>
                       </div>
                       <div class="flex">
                         <h5 class= "cart-item cart-item-name">${cart[i].name}</h5>
@@ -77,7 +77,4 @@ $(() => {
     $("#subtotal").html(subtotal.toFixed(2));
     $("#total").html(total.toFixed(2));
   }
-
-
 });
-

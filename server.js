@@ -131,6 +131,11 @@ app.get("/restaurant", function (req, res) {
   res.render("restaurant");
 });
 
+let phone = "";
+app.post("/restaurant", function (req, res) {
+  sendOrderCompleteText('+14165353345')
+  res.render("restaurant");
+});
 
 app.get("/complete", function (req, res) {
   // Show customer's info
@@ -146,13 +151,13 @@ app.get("/complete", function (req, res) {
 });
 
 app.post("/complete", function (req, res) {
+  // phone = `+1${req.body.x_prom.split('-').join('')}`;
   // let time = maxPrepTime;
-  // let phone = `+1${req.body.x_prom.split('-').join('')}`;
-  // sendCustomerSMSText(phone, time) // this calls function to send text with phone, time as argument to customer
+  // sendCustomerOrderText(phone, time) // this calls function to send text with phone, time as argument to customer
   // sendRestaurantSMSText(orderToRestaurant) // this calls function to send text to with order as argument to restaurant.
 
-  let order = {"order": orderToRestaurant}
-  console.log(order)
+  // let order = {"order": orderToRestaurant}
+  // console.log(order)
   console.log("CREDIT CARD CUSTOMER INFO --------> ", req.body);
   orderRoutes
     .getOrders(db)
@@ -175,12 +180,12 @@ app.post("/complete", function (req, res) {
 //   res.end(twiml.toString());
 // });
 
-// This is a function that sends a text message when called with the
+// This is a function sends a text message when called with the
 // time as an argument for the message body
-// const accountSid = '';
-// const authToken = '';
-// const client = require('twilio')(accountSid, authToken);
-// const sendCustomerSMSText = function(phone, time) {
+const accountSid = 'ACff54dd8a8a41fad9925151ba8804230f';
+const authToken = 'b89b41a023202ded9a466d6fd93c0d12';
+const client = require('twilio')(accountSid, authToken);
+// const sendCustomerOrderText = function(phone, time) {
 //   client.messages
 //     .create({
 //       body: `Thank you for your order. It will be ready for pick up in ${time} minutes.`,
@@ -188,6 +193,15 @@ app.post("/complete", function (req, res) {
 //       to: phone
 //     }).then(message => console.log(message.sid));
 // };
+
+const sendOrderCompleteText = function(phone) {
+  client.messages
+    .create({
+      body: `Your order is  complete and is ready to be picked up. Enjoy!`,
+      from: '+15406573369',
+      to: phone
+    }).then(message => console.log(message.sid));
+};
 
 // This function sends the order to the restaurant via text
 // const sendRestaurantSMSText = function(orderToRestaurant) {

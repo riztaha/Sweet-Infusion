@@ -34,7 +34,7 @@
   margin: 10px;
 }
 
-.dish-card h5 {
+.dish-card h5, .cart-item {
   margin: 0;
   color: rgba(240, 131, 69);
   font-family: 'Raleway', sans-serif, bold;
@@ -70,23 +70,31 @@ li {
 
 .total_amount {
   text-align: right;
+  text-shadow: 2px gray;
 }
 
 .checkout {
   /* background-color: rgb(109, 240, 240); */
   color: #fff;
-text-transform: uppercase;
-text-decoration: none;
-background: rgb(89, 170, 170);
-padding: 20px;
-border-radius: 15px;
-display: inline-block;
-border: none;
-transition: all 0.4s ease 0s;
-width: 100%;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: rgb(89, 170, 170);
+  padding: 20px;
+  border-radius: 15px;
+  display: inline-block;
+  border: none;
+  transition: all 0.4s ease 0s;
+  width: 100%;
 }
 
-.checkout:hover {
+.add_to_cart {
+  color: #fff;
+  background: rgb(89, 170, 170);
+  border-radius: 5px;
+}
+
+.checkout:hover, .add_to_cart:hover {
+  color: #FFF;
   text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
   box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
   box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
@@ -95,6 +103,7 @@ width: 100%;
 
 .tax {
   font-size: 10px;
+  margin-right: 1em;
 }
 
 
@@ -116,7 +125,32 @@ input {
 
 .price {
   padding: 0 25px 0 0;
-  color: black;
   font-size: large;
 }
 
+
+.cart-item, .order-buttons {
+  margin:0 30px;
+  font-size: 1.2em;
+}
+
+.cart {
+  margin-top: 1em;
+}
+
+button:focus {
+  outline: 0;
+}
+
+.btn {
+  background-color: rgba(89, 170, 170, 0.5);
+}
+
+.total_amount {
+  color: gray;
+  margin-right: 1em;
+}
+
+.menu_details {
+  margin: 5px;
+}

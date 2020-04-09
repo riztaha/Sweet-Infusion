@@ -15,7 +15,7 @@ const getOrders = () => {
         resolve(data);
       })
       .catch((err) => {
-        console.error("query error", err.stack);
+        console.log("promise error", err.stack);
         reject(err.stack);
       });
   });
@@ -32,7 +32,7 @@ const getCustomerOrder = function (customer_id) {
         resolve(data);
       })
       .catch((err) => {
-        console.error("query error", err.stack);
+        console.log("promise error", err.stack);
         reject(err.stack);
       });
   });
@@ -43,10 +43,16 @@ exports.getCustomerOrder = getCustomerOrder;
 const placeOrder = function (order) {
   const promise = new Promise((resolve, reject) => {
     //Grabbing the function from queries.js
-    queries.placeOrder(order).catch((err) => {
-      console.error("Promise error", err.stack);
-      reject(err.stack);
-    });
+    queries
+      .placeOrder(order)
+      .then((data) => {
+        console.log("in placeeOrder, creating empty order table");
+        resolve(data);
+      })
+      .catch((err) => {
+        console.log("Promise error", err.stack);
+        reject(err.stack);
+      });
   });
   return promise;
 };
@@ -54,7 +60,7 @@ exports.placeOrder = placeOrder;
 
 //This is for the joint table in the sql database - Created a order_menu_item value
 const createOrder = function (order) {
-  const promise = new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     // console.log("in createOrder function");
     queries
       .createOrder(order)
@@ -63,11 +69,10 @@ const createOrder = function (order) {
         resolve(data);
       })
       .catch((err) => {
-        console.error("query error", err.stack);
+        console.log("promise error", err.stack);
         reject(err.stack);
       });
   });
-  return promise;
 };
 exports.createOrder = createOrder;
 // createOrder takes order_id, menu_item_id, and quantity

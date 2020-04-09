@@ -58,41 +58,30 @@
 
       <!-- section 2 Aside for order -->
       <section class="aside_order">
-
-
-     
-
           <form id="order_form" action="/cart" method="POST">
+            <div>
+              <input style="display: none;" type="text" name="item_name" value="<%=menu_items[1].name%>">
+              <input style="display: none;" type="text" name="item_price" value="<%=menu_items[1].price%>">
+              <input style="display: none;" type="text" name="item_prep_time" value="<%=menu_items[1].prep_time%> THE PREP TIME">
+            </div>
             <!-- create dynamic items using repeater -->
             <!-- hidden input fields, as they are the only things transmitted during post -->
-            <div>
+            <!-- I've added the below to app.js so it is dynamic. However the prep time is showing undefined. -->
+            <!-- <div>
               <input style="display: none;" type="text" name="item_name" value="<%=menu_items[0].name%>">
               <input style="display: none;" type="text" name="item_price" value="<%=menu_items[0].price%>">
               <input style="display: none;" type="text" name="item_prep_time" value="<%=menu_items[0].prep_time%>">
             </div>
             <div>
-              <input style="display: none;" type="text" name="item_name" value="<%=menu_items[1].name%>">
-              <input style="display: none;" type="text" name="item_price" value="<%=menu_items[1].price%>">
-              <input style="display: none;" type="text" name="item_prep_time" value="<%=menu_items[1].prep_time%>">
-            </div>
-            <div>
               <input style="display: none;" type="text" name="item_name" value="<%=menu_items[2].name%>">
               <input style="display: none;" type="text" name="item_price" value="<%=menu_items[2].price%>">
               <input style="display: none;" type="text" name="item_prep_time" value="<%=menu_items[2].prep_time%>">
-            </div>
-
+            </div> -->
             <h2>Your New Order Takeout</h2>
-
-          <div id="cart-container">
-
-          </div>
-
-
+          <div id="cart-container"></div>
           <!-- order total placed here -->
           <hr>
-
           <h3 class="total_amount">Total: $<%- (menu_items[1].price/100 + menu_items[1].price/100).toFixed(2)%></h3>
-
           <h3 class="total_amount tax_total_amount">Order Total <span class="tax">(Incl. Tax:13%) </span>:$ 15.13</h3>
           <hr>
           <button type="submit" class="checkout">Checkout</button>

@@ -91,18 +91,17 @@ app.get("/cart", (req, res) => {
 });
 
 let maxPrepTime = 0;
-let orderToRestaurant = "";
 app.post("/cart", function (req, res) {
   console.log("CART ITEMS -------->", req.body);
 
   // This code takes prep times from order and order details and is used to send
   // text to customer and restaurant with that information.
-  let prepTimeArray = req.body.item_prep_time;
-  prepTimeArray = prepTimeArray.map((x) => Number.parseInt(x));
-  maxPrepTime = prepTimeArray.reduce(function (a, b) {
-    return Math.max(a, b);
-  });
-  orderToRestaurant = req.body.item_name;
+  // let prepTimeArray = req.body.item_prep_time;
+  // prepTimeArray = prepTimeArray.map((x) => Number.parseInt(x));
+  // maxPrepTime = prepTimeArray.reduce(function (a, b) {
+  //   return Math.max(a, b);
+  // });
+  // let orderToRestaurant = req.body.item_name;
 
   // Create customer table and empty order table to be used later
   let customer = {

@@ -45,6 +45,7 @@ exports.createEmptyCustomer = createEmptyCustomer;
 const placeCustomerInfo = function (customer) {
   const promise = new Promise((resolve, reject) => {
     console.log("in placeCustomerInfo");
+
     //Grabbing the function from queries.js
     queries
       .placeCustomerInfo(customer)

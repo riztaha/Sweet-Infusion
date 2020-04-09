@@ -107,16 +107,20 @@ app.post("/cart", function (req, res) {
   // Create customer table and empty order table to be used later
 
   customerRoutes.createEmptyCustomer().then((results) => {
-    console.log("This is the new customer's ID ------>", results[0].id);
-    let order = { customer_id: results[0].id, is_order_complete: "false" };
+    //TODO: Clean up order.cart to be what you need
+    //i.e. { cart: '{"1":{"name":"Cherry Pie","price":"5.00","prep_time":2,"quantity":1}}' } } }
+    let order = {
+      customer_id: results[0].id,
+      is_order_complete: "false",
+      cart: req.body,
+    };
     console.log(order);
     orderRoutes.placeOrder(order);
-    console.log("placeOrder function has executed.");
+
+    res.render("cart", { tempVar: JSON.stringify(order) });
   });
 
   // Create new order with the menu items at the same time
-
-  res.render("cart");
 });
 
 app.get("/restaurant", function (req, res) {
@@ -130,20 +134,21 @@ app.post("/restaurant", function (req, res) {
 });
 
 app.get("/complete", function (req, res) {
-  // Add the data into the customer table
-  // console.log(req.body);
-  // Create a order_menu_item with the menu_items and orders
   // Show customer's info
   // Show order info
-  orderRoutes
-    .getCustomerOrder(db, req["customer_id"])
+  customerRoutes
+    .getLastCustomer()
     .then((obj) => {
-      res.render("complete", { orders: obj });
+      res.render("complete", { customer: obj });
     })
     .catch((err) => {
       res.render("error", err);
     });
   res.render("complete");
+});
+
+app.get("/error", function (req, res) {
+  res.render("error");
 });
 
 app.post("/complete", function (req, res) {
@@ -154,7 +159,6 @@ app.post("/complete", function (req, res) {
 
   // let order = {"order": orderToRestaurant}
   // console.log(order)
-
   //Placing the customer's info into the database:
   console.log("CUSTOMER INFO --------> ", req.body);
   let customer = {
@@ -165,7 +169,9 @@ app.post("/complete", function (req, res) {
     credit_card: req.body.cc_number,
     credit_card_exp: req.body.cc_exp,
     credit_card_code: req.body.cc_code,
+    order: JSON.parse(req.body.order),
   };
+  console.log(customer);
   customerRoutes
     .placeCustomerInfo(customer)
     .then(res.render("complete"))

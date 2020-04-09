@@ -90,22 +90,10 @@ app.get("/cart", (req, res) => {
   res.render("cart");
 });
 
-let maxPrepTime = 0;
 app.post("/cart", function (req, res) {
   console.log("CART ITEMS -------->", req.body);
-  // console.log("prep time ------->", req.body.item_prep_time);
-
-  // This code takes prep times from order and order details and is used to send
-  // text to customer and restaurant with that information.
-  // let prepTimeArray = req.body.item_prep_time;
-  // prepTimeArray = prepTimeArray.map((x) => Number.parseInt(x));
-  // maxPrepTime = prepTimeArray.reduce(function (a, b) {
-  //   return Math.max(a, b);
-  // });
-  // let orderToRestaurant = req.body.item_name;
 
   // Create customer table and empty order table to be used later
-
   customerRoutes.createEmptyCustomer().then((results) => {
     //TODO: Clean up order.cart to be what you need
     //i.e. { cart: '{"1":{"name":"Cherry Pie","price":"5.00","prep_time":2,"quantity":1}}' } } }
@@ -114,9 +102,7 @@ app.post("/cart", function (req, res) {
       is_order_complete: "false",
       cart: req.body,
     };
-    console.log(order);
     orderRoutes.placeOrder(order);
-
     res.render("cart", { tempVar: JSON.stringify(order) });
   });
 
@@ -127,9 +113,8 @@ app.get("/restaurant", function (req, res) {
   res.render("restaurant");
 });
 
-let phone = "";
 app.post("/restaurant", function (req, res) {
-  // sendOrderCompleteText('+14165353345')
+  sendOrderCompleteText('+14165353345')
   res.render("restaurant");
 });
 
@@ -152,15 +137,8 @@ app.get("/error", function (req, res) {
 });
 
 app.post("/complete", function (req, res) {
-  // phone = `+1${req.body.x_prom.split('-').join('')}`;
-  // let time = maxPrepTime;
-  // sendCustomerOrderText(phone, time) // this calls function to send text with phone, time as argument to customer
-  // sendRestaurantSMSText(orderToRestaurant) // this calls function to send text to with order as argument to restaurant.
 
-  // let order = {"order": orderToRestaurant}
-  // console.log(order)
   //Placing the customer's info into the database:
-  console.log("CUSTOMER INFO --------> ", req.body);
   let customer = {
     name: req.body.name,
     phone: req.body.phone,
@@ -171,60 +149,72 @@ app.post("/complete", function (req, res) {
     credit_card_code: req.body.cc_code,
     order: JSON.parse(req.body.order),
   };
-  console.log(customer);
   customerRoutes
-    .placeCustomerInfo(customer)
-    .then(res.render("complete"))
-    .catch((err) => {
-      res.render("error", err);
-    });
+  .placeCustomerInfo(customer)
+  .then(res.render("complete"))
+  .catch((err) => {
+    res.render("error", err);
+  });
+
+  // console.log("THIS IS LINE 160 customer.order.cart.cart---->", typeof customer.order.cart.cart, customer.order.cart.cart);
+  let order = JSON.parse(customer.order.cart.cart)
+  // console.log("THIS IS LINE 162 order - post JSON---->", typeof order, order);
+  let timesArray = []
+  for (const item in order) {
+  timesArray.push(order[item].prep_time)
+  }
+  timesArray = timesArray.map((x) => Number.parseInt(x));
+  maxPrepTime = timesArray.reduce(function (a, b) {
+    return Math.max(a, b);
+  });
+
+  let phone = "";
+  let time = maxPrepTime
+  phone = `+1${req.body.phone.split('-').join('')}`;
+  // sendCustomerOrderText(phone, time)
+
+  let itemNameArray = []
+  for (const item in order) {
+    itemNameArray.push(order[item].name)
+  }
+  // sendRestaurantSMSText(itemNameArray)
 });
 
-// This posts to /sms, but I don't think we actually need the /sms page or this code.
-// To be determined.
-// This is used for the SMS API (Twilio). When it recieves a text from a customer,
-// it immediatly responds back with a message. -> twiml.message();
-// app.post("/sms", (req, res) => {
-//   const twiml = new MessagingResponse();
-//   twiml.message("Your order is ready for pick-up!!!");
-//   res.writeHead(200, { "Content-Type": "text/xml" });
-//   res.end(twiml.toString());
-// });
-
-// This is a function sends a text message when called with the
-// time as an argument for the message body
-// const accountSid = '';
-// const authToken = '';
+//These are account login details for twilio to be able to send texts.
+const accountSid = '';
+const authToken = '';
 // const client = require('twilio')(accountSid, authToken);
-// const sendCustomerOrderText = function(phone, time) {
-//   client.messages
-//     .create({
-//       body: `Thank you for your order. It will be ready for pick up in ${time} minutes.`,
-//       from: '+15406573369',
-//       to: phone
-//     }).then(message => console.log(message.sid));
-// };
+// This function sends via text the estimated time the order will be completed to the customer
+const sendCustomerOrderText = function(phone, time) {
+  client.messages
+    .create({
+      body: `Thank you for your order. It will be ready for pick up in ${time} minutes.`,
+      from: '+15406573369',
+      to: phone
+    }).then(message => console.log(message.sid));
+};
 
-// const sendOrderCompleteText = function(phone) {
-//   client.messages
-//     .create({
-//       body: `Your order is  complete and is ready to be picked up. Enjoy!`,
-//       from: '+15406573369',
-//       to: phone
-//     }).then(message => console.log(message.sid));
-// };
+// This function sends a text to the customer to let them know thier order is ready.
+const sendOrderCompleteText = function(phone) {
+  client.messages
+    .create({
+      body: `Your order is  complete and is ready to be picked up. Enjoy!`,
+      from: '+15406573369',
+      to: phone
+    }).then(message => console.log(message.sid));
+};
 
-// This function sends the order to the restaurant via text
-// const sendRestaurantSMSText = function(orderToRestaurant) {
-//   client.messages
-//     .create({
-//       body: `An order has been placed: ${orderToRestaurant}`,
-//       from: '+15406573369',
-//       to: '+14165353345'
-//     }).then(message => console.log(message.sid));
-// };
+// This function sends via text the order to the restaurant
+const sendRestaurantSMSText = function(itemNameArray) {
+  client.messages
+    .create({
+      body: `An order has been placed: ${itemNameArray}`,
+      from: '+15406573369',
+      to: '+14165353345'
+    }).then(message => console.log(message.sid));
+};
 
-//Server is listening.
+//Server is listening to you and watching your every move. Evil.
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });

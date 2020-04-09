@@ -27,14 +27,13 @@
 
     <main class="wrapper">
       <h1>Boring Generic Page the Restaurant Sees</h1>
-      <ul>
-        <li><p>Order Information</p><button class="button">Complete</button></li>
-        <li ><p>Order information</p><button class="button">Complete</button></li>
-        <li class="complete"><p>Order Information</p><button class="button complete">Complete</button></li>
-      </ul>
-
-
-
+      <form action="/restaurant" method="POST">
+        <ul>
+          <li><p>Order Information</p><button type="submit" class="button">Complete</button></li>
+          <li ><p>Order information</p><button type="submit" class="button">Complete</button></li>
+          <li class="complete"><p>Order Information</p><button type="submit" class="button complete">Complete</button></li>
+        </ul>
+    </form>
     </main>
   </body>
 </html>

@@ -104,12 +104,12 @@ const getCustomers = function () {
 exports.getCustomers = getCustomers;
 
 // Function to place an order
-const placeOrder = function (customer_id) {
+const placeOrder = function (order) {
   const queryString = `
   INSERT INTO orders (customer_id, is_order_complete)
-  VALUES ($1, true);
+  VALUES ($1, $2);
   `;
-  const values = [customer_id];
+  const values = [order["customer_id"], order["is_order_complete"]];
   return pool
     .query(queryString, values)
     .then((res) => {
@@ -128,7 +128,8 @@ const placeCustomerInfo = function (customer) {
   credit_card, credit_card_exp, credit_card_code)
   VALUES ($1, $2, $3,
   $4, $5, $6, $7,
-  $8, $9, $10, $11, $12);
+  $8, $9, $10, $11, $12)
+  RETURNING id;
   `;
   const queryParams = [
     customer["first_name"],
@@ -147,6 +148,7 @@ const placeCustomerInfo = function (customer) {
   return pool
     .query(queryString, queryParams)
     .then((res) => {
+      // console.log(res.rows);
       return res.rows;
     })
     .catch((err) => console.error("query error", err.stack));

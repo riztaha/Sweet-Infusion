@@ -78,19 +78,22 @@ app.get("/menu", (req, res) => {
     .catch((err) => {
       res.render("error", err);
     });
-    console.log("GET menu")
+  console.log("GET menu");
 });
 
 //template file do ajax request make a request to /api/menu... this is done in app.js
 
 app.post("/menu", (req, res) => {
   console.log("Menu Req Body ------>", req.body);
-  console.log("POST menu")
+  console.log("POST menu");
 });
 
-app.get("/cart", (req, res) => {
-  res.render("cart");
-  console.log("GET cart")
+app.get("/cart", (req, res, err) => {
+  if (err) {
+    res.render("error");
+  } else {
+    res.render("cart", { tempVar: JSON.stringify(order) });
+  }
 });
 
 app.post("/cart", function (req, res) {
@@ -113,7 +116,6 @@ app.post("/cart", function (req, res) {
 });
 
 app.get("/restaurant", function (req, res) {
-
   res.render("restaurant");
 });
 
@@ -153,24 +155,27 @@ app.post("/complete", function (req, res) {
     credit_card_code: req.body.cc_code,
     order: JSON.parse(req.body.order),
   };
+
   customerRoutes
     .placeCustomerInfo(customer)
     .then(() => {
       res.render("complete", { customer });
       // console.log("-----This is customer", customer)
-      console.log("-----This is customer.order.cart.cart", customer.order.cart.cart)
-
+      console.log(
+        "-----This is customer.order.cart.cart",
+        customer.order.cart.cart
+      );
     })
     .catch((err) => {
       res.render("error", err);
     });
 
   // console.log("THIS IS LINE 165 customer.order.cart.cart---->", typeof customer.order.cart.cart, customer.order.cart.cart);
-  let order = JSON.parse(customer.order.cart.cart)
+  let order = JSON.parse(customer.order.cart.cart);
   // console.log("THIS IS LINE 167 order - post JSON---->", typeof order, order);
-  let timesArray = []
+  let timesArray = [];
   for (const item in order) {
-    timesArray.push(order[item].prep_time)
+    timesArray.push(order[item].prep_time);
   }
   timesArray = timesArray.map((x) => Number.parseInt(x));
   maxPrepTime = timesArray.reduce(function (a, b) {
@@ -178,50 +183,53 @@ app.post("/complete", function (req, res) {
   });
 
   let phone = "";
-  let time = maxPrepTime
-  phone = `+1${req.body.phone.split('-').join('')}`;
+  let time = maxPrepTime;
+  phone = `+1${req.body.phone.split("-").join("")}`;
   // sendCustomerOrderText(phone, time)
 
-  let itemNameArray = []
+  let itemNameArray = [];
   for (const item in order) {
-    itemNameArray.push(order[item].name)
+    itemNameArray.push(order[item].name);
   }
-  itemNameString = itemNameArray.join(", ")
+  itemNameString = itemNameArray.join(", ");
   // sendRestaurantSMSText(itemNameArray)
 });
 
 //These are account login details for twilio to be able to send texts.
-const accountSid = '';
-const authToken = '';
+const accountSid = "";
+const authToken = "";
 // const client = require('twilio')(accountSid, authToken);
 // This function sends via text the estimated time the order will be completed to the customer
-const sendCustomerOrderText = function(phone, time) {
+const sendCustomerOrderText = function (phone, time) {
   client.messages
     .create({
       body: `Thank you for your order of ${itemNameString}. It will be ready for pick up in ${time} minutes.`,
-      from: '+15406573369',
-      to: phone
-    }).then(message => console.log(message.sid));
+      from: "+15406573369",
+      to: phone,
+    })
+    .then((message) => console.log(message.sid));
 };
 
 // This function sends a text to the customer to let them know thier order is ready.
-const sendOrderCompleteText = function(phone) {
+const sendOrderCompleteText = function (phone) {
   client.messages
     .create({
       body: `Your order is  complete and is ready to be picked up. Enjoy!`,
-      from: '+15406573369',
-      to: phone
-    }).then(message => console.log(message.sid));
+      from: "+15406573369",
+      to: phone,
+    })
+    .then((message) => console.log(message.sid));
 };
 
 // This function sends via text the order to the restaurant
-const sendRestaurantSMSText = function(itemNameString) {
+const sendRestaurantSMSText = function (itemNameString) {
   client.messages
     .create({
       body: `An order has been placed: ${itemNameString}`,
-      from: '+15406573369',
-      to: '+14165353345'
-    }).then(message => console.log(message.sid));
+      from: "+15406573369",
+      to: "+14165353345",
+    })
+    .then((message) => console.log(message.sid));
 };
 
 //Server is listening to you and watching your every move. Evil.

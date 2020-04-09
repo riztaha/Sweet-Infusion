@@ -68,20 +68,6 @@ const createOrder = function (order) {
       });
   });
   return promise;
-  // const queryString = `
-  // INSERT INTO order_menu_items (order_id, menu_item_id, item_quantity)
-  // VALUES ($1, $2, $3)
-  // `;
-  // const queryParams = [
-  //   order["order_id"],
-  //   order["menu_item_id"],
-  //   order["item_quantity"],
-  // ];
-  // return pool
-  //   .query(queryString, queryParams)
-  //   .then((res) => {
-  //     return res.rows;
-  //   })
-  //   .catch((err) => console.err("Query Error", err.stack));
 };
 exports.createOrder = createOrder;
+// createOrder takes order_id, menu_item_id, and quantity

@@ -27,13 +27,13 @@ VALUES ('Bacon Chips', 800, 5, 'bacon', 'Filet mignon andouille bresaola, ball t
 INSERT INTO menu_items (name, price, prep_time, category, description, photo)
 VALUES ('Strawberry Milkshake', 450, 4, 'milkshakes', 'Bloody mary glogg the blenheim saketini ectoplasm dom chivas regal.', 'images/milkshake_strawberry.jpg');
 INSERT INTO menu_items (name, price, prep_time, category, description, photo)
-VALUES ('Grasshopper Milkshake', 550, 5, 'milkshakes', 'Manhattan irish coffee b & b bombay. Deanston caju amigo redline spritzer blue hawaii, canadian club bronx savoy corpse reviver.', 'images/milkshake_grasshopper.jpg');
+VALUES ('Grasshopper Milkshake', 550, 5, 'milkshakes', 'Manhattan irish coffee b & b bombay. Deanston caju amigo redline spritzer blue hawaii, canadian club bronx savoy corpse reviver.', 'images/milkshake_grasshopper.jpeg');
 INSERT INTO menu_items (name, price, prep_time, category, description, photo)
 VALUES ('Vanilla Milkshake', 350, 3, 'milkshakes', 'Boring vanilla. Enough said.', 'images/milkshake_vanilla.jpg');
 
 -- Coffees
 INSERT INTO menu_items (name, price, prep_time, category, description, photo)
-VALUES ('Deluxe coffee', 350, 4, 'coffees', 'Java chicory, black doppio and roast cream mocha turkish strong. Blue mountain doppio black, chicory, sugar medium, single shot a wings blue mountain turkish.', 'images/coffee_deluxe.jpg');
+VALUES ('Deluxe coffee', 350, 4, 'coffees', 'Java chicory, black doppio and roast cream mocha turkish strong. Blue mountain doppio black, chicory, sugar medium, single shot a wings blue mountain turkish.', 'images/coffee_deluxe.jpeg');
 INSERT INTO menu_items (name, price, prep_time, category, description, photo)
 VALUES ('Electric coffee', 400, 5, 'coffees', 'Viennese et, cinnamon, turkish lungo qui cappuccino kopi-luwak. Black, dripper, to go medium espresso lungo in, and plunger pot latte sweet redeye.', 'images/coffee_electric.jpg');
 INSERT INTO menu_items (name, price, prep_time, category, description, photo)

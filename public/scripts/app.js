@@ -36,17 +36,12 @@ $(() => {
   $("#order_form").on("click", ".subtractItem", function () {
     let id = $(this).data("id");
 
-    console.log(id);
-    console.log(cart[id]);
-
     removeFromCart(id);
   });
 
   $("#order_form").on("click", ".addItem", function (event) {
     console.log(event.data);
     let id = $(this).data("id");
-    console.log(id);
-    console.log(cart[id]);
     addToCart(cart[id].name, cart[id].price, cart[id].prep_time, id);
   });
 
@@ -59,22 +54,17 @@ $(() => {
         (subtotal + parseFloat(cart[i].price)) * parseFloat(cart[i].quantity);
       total = subtotal * 1.13;
       let cartHtml =
-        `<section class="flex">
-                      <div class="order-buttons">
-                        <input value='-' type='button' class='subtractItem' data-id=` +
-        i +
-        `>
+        `<section class="cart flex">
+                      <div order-buttons">
+                        <input value='-' type='button' class='btn subtractItem' data-id=` + i + `>
                         <input type='text' disabled name='qty' value=${cart[i].quantity} />
-                        <input value='+' type='button' class='addItem' data-id=` +
-        i +
-        `></div>
+                        <input value='+' type='button' class='btn addItem' data-id=` + i +`>
+                      </div>
                       <div class="flex">
-                        <h5>${cart[i].name}</h5>
-                        <h5>${cart[i].price}</h5>
+                        <h5 class= "cart-item cart-item-name">${cart[i].name}</h5>
+                        <h5 class="cart-item cart-item-price">${cart[i].price}</h5>
                       </div>
-                      <div>
-                      </div>
-                    </section>`;
+      </section>`;
 
       $("#cart-container").append(cartHtml);
       //TODO: Fix this object, it should not be
@@ -91,11 +81,3 @@ $(() => {
 
 });
 
-function subtractQty() {
-  if (document.getElementsByName("qty").value - 1 < 0) return;
-  else document.getElementsByName("qty").value--;
-}
-
-function addQty() {
-  document.getElementsByName("qty").value++;
-}

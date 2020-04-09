@@ -46,7 +46,7 @@
             <h5><%=menu_items[i].name%></h5>
             <p><%=menu_items[i].description%></p>
             <h6>Approx. Prep Time: <%= menu_items[i].prep_time %> minutes</h6>
-            <div id="<%=menu_items[i].id%>">
+            <div class="menu_details" id="<%=menu_items[i].id%>">
               <span class="price">$<%=(menu_items[i].price/100).toFixed(2)%></span>
               <button class="add_to_cart" data-prep_time="<%= menu_items[i].prep_time %>" data-name="<%=menu_items[i].name%>" data-price="<%=(menu_items[i].price/100).toFixed(2)%>"> Add</button>
               <!-- add button 'add to cart' with class name add -->
@@ -64,8 +64,8 @@
           <div id="cart-container">Add Items From Menu</div>
           <hr>
 
-          <h3 class="total_amount" >Subtotal: <span id="subtotal"></span></h3>
-          <h3 class="total_amount tax_total_amount">Order Total <span class="tax">(Incl. Tax:13%) </span><span id="total"></span></h3>
+          <h3 class="total_amount" >Subtotal : <span id="subtotal"></span></h3>
+          <h3 class="total_amount tax_total_amount">Order Total <span class="tax">(Incl. Tax:13%)</span>: <span id="total"></span></h3>
 
           <hr>
           <input type="hidden" name="cart" id="cart">
@@ -74,10 +74,7 @@
         </aside>
       </section>
 
-      <!-- end of section 2 -->
     </main>
-      <!-- footer section -->
-
     <footer>
       <section class="wrapper footer">
         <p>&copy Sweet Infusion 2020 All Rights Reserved</p>

@@ -52,49 +52,27 @@
 
 
     <!-- main body page -->
+    <%var array = ['organic', 'High Quality', 'fresh ingredients', 'sugarfree', 'made with Love❤']%>
     <main class="wrapper">
       <section class="menu_section">
-        <div class="container">
-          <img class="image_home" src="<%=menu_items[0].photo%>" alt="">
-          <div class='overlay'>
-            <h5><%=menu_items[0].name%></h5>
-            <p><%=menu_items[0].description%></p>
+          <% for(let i = 0; i < 5; i ++) { %>
+        <a href="/menu">
+          <div class="container">
+            <img class="image_home" src="<%=menu_items[i].photo%>" alt="">
+            <div class='overlay'>
+              <h5><%=menu_items[i].name%></h5>
+              <h2 class="array"><%=array[i]%></h2>
+            </div>
+          </div>
+        </a>
+          <% } %>
 
-          </div>
-      </div>
-      <div class="container">
-          <img class="image_home" src="<%=menu_items[1].photo%>" alt="">
-          <div class='overlay'>
-            <h5><%=menu_items[1].name%></h5>
-            <p><%=menu_items[1].description%></p>
-          </div>
-      </div>
-      <div class="container">
-          <img class="image_home" src="<%=menu_items[2].photo%>" alt="">
-          <div class='overlay'>
-            <h5><%=menu_items[2].name%></h5>
-            <p><%=menu_items[2].description%></p>
-          </div>
-      </div>
-        <div class="container">
-          <img class="image_home" src="<%=menu_items[3].photo%>" alt="">
-          <div class='overlay'>
-            <h5><%=menu_items[3].name%></h5>
-            <p><%=menu_items[3].description%></p>
-          </div>
-        </div>
-        <div class="container">
-          <img class="image_home" src="<%=menu_items[4].photo%>" alt="">
-          <div class='overlay'>
-            <h5><%=menu_items[4].name%></h5>
-            <p><%=menu_items[4].description%></p>
-          </div>
-        </div>
       </section>
+    </main>
       <!-- end of section 2 -->
 
       <!-- footer section -->
-    </main>
+
     <footer class="footer_color">
       <section class="wrapper footer">
         <p>&copy Sweet Infusion 2020 All Rights Reserved</p>

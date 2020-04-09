@@ -23,17 +23,33 @@ const getCustomers = function () {
 exports.getCustomers = getCustomers;
 
 // Function to place customer's information into db
+const createEmptyCustomer = function () {
+  const promise = new Promise((resolve, reject) => {
+    console.log("in createEmptyCustomer");
+    //Grabbing the function from queries.js
+    queries
+      .createEmptyCustomer()
+      .then((data) => {
+        resolve(data);
+      })
+      .catch((err) => {
+        console.error("Promise error", err.stack);
+        reject(err.stack);
+      });
+  });
+  return promise;
+};
+exports.createEmptyCustomer = createEmptyCustomer;
+
+// Function to place customer's information into db
 const placeCustomerInfo = function (customer) {
   const promise = new Promise((resolve, reject) => {
     console.log("in placeCustomerInfo");
     //Grabbing the function from queries.js
-
     queries
       .placeCustomerInfo(customer)
       // db.query(queryString)
       .then((data) => {
-        // console.log(data);
-        // res.json({ menu_items });
         resolve(data);
       })
       .catch((err) => {

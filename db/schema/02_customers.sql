@@ -6,6 +6,7 @@ CREATE TABLE customers (
   phone TEXT DEFAULT 'N/A',
 
   address TEXT DEFAULT 'N/A',
+  zip_code TEXT DEFAULT 'N/A',
 
   credit_card TEXT DEFAULT 'N/A',
   credit_card_exp TEXT DEFAULT 'N/A',

@@ -141,14 +141,14 @@ exports.createEmptyCustomer = createEmptyCustomer;
 const placeCustomerInfo = function (customer) {
   const queryString = `
   UPDATE customers
-  SET name = $2, phone = $3, address = $4, credit_card = $5, credit_card_exp = $6, credit_card_code = $7
-  WHERE customer_id = $1
+  SET name = $1, phone = $2, address = $3, zip_code = $4, credit_card = $5, credit_card_exp = $6, credit_card_code = $7
+  WHERE name = 'undefined';
   `;
   const queryParams = [
-    customer["customer_id"],
     customer["name"],
     customer["phone"],
     customer["address"],
+    customer["zip_code"],
     customer["credit_card"],
     customer["credit_card_exp"],
     customer["credit_card_code"],

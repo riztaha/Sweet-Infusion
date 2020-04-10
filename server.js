@@ -149,7 +149,7 @@ app.get("/restaurant", function (req, res) {
 });
 
 app.post("/restaurant", function (req, res) {
-  // sendOrderCompleteText('+14165353345')
+  sendOrderCompleteText('+14165353345')
   res.render("restaurant");
 });
 
@@ -188,15 +188,13 @@ app.post("/complete", function (req, res) {
     .placeCustomerInfo(customer)
     .then(() => {
       res.render("complete", { customer });
-      // console.log("-----This is customer", customer)
-      console.log("This is customer.order.cart: ", customer.order.cart);
     })
     .catch((err) => {
       res.render("error", err);
     });
 
-  let order = JSON.parse(customer.order.cart);
-  let timesArray = [];
+  let order = JSON.parse(customer.order.cart.cart)
+  let timesArray = []
   for (const item in order) {
     timesArray.push(order[item].prep_time);
   }
@@ -206,16 +204,16 @@ app.post("/complete", function (req, res) {
   });
 
   let phone = "";
-  let time = maxPrepTime;
-  phone = `+1${req.body.phone.split("-").join("")}`;
-  // sendCustomerOrderText(phone, time)
+  let time = maxPrepTime
+  phone = `+1${req.body.phone.split('-').join('')}`;
 
   let itemNameArray = [];
   for (const item in order) {
     itemNameArray.push(order[item].name);
   }
-  itemNameString = itemNameArray.join(", ");
-  // sendRestaurantSMSText(itemNameArray)
+  itemNameString = itemNameArray.join(", ")
+  sendCustomerOrderText(itemNameString, phone, time)
+  sendRestaurantSMSText(itemNameArray)
 });
 
 //These are account login details for twilio to be able to send texts.
@@ -223,7 +221,7 @@ const accountSid = "";
 const authToken = "";
 // const client = require('twilio')(accountSid, authToken);
 // This function sends via text the estimated time the order will be completed to the customer
-const sendCustomerOrderText = function (phone, time) {
+const sendCustomerOrderText = function(itemNameString, phone, time) {
   client.messages
     .create({
       body: `Thank you for your order of ${itemNameString}. It will be ready for pick up in ${time} minutes.`,
@@ -237,11 +235,10 @@ const sendCustomerOrderText = function (phone, time) {
 const sendOrderCompleteText = function (phone) {
   client.messages
     .create({
-      body: `Your order is  complete and is ready to be picked up. Enjoy!`,
-      from: "+15406573369",
-      to: phone,
-    })
-    .then((message) => console.log(message.sid));
+      body: `Your order is complete and is ready to be picked up. Enjoy!`,
+      from: '+15406573369',
+      to: phone
+    }).then(message => console.log(message.sid));
 };
 
 // This function sends via text the order to the restaurant

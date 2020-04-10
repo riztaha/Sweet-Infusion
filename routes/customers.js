@@ -1,26 +1,26 @@
 const queries = require("../db/queries/queries");
 
-// Function to get all customers
-const getCustomers = function () {
-  const promise = new Promise((resolve, reject) => {
-    console.log("in getCustomers");
-    //Grabbing the function from queries.js
-    queries
-      .getCustomers()
-      // db.query(queryString)
-      .then((data) => {
-        // console.log(data);
-        // res.json({ menu_items });
-        resolve(data);
-      })
-      .catch((err) => {
-        console.log("Promise error", err.stack);
-        reject(err.stack);
-      });
-  });
-  return promise;
-};
-exports.getCustomers = getCustomers;
+// // Function to get all customers
+// const getCustomers = function () {
+//   const promise = new Promise((resolve, reject) => {
+//     console.log("in getCustomers");
+//     //Grabbing the function from queries.js
+//     queries
+//       .getCustomers()
+//       // db.query(queryString)
+//       .then((data) => {
+//         // console.log(data);
+//         // res.json({ menu_items });
+//         resolve(data);
+//       })
+//       .catch((err) => {
+//         console.log("Promise error", err.stack);
+//         reject(err.stack);
+//       });
+//   });
+//   return promise;
+// };
+// exports.getCustomers = getCustomers;
 
 // // Function to place customer's information into db
 // const createEmptyCustomer = function () {

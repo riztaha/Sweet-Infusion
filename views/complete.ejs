@@ -32,16 +32,17 @@
     <!-- main content here -->
     <main>
       <div class="order_note">
-        <pre><%= customer.name %></pre>
-        <pre><%= cart %></pre>
+        <!-- Need to loop through the array 'cart', and print out each item's name/quantity of the item they ordered -->
+        <pre><%= cart[0].name %></pre>
 
         <h1>Your Order Details</h1>
         <div>
           <ul>
-            <li>Thank you <%= customer['address'] %>!</li>
-            <%= customer.name %>
-            <li>This is your order: <%= cart.name %>. Thank you and enjoy!</li>
+            <li>Thank you <%= customer.name %>!</li>
+            <li>This is your order: <%= cart %>. Thank you and enjoy!</li>
             <li>Your order should be ready for pickup in approximately <%= maxPrepTime %> minutes.</li>
+            <li>You will receive a text message once your order is complete.</li>
+
           </ul>
         </div>
       </div>

@@ -86,7 +86,6 @@ app.post("/menu", (req, res) => {
   console.log("POST menu")
 });
 
-<<<<<<< HEAD
 // We do not want people to access the cart directly. Only through the menu page.
 app.get("/cart", (req, res, err) => {
   // if (err) {
@@ -113,66 +112,6 @@ app.post("/placeOrder", function (req, res) {
   console.log("Posting to /placeOrder");
   console.log("Req.Body ------->", req.body);
   console.log("Cart ------->", req.body.cart);
-=======
-app.get("/cart", (req, res) => {
-  res.render("cart");
-  console.log("GET cart")
-});
-
-app.post("/cart", function (req, res) {
-  console.log("CART ITEMS -------->", req.body);
-
-  // Create customer table and empty order table to be used later
-  customerRoutes.createEmptyCustomer().then((results) => {
-    //TODO: Clean up order.cart to be what you need
-    //i.e. { cart: '{"1":{"name":"Cherry Pie","price":"5.00","prep_time":2,"quantity":1}}' } } }
-    let order = {
-      customer_id: results[0].id,
-      is_order_complete: "false",
-      cart: req.body,
-    };
-    orderRoutes.placeOrder(order);
-    res.render("cart", { tempVar: JSON.stringify(order) });
-  });
-
-  // Create new order with the menu items at the same time
-});
-
-app.get("/restaurant", function (req, res) {
-  res.render("restaurant");
-});
-
-app.post("/restaurant", function (req, res) {
-  sendOrderCompleteText('+14165353345')
-  res.render("restaurant");
-});
-
-app.get("/about", function (req, res) {
-  res.render("about")
-})
-
-app.get("/complete", function (req, res) {
-  // Show customer's info
-  // Show order info
-  customerRoutes
-    .getLastCustomer()
-    .then((obj) => {
-      res.render("complete", { customer: obj });
-      // console.log(customer)
-    })
-    .catch((err) => {
-      res.render("error", err);
-    });
-  res.render("complete"); // Isn't this redundent from 5 lines above?
-});
-
-app.get("/error", function (req, res) {
-  res.render("error");
-});
-
-app.post("/complete", function (req, res) {
-  //Placing the customer's info into the database:
->>>>>>> c5a1592f59bd6b2bcfe51f4b3e7cda0a5bd0ee5c
   let customer = {
     name: req.body.name,
     phone: req.body.phone,

@@ -24,11 +24,12 @@ const getOrders = () => {
 exports.getOrders = getOrders;
 
 // Function to get a specific customer's order
-const getCustomerOrder = function (customer_id) {
+const getCustomerOrder = function (order_id) {
   const promise = new Promise((resolve, reject) => {
     queries
-      .getCustomerOrder(customer_id)
+      .getCustomerOrder(order_id)
       .then((data) => {
+        console.log("in getCustomerOrder. Retrieving customer's cart.");
         resolve(data);
       })
       .catch((err) => {
@@ -46,7 +47,7 @@ const placeOrder = function (order) {
     queries
       .placeOrder(order)
       .then((data) => {
-        console.log("in placeeOrder, creating empty order table");
+        console.log("in placeOrder, creating empty order table");
         resolve(data);
       })
       .catch((err) => {
@@ -65,7 +66,6 @@ const createOrder = function (order) {
     queries
       .createOrder(order)
       .then((data) => {
-        console.log("Creating Order");
         resolve(data);
       })
       .catch((err) => {

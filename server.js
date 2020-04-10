@@ -196,7 +196,7 @@ app.post("/placeOrder", function (req, res) {
 
                 res.render("complete", {
                   order_id: invoiceNumber,
-                  cart: JSON.stringify(cart),
+                  cart: cart,
                   customer: customer,
                   maxPrepTime: maxPrepTime,
                 });

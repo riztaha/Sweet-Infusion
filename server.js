@@ -81,64 +81,37 @@ app.get("/menu", (req, res) => {
   console.log("GET menu");
 });
 
-//template file do ajax request make a request to /api/menu... this is done in app.js
-
 app.post("/menu", (req, res) => {
   console.log("Menu Req Body ------>", req.body);
   console.log("POST menu");
 });
 
-// app.get("/cart", (req, res, err) => {
-//   if (err) {
-//     res.render("error");
-//   } else {
-//     res.render("cart", { order_id: JSON.stringify(order) });
-//   }
-// });
+// We do not want people to access the cart directly. Only through the menu page.
+app.get("/cart", (req, res, err) => {
+  // if (err) {
+  res.render("error");
+  // } else {
+  // res.render("cart", { order_id: JSON.stringify(order) });
+  // }
+});
 
+// After the user chooses their items, it gets posted to the checkout page where they can pay
 app.post("/checkout", function (req, res) {
   let cart = JSON.parse(req.body.cart);
   console.log("Cart ------->", cart);
 
   res.render("cart", {
     cart: JSON.stringify(cart),
+    cartObj: cart, //sending to ejs as an object so we can display it there
   });
 });
-// createOrder takes order_id, menu_item_id, and quantity
 
-// app.get("/pendingOrders", function(req, res) {
-//   //call some function in orders.routes which retrieves pending items
-
-//   // respond to this get call, with json object of all pending items
-
-// } );
-app.get("/restaurant", function (req, res) {
-  res.render("restaurant");
-});
-
-app.post("/restaurant", function (req, res) {
-  sendOrderCompleteText("+14165353345");
-  res.render("restaurant");
-});
-
-const getMaxPrepTime = function (cart) {
-  const max = cart.reduce(function (prev, current) {
-    return prev.prep_time > current.prep_time ? prev : current;
-  }); //returns object
-  return max.prep_time;
-};
-
-app.get("/complete", function (req, res) {
-  res.render("complete");
-});
-
-app.get("/error", function (req, res) {
-  res.render("error");
-});
-
+//Placing the order after the customer checks out.
 app.post("/placeOrder", function (req, res) {
   //Placing the customer's info into the database:
+  console.log("Posting to /placeOrder");
   console.log("Req.Body ------->", req.body);
+  console.log("Cart ------->", req.body.cart);
   let customer = {
     name: req.body.name,
     phone: req.body.phone,
@@ -219,6 +192,53 @@ app.post("/placeOrder", function (req, res) {
     });
 });
 
+//For the restaurant page
+app.post("/completeOrder", function (req, res) {
+  console.log("COMPLETE ORDER REQ BODY =======>", req.body);
+  let order_id = req.body.order_id;
+  //This complete's the customer's order and removes it from the page. Sets it in the DB as complete.
+  orderRoutes.completeCustomerOrder(order_id).then((result) => {
+    res.sendStatus(200);
+    orderRoutes.getCustomerPhone(order_id).then((number) => {
+      console.log("CUSTOMER'S PHONE NUMBER =====>", number[0].phone);
+      let phone = number[0].phone;
+      // sendOrderCompleteText(phone);
+      console.log("SENDING A TEXT TO THE CUSTOMER TO PICK UP THEIR ORDER");
+      //Send the text to customer that their order is complete
+    });
+  });
+});
+
+app.get("/pendingOrders", function (req, res) {
+  orderRoutes.getPendingOrders().then((result) => {
+    console.log(result);
+    res.send(JSON.stringify(result));
+  });
+});
+
+app.get("/restaurant", function (req, res) {
+  res.render("restaurant");
+});
+
+// Only want customers accessing /complete through the menu order form route.
+app.get("/complete", function (req, res) {
+  res.render("error");
+});
+
+//Error-handling
+app.get("/error", function (req, res) {
+  res.render("error");
+});
+
+//Helper function to get the longest prep time item in a customer's cart.
+const getMaxPrepTime = function (cart) {
+  const max = cart.reduce(function (prev, current) {
+    return prev.prep_time > current.prep_time ? prev : current;
+  }); //returns object
+  return max.prep_time;
+};
+
+// SMS Twilio API below
 //These are account login details for twilio to be able to send texts.
 const accountSid = "";
 const authToken = "";
@@ -251,7 +271,7 @@ const sendRestaurantSMSText = function (itemNameString) {
     .create({
       body: `An order has been placed: ${itemNameString}`,
       from: "+15406573369",
-      to: "+16479961093",
+      to: "+16479961093", //The restaraunt's phone number
     })
     .then((message) => console.log(message.sid));
 };

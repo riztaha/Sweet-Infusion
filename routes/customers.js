@@ -14,7 +14,7 @@ const getCustomers = function () {
         resolve(data);
       })
       .catch((err) => {
-        console.error("Promise error", err.stack);
+        console.log("Promise error", err.stack);
         reject(err.stack);
       });
   });
@@ -33,7 +33,7 @@ const createEmptyCustomer = function () {
         resolve(data);
       })
       .catch((err) => {
-        console.error("Promise error", err.stack);
+        console.log("Promise error", err.stack);
         reject(err.stack);
       });
   });
@@ -54,7 +54,7 @@ const placeCustomerInfo = function (customer) {
         resolve(data);
       })
       .catch((err) => {
-        console.error("Promise error", err.stack);
+        console.log("Promise error", err.stack);
         reject(err.stack);
       });
   });

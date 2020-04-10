@@ -16,7 +16,7 @@ const getAllMenuItems = () => {
         resolve(data);
       })
       .catch((err) => {
-        console.error("query error", err.stack);
+        console.log("query error", err.stack);
         reject(err.stack);
       });
   });

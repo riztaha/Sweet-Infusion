@@ -4,7 +4,7 @@
   color: gray;
 }
 
-.story h2 {
+.story h2, .story h1{
   /* color: rgba(240, 131, 69); */
   color: #5AAAAA;
   font-family: 'Raleway', sans-serif, bold;

@@ -115,19 +115,20 @@ $(() => {
       let pendingHtml = "";
       for (let orderId in orders) {
         pendingHtml +=
-          `<h3>Invoice ${orderId} for Customer: ` +
+          `<h3>Invoice ${orderId}
+          <h4> Order Details </h4>` +
           orders[orderId][0].customer_name +
-          ` Number: ` +
+          `<h4> Number: ` +
           orders[orderId][0].customer_phone +
-          `  </h3>`;
+          `</h4>  </h3>`;
         //Looping through the orderID array
         for (let item of orders[orderId]) {
           pendingHtml += `<p class="item"> ${item.item} - Quantity ${item.quantity} </p>`;
         }
         pendingHtml +=
-          `<input value='Complete Order' type='button' class='btn completeOrder' data-id=` +
+          `<input class="complete-order" value='Complete Order' type='button' class='btn completeOrder' data-id=` +
           orderId +
-          `><br>`;
+          `><hr class="hr">`;
       }
       $("#pending-orders").append(pendingHtml);
     }

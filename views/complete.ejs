@@ -2,7 +2,9 @@
 <html lang="en">
   <head>
     <title>Cart</title>
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- googleFonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;500&family=Varela+Round&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
@@ -11,10 +13,10 @@
     <link rel="stylesheet" href="/styles/main_index.css" type="text/css" />
     <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
     <link rel="stylesheet" href="/styles/menu.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/about.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/complete.css" type="text/css" />
     <link rel="stylesheet" id="fontawesome_css-css" href="//use.fontawesome.com/releases/v5.9.0/css/all.css?ver=5.4.1" type="text/css" media="all">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <!-- googleFonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;500&family=Varela+Round&display=swap" rel="stylesheet">
+
 
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
@@ -32,8 +34,9 @@
     </nav>
     <!-- main content here -->
     <main>
-      <div class="order_note">
+      <div class="story order_note">
         <!-- Need to loop through the array 'cart', and print out each item's name/quantity of the item they ordered -->
+
         <h1>Your Order Details</h1>
         <div>
             <p>Thank you <%= customer.name %>!</p>
@@ -49,15 +52,5 @@
       </div>
     </main>
     <!-- main content ends here -->
-    <footer>
-      <section class="wrapper footer">
-        <p>&copy Sweet Infusion 2020 All Rights Reserved</p>
-        <div class="media">
-          <span class="follow">Follow Us on</span>
-          <a href="https://www.instagram.com/accounts/login/?hl=en"><span class="fab fa-instagram"> </span></a>
-          <a href="https://www.facebook.com"><span class="fab fa-facebook"></span></a>
-        </div>
-      </section>
-    </footer>
   </body>
 </html>

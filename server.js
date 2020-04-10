@@ -172,8 +172,10 @@ app.post("/placeOrder", function (req, res) {
                 itemNameString = itemNameArray.join(", ");
                 console.log("item name string ------->", itemNameString);
 
-                sendCustomerOrderText(itemNameString, phone, maxPrepTime);
-                sendRestaurantSMSText(itemNameString);
+                // sendCustomerOrderText(itemNameString, phone, maxPrepTime);
+                console.log("SENDING customer their order details");
+                // sendRestaurantSMSText(itemNameString);
+                console.log("SENDING restaraunt order details");
 
                 res.render("complete", {
                   order_id: invoiceNumber,
@@ -210,7 +212,7 @@ app.post("/completeOrder", function (req, res) {
     orderRoutes.getCustomerPhone(order_id).then((number) => {
       console.log("CUSTOMER'S PHONE NUMBER =====>", number[0].phone);
       let phone = number[0].phone;
-      sendOrderCompleteText(phone);
+      // sendOrderCompleteText(phone);
       console.log("SENDING A TEXT TO THE CUSTOMER TO PICK UP THEIR ORDER");
       //Send the text to customer that their order is complete
     });

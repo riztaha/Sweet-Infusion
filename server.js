@@ -106,6 +106,12 @@ app.post("/checkout", function (req, res) {
 });
 // createOrder takes order_id, menu_item_id, and quantity
 
+// app.get("/pendingOrders", function(req, res) {
+//   //call some function in orders.routes which retrieves pending items
+
+//   // respond to this get call, with json object of all pending items
+
+// } );
 app.get("/restaurant", function (req, res) {
   res.render("restaurant");
 });

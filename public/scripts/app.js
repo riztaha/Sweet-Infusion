@@ -126,7 +126,7 @@ $(() => {
           pendingHtml += `<p class="item"> ${item.item} - Quantity ${item.quantity} </p>`;
         }
         pendingHtml +=
-          `<input class="complete-order" value='Complete Order' type='button' class='btn completeOrder' data-id=` +
+          `<input value='Complete Order' type='button' class='btn completeOrder' data-id=` +
           orderId +
           `><hr class="hr">`;
       }

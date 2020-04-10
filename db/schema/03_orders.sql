@@ -6,7 +6,6 @@ CREATE TABLE orders (
 
   order_date DATE NOT NULL DEFAULT CURRENT_DATE,
   order_time TEXT NOT NULL DEFAULT to_char(NOW()::TIME, 'HH12:MI AM'),
-  order_quantity INTEGER DEFAULT 1,
 
   is_payment_correct BOOLEAN NOT NULL DEFAULT TRUE,
   is_order_complete BOOLEAN NOT NULL DEFAULT FALSE

@@ -96,51 +96,13 @@ app.post("/menu", (req, res) => {
 //   }
 // });
 
-app.post("/cart", function (req, res) {
+app.post("/checkout", function (req, res) {
   let cart = JSON.parse(req.body.cart);
+  console.log("Cart ------->", cart);
 
-  // Create customer table and empty order table to be used later
-  customerRoutes.createEmptyCustomer().then((results) => {
-    let order = {
-      customer_id: results[0].id,
-      is_order_complete: "false",
-      cart: cart,
-    };
-    orderRoutes.placeOrder(order).then((results) => {
-      let invoiceNumber = results[0].id;
-      console.log("Invoice Number ------------>", invoiceNumber);
-
-      let promises = [];
-      cart.forEach((item) => {
-        let order = {
-          order_id: invoiceNumber,
-          menu_item_id: item.id,
-          item_quantity: item.quantity,
-        };
-
-        promises.push(orderRoutes.createOrder(order));
-
-        Promise.all(promises)
-          .then((resolvedPromise) => {
-            if (promises.length === resolvedPromise.length) {
-              console.log("all promises fulfilled, orders are now in db");
-              res.render("cart", {
-                order_id: JSON.stringify(invoiceNumber),
-              });
-            } else {
-              // not ideal, but if within 30 seconds not all the orders have been placed, show error
-              setTimeout(() => {
-                res.render("error");
-              }, 300);
-            }
-          })
-          .catch((e) => {
-            // handle errors here
-          });
-      });
-    });
+  res.render("cart", {
+    cart: JSON.stringify(cart),
   });
-  // Create new order with the menu items at the same time
 });
 // createOrder takes order_id, menu_item_id, and quantity
 
@@ -153,26 +115,24 @@ app.post("/restaurant", function (req, res) {
   res.render("restaurant");
 });
 
+const getMaxPrepTime = function (cart) {
+  const max = cart.reduce(function (prev, current) {
+    return prev.prep_time > current.prep_time ? prev : current;
+  }); //returns object
+  return max.prep_time;
+};
+
 app.get("/complete", function (req, res) {
-  // Show customer's info
-  // Show order info
-  customerRoutes
-    .getLastCustomer()
-    .then((obj) => {
-      res.render("complete", { customer: obj });
-      // console.log(customer)
-    })
-    .catch((err) => {
-      res.render("error", err);
-    });
+  res.render("complete");
 });
 
 app.get("/error", function (req, res) {
   res.render("error");
 });
 
-app.post("/complete", function (req, res) {
+app.post("/placeOrder", function (req, res) {
   //Placing the customer's info into the database:
+  console.log("Req.Body ------->", req.body);
   let customer = {
     name: req.body.name,
     phone: req.body.phone,
@@ -181,41 +141,66 @@ app.post("/complete", function (req, res) {
     credit_card: req.body.cc_number,
     credit_card_exp: req.body.cc_exp,
     credit_card_code: req.body.cc_code,
-    order: JSON.parse(req.body.order),
   };
+  let cart = JSON.parse(req.body.cart);
 
   customerRoutes
     .placeCustomerInfo(customer)
-    .then(() => {
-      res.render("complete", { customer });
-      // console.log("-----This is customer", customer)
-      console.log("This is customer.order.cart: ", customer.order.cart);
+    .then((customerInfo) => {
+      let order = {
+        customer_id: customerInfo[0].id,
+        is_order_complete: "false",
+      };
+      orderRoutes.placeOrder(order).then((results) => {
+        let invoiceNumber = results[0].id;
+        console.log("Invoice Number ------------>", invoiceNumber);
+        //Iterating through the array of cart, and adding each item to the order_menu_item db
+        let promises = [];
+        cart.forEach((item) => {
+          let order = {
+            order_id: invoiceNumber,
+            menu_item_id: item.id,
+            item_quantity: item.quantity,
+          };
+          promises.push(orderRoutes.createOrder(order));
+
+          Promise.all(promises)
+            .then((resolvedPromise) => {
+              if (promises.length === resolvedPromise.length) {
+                console.log("all promises fulfilled, orders are now in db");
+                // Render cart page and pass the cart and order number with it.
+                let maxPrepTime = getMaxPrepTime(cart);
+                console.log("maxPrepTime" + maxPrepTime);
+
+                let phone = "";
+                phone = `+1${req.body.phone.split("-").join("")}`;
+                console.log("phone" + phone);
+
+                // sendCustomerOrderText(phone, maxPrepTime)
+
+                res.render("complete", {
+                  order_id: invoiceNumber,
+                  cart: JSON.stringify(cart),
+                  customer: JSON.stringify(customer),
+                  maxPrepTime: maxPrepTime,
+                });
+              }
+              // } else {
+              //   // if within 10 seconds not all the orders have been placed, show error
+              //   setTimeout(() => {
+              //     res.render("error");
+              //   }, 10000);
+              // }
+            })
+            .catch((e) => {
+              // handle errors here
+            });
+        });
+      });
     })
     .catch((err) => {
       res.render("error", err);
     });
-
-  let order = JSON.parse(customer.order.cart);
-  let timesArray = [];
-  for (const item in order) {
-    timesArray.push(order[item].prep_time);
-  }
-  timesArray = timesArray.map((x) => Number.parseInt(x));
-  maxPrepTime = timesArray.reduce(function (a, b) {
-    return Math.max(a, b);
-  });
-
-  let phone = "";
-  let time = maxPrepTime;
-  phone = `+1${req.body.phone.split("-").join("")}`;
-  // sendCustomerOrderText(phone, time)
-
-  let itemNameArray = [];
-  for (const item in order) {
-    itemNameArray.push(order[item].name);
-  }
-  itemNameString = itemNameArray.join(", ");
-  // sendRestaurantSMSText(itemNameArray)
 });
 
 //These are account login details for twilio to be able to send texts.
@@ -237,7 +222,7 @@ const sendCustomerOrderText = function (phone, time) {
 const sendOrderCompleteText = function (phone) {
   client.messages
     .create({
-      body: `Your order is  complete and is ready to be picked up. Enjoy!`,
+      body: `Your order is complete and is ready to be picked up. Enjoy!`,
       from: "+15406573369",
       to: phone,
     })

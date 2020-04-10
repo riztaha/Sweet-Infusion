@@ -187,19 +187,17 @@ app.post("/placeOrder", function (req, res) {
                 for (const item of cart) {
                   itemNameArray.push(item.name);
                 }
-                // let itemName = "";
-                // itemNameArray.forEach((value) => (itemName += value + ", "));
 
                 itemNameString = itemNameArray.join(", ");
                 console.log("item name string ------->", itemNameString);
 
-                sendCustomerOrderText(itemNameString, phone, time);
-                sendRestaurantSMSText(itemNameArray);
+                // sendCustomerOrderText(itemNameString, phone, maxPrepTime);
+                // sendRestaurantSMSText(itemNameString);
 
                 res.render("complete", {
                   order_id: invoiceNumber,
                   cart: JSON.stringify(cart),
-                  customer: JSON.stringify(customer),
+                  customer: customer,
                   maxPrepTime: maxPrepTime,
                 });
               }
@@ -253,7 +251,7 @@ const sendRestaurantSMSText = function (itemNameString) {
     .create({
       body: `An order has been placed: ${itemNameString}`,
       from: "+15406573369",
-      to: "+14165353345",
+      to: "+16479961093",
     })
     .then((message) => console.log(message.sid));
 };

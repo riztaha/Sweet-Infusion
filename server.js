@@ -41,16 +41,16 @@ app.use(express.static("public"));
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
-// const usersRoutes = require("./routes/users");
-// const widgetsRoutes = require("./routes/widgets");
+const usersRoutes = require("./routes/users");
+const widgetsRoutes = require("./routes/widgets");
 const menuRoutes = require("./routes/menu");
 const orderRoutes = require("./routes/orders");
 const customerRoutes = require("./routes/customers");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
-// app.use("/api/users", usersRoutes(db));
-// app.use("/api/widgets", widgetsRoutes(db));
+app.use("/api/users", usersRoutes(db));
+app.use("/api/widgets", widgetsRoutes(db));
 
 // Note: mount other resources here, using the same pattern above
 
@@ -78,67 +78,74 @@ app.get("/menu", (req, res) => {
     .catch((err) => {
       res.render("error", err);
     });
-  console.log("GET menu");
+    console.log("GET menu")
 });
 
 //template file do ajax request make a request to /api/menu... this is done in app.js
 
 app.post("/menu", (req, res) => {
   console.log("Menu Req Body ------>", req.body);
-  console.log("POST menu");
+  console.log("POST menu")
 });
 
-// app.get("/cart", (req, res, err) => {
-//   if (err) {
-//     res.render("error");
-//   } else {
-//     res.render("cart", { order_id: JSON.stringify(order) });
-//   }
-// });
+app.get("/cart", (req, res) => {
+  res.render("cart");
+  console.log("GET cart")
+});
 
-app.post("/checkout", function (req, res) {
-  let cart = JSON.parse(req.body.cart);
-  console.log("Cart ------->", cart);
+app.post("/cart", function (req, res) {
+  console.log("CART ITEMS -------->", req.body);
 
-  res.render("cart", {
-    cart: JSON.stringify(cart),
+  // Create customer table and empty order table to be used later
+  customerRoutes.createEmptyCustomer().then((results) => {
+    //TODO: Clean up order.cart to be what you need
+    //i.e. { cart: '{"1":{"name":"Cherry Pie","price":"5.00","prep_time":2,"quantity":1}}' } } }
+    let order = {
+      customer_id: results[0].id,
+      is_order_complete: "false",
+      cart: req.body,
+    };
+    orderRoutes.placeOrder(order);
+    res.render("cart", { tempVar: JSON.stringify(order) });
   });
+
+  // Create new order with the menu items at the same time
 });
-// createOrder takes order_id, menu_item_id, and quantity
 
-// app.get("/pendingOrders", function(req, res) {
-//   //call some function in orders.routes which retrieves pending items
-
-//   // respond to this get call, with json object of all pending items
-
-// } );
 app.get("/restaurant", function (req, res) {
   res.render("restaurant");
 });
 
 app.post("/restaurant", function (req, res) {
-  sendOrderCompleteText("+14165353345");
+  sendOrderCompleteText('+14165353345')
   res.render("restaurant");
 });
 
-const getMaxPrepTime = function (cart) {
-  const max = cart.reduce(function (prev, current) {
-    return prev.prep_time > current.prep_time ? prev : current;
-  }); //returns object
-  return max.prep_time;
-};
+app.get("/about", function (req, res) {
+  res.render("about")
+})
 
 app.get("/complete", function (req, res) {
-  res.render("complete");
+  // Show customer's info
+  // Show order info
+  customerRoutes
+    .getLastCustomer()
+    .then((obj) => {
+      res.render("complete", { customer: obj });
+      // console.log(customer)
+    })
+    .catch((err) => {
+      res.render("error", err);
+    });
+  res.render("complete"); // Isn't this redundent from 5 lines above?
 });
 
 app.get("/error", function (req, res) {
   res.render("error");
 });
 
-app.post("/placeOrder", function (req, res) {
+app.post("/complete", function (req, res) {
   //Placing the customer's info into the database:
-  console.log("Req.Body ------->", req.body);
   let customer = {
     name: req.body.name,
     phone: req.body.phone,
@@ -147,113 +154,81 @@ app.post("/placeOrder", function (req, res) {
     credit_card: req.body.cc_number,
     credit_card_exp: req.body.cc_exp,
     credit_card_code: req.body.cc_code,
+    order: JSON.parse(req.body.order),
   };
-  let cart = JSON.parse(req.body.cart);
-
   customerRoutes
     .placeCustomerInfo(customer)
-    .then((customerInfo) => {
-      let order = {
-        customer_id: customerInfo[0].id,
-        is_order_complete: "false",
-      };
-      orderRoutes.placeOrder(order).then((results) => {
-        let invoiceNumber = results[0].id;
-        console.log("Invoice Number ------------>", invoiceNumber);
-        //Iterating through the array of cart, and adding each item to the order_menu_item db
-        let promises = [];
-        cart.forEach((item) => {
-          let order = {
-            order_id: invoiceNumber,
-            menu_item_id: item.id,
-            item_quantity: item.quantity,
-          };
-          promises.push(orderRoutes.createOrder(order));
+    .then(() => {
+      res.render("complete", { customer });
+      // console.log("-----This is customer", customer)
+      console.log("-----This is customer.order.cart.cart", customer.order.cart.cart)
 
-          Promise.all(promises)
-            .then((resolvedPromise) => {
-              if (promises.length === resolvedPromise.length) {
-                console.log("all promises fulfilled, orders are now in db");
-                // Render cart page and pass the cart and order number with it.
-                let maxPrepTime = getMaxPrepTime(cart);
-                console.log("maxPrepTime" + maxPrepTime);
-
-                let phone = "";
-                phone = `+1${req.body.phone.split("-").join("")}`;
-                console.log("phone" + phone);
-
-                let itemNameArray = [];
-
-                for (const item of cart) {
-                  itemNameArray.push(item.name);
-                }
-
-                itemNameString = itemNameArray.join(", ");
-                console.log("item name string ------->", itemNameString);
-
-                // sendCustomerOrderText(itemNameString, phone, maxPrepTime);
-                // sendRestaurantSMSText(itemNameString);
-
-                res.render("complete", {
-                  order_id: invoiceNumber,
-                  cart: cart,
-                  customer: customer,
-                  maxPrepTime: maxPrepTime,
-                });
-              }
-              // } else {
-              //   // if within 10 seconds not all the orders have been placed, show error
-              //   setTimeout(() => {
-              //     res.render("error");
-              //   }, 10000);
-              // }
-            })
-            .catch((e) => {
-              // handle errors here
-            });
-        });
-      });
     })
     .catch((err) => {
       res.render("error", err);
     });
+
+  // console.log("THIS IS LINE 165 customer.order.cart.cart---->", typeof customer.order.cart.cart, customer.order.cart.cart);
+  let order = JSON.parse(customer.order.cart.cart)
+  // console.log("THIS IS LINE 167 order - post JSON---->", typeof order, order);
+  let timesArray = []
+  for (const item in order) {
+    timesArray.push(order[item].prep_time)
+  }
+  timesArray = timesArray.map((x) => Number.parseInt(x));
+  maxPrepTime = timesArray.reduce(function (a, b) {
+    return Math.max(a, b);
+  });
+
+  let phone = "";
+  let time = maxPrepTime
+  phone = `+1${req.body.phone.split('-').join('')}`;
+  // sendCustomerOrderText(phone, time)
+
+  let itemNameArray = []
+  for (const item in order) {
+    itemNameArray.push(order[item].name)
+  }
+  itemNameString = itemNameArray.join(", ")
+  // sendRestaurantSMSText(itemNameArray)
+  // console.log("--------FROM APP.POST ----- /complete-------")
+  // console.log("This is customer.name:", customer.name)
+  // console.log("This is order items:", itemNameArray)
+  // console.log("This is order completion time:", maxPrepTime)
 });
 
 //These are account login details for twilio to be able to send texts.
-const accountSid = "";
-const authToken = "";
+const accountSid = '';
+const authToken = '';
 // const client = require('twilio')(accountSid, authToken);
 // This function sends via text the estimated time the order will be completed to the customer
-const sendCustomerOrderText = function (itemNameString, phone, time) {
+const sendCustomerOrderText = function(phone, time) {
   client.messages
     .create({
       body: `Thank you for your order of ${itemNameString}. It will be ready for pick up in ${time} minutes.`,
-      from: "+15406573369",
-      to: phone,
-    })
-    .then((message) => console.log(message.sid));
+      from: '+15406573369',
+      to: phone
+    }).then(message => console.log(message.sid));
 };
 
 // This function sends a text to the customer to let them know thier order is ready.
-const sendOrderCompleteText = function (phone) {
+const sendOrderCompleteText = function(phone) {
   client.messages
     .create({
-      body: `Your order is complete and is ready to be picked up. Enjoy!`,
-      from: "+15406573369",
-      to: phone,
-    })
-    .then((message) => console.log(message.sid));
+      body: `Your order is  complete and is ready to be picked up. Enjoy!`,
+      from: '+15406573369',
+      to: phone
+    }).then(message => console.log(message.sid));
 };
 
 // This function sends via text the order to the restaurant
-const sendRestaurantSMSText = function (itemNameString) {
+const sendRestaurantSMSText = function(itemNameString) {
   client.messages
     .create({
       body: `An order has been placed: ${itemNameString}`,
-      from: "+15406573369",
-      to: "+16479961093",
-    })
-    .then((message) => console.log(message.sid));
+      from: '+15406573369',
+      to: '+14165353345'
+    }).then(message => console.log(message.sid));
 };
 
 //Server is listening to you and watching your every move. Evil.

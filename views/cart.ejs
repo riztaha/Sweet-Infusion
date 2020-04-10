@@ -14,6 +14,11 @@
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
     <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/header.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/main_index.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/menu.css" type="text/css" />
+    <link rel="stylesheet" id="fontawesome_css-css" href="//use.fontawesome.com/releases/v5.9.0/css/all.css?ver=5.4.1" type="text/css" media="all">
 
     <!-- googleFonts -->
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;500&family=Varela+Round&display=swap" rel="stylesheet">
@@ -33,15 +38,15 @@
                           <h3 class="text-center">Payment</h3>
                       </div>
                       <hr>
-                      <form action="/placeOrder" method="POST">
-                        <input id="cart" name="cart" type="hidden" value="<%=cart%>">
+                      <form action="/complete" method="POST">
+                        <input id="order" name="order" type="hidden" value="<%=tempVar%>">
                         <div class="form-group">
                           <label for="Name" class="control-label mb-1">Customer Name</label>
-                          <input id="name" name="name" class="form-control" data-val="true" required placeholder="First & Last Name">
+                          <input id="name" name="name" class="form-control" data-val="true">
                         </div>
                           <div class="form-group">
                               <label for="cc-number" class="control-label mb-1">Card number</label>
-                              <input id="cc-number" name="cc_number" type="tel" class="form-control cc-number identified visa" required autocomplete="off" required placeholder="12-16 Digit Card Number" >
+                              <input id="cc-number" name="cc_number" type="tel" class="form-control cc-number identified visa" required autocomplete="off"  >
                               <span class="invalid-feedback">Enter a valid 12 to 16 digit card number</span>
                           </div>
                           <div class="row">
@@ -55,7 +60,7 @@
                               <div class="col-6">
                                   <label for="x_card_code" class="control-label mb-1">CVC</label>
                                   <div class="input-group">
-                                      <input id="x_card_code" name="cc_code" type="tel" class="form-control cc-cvc" required autocomplete="off" required placeholder="3 Digit Code">
+                                      <input id="x_card_code" name="cc_code" type="tel" class="form-control cc-cvc" required autocomplete="off">
                                       <span class="invalid-feedback order-last">Enter the 3-digit code on back</span>
                                       <div class="input-group-append">
                                           <div class="input-group-text">
@@ -69,17 +74,17 @@
                           </div>
                           <div class="form-group">
                               <label for="x_zip" class="control-label mb-1">Postal code</label>
-                              <input id="x_zip" name="zip_code" type="text" class="form-control" value="" data-val="true" data-val-required="Please enter the ZIP/Postal code" autocomplete="postal-code" required placeholder="A1A 2B2">
+                              <input id="x_zip" name="zip_code" type="text" class="form-control" value="" data-val="true" data-val-required="Please enter the ZIP/Postal code" autocomplete="postal-code">
                               <span class="help-block" data-valmsg-for="zip_code" data-valmsg-replace="true"></span>
                           </div>
 
                            <div class="form-group">
                               <label for="Phone Number" class="control-label mb-1">Contact Number</label>
-                              <input id="phone_number" name="phone"class="form-control" data-val="true" required placeholder="10-Digit Number">
+                              <input id="phone_number" name="phone"class="form-control" data-val="true">
                           </div>
                           <div class="form-group">
                             <label for="Address" class="control-label mb-1">Customer Address</label>
-                            <input id="address" name="address"class="form-control" data-val="true" required placeholder="Street, City, Postal, Country">
+                            <input id="address" name="address"class="form-control" data-val="true">
                         </div>
                           <div>
                               <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">

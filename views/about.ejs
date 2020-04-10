@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>About Us</title>
+
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/header.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/main_index.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/about.css" type="text/css" />
+    <link rel="stylesheet" id="fontawesome_css-css" href="//use.fontawesome.com/releases/v5.9.0/css/all.css?ver=5.4.1" type="text/css" media="all">
+    <!-- googleFonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;500&family=Varela+Round&display=swap" rel="stylesheet">
+
+
+    <script type="text/javascript" src="db/queries/queries.js"></script>
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="/scripts/app.js"></script>
+  </head>
+
+  <body>
+
+    <!-- nav bar -->
+    <%- include partials/header.ejs %>
+    <!-- header -->
+    <main>
+      <section class="story wrapper">
+        <h2>Our Story</h2>
+        <p>Our mission is in our name:  We stand for high quality, paramount freshness, high service, and a exclusive experience. We are all about bringing the love of dessert on your plate. We want to change perceptions about sugar based dessert and cuisine as unhealthy. We flew in renowned international chefs to share the most authentic desserts. We use the freshest and finest ingredients, which have been passed down for generations to enjoy. Sharing our culture with others, brings us all together in the universal love of great food. Sweet Infusin provides guests with a culinary experience that will not be forgotten.</p> <br>
+      </section>
+
+      <section class='wrapper'>
+        <iframe class="video" width="700" height="400" src="https://www.youtube.com/embed/2rOcCug6heU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </section>
+    </main>
+      <!-- end of section 2 -->
+
+      <!-- footer section -->
+
+      <%- include partials/footer.ejs %>
+
+    <script>
+    var slideIndex = 0;
+showSlides();
+
+function showSlides() {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  slideIndex++;
+  if (slideIndex > slides.length) {slideIndex = 1}
+  slides[slideIndex-1].style.display = "block";
+  setTimeout(showSlides, 3000); // Change image every 2 seconds
+}
+      </script>
+  </body>
+</html>

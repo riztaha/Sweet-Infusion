@@ -172,7 +172,7 @@ app.post("/placeOrder", function (req, res) {
                 itemNameString = itemNameArray.join(", ");
                 console.log("item name string ------->", itemNameString);
 
-                // sendCustomerOrderText(itemNameString, phone, maxPrepTime);
+                sendCustomerOrderText(itemNameString, phone, maxPrepTime);
                 // sendRestaurantSMSText(itemNameString);
 
                 res.render("complete", {
@@ -210,7 +210,7 @@ app.post("/completeOrder", function (req, res) {
     orderRoutes.getCustomerPhone(order_id).then((number) => {
       console.log("CUSTOMER'S PHONE NUMBER =====>", number[0].phone);
       let phone = number[0].phone;
-      // sendOrderCompleteText(phone);
+      sendOrderCompleteText(phone);
       console.log("SENDING A TEXT TO THE CUSTOMER TO PICK UP THEIR ORDER");
       //Send the text to customer that their order is complete
     });
@@ -244,7 +244,7 @@ const accountSid = "";
 const authToken = "";
 // const client = require('twilio')(accountSid, authToken);
 // This function sends via text the estimated time the order will be completed to the customer
-const sendCustomerOrderText = function (phone, time) {
+const sendCustomerOrderText = function (itemNameString, phone, time) {
   client.messages
     .create({
       body: `Thank you for your order of ${itemNameString}. It will be ready for pick up in ${time} minutes.`,

@@ -1,35 +1,34 @@
 // const express = require("express");
 const queries = require("../db/queries/queries");
 
-const getOrders = () => {
-  const promise = new Promise((resolve, reject) => {
-    // console.log("in getOrders function");
-    //Grabbing the function from queries.js
-    queries
-      .getOrders()
-      // db.query(queryString)
-      .then((data) => {
-        console.log("in data getOrders");
-        // console.log(data);
-        // res.json({ menu_items });
-        resolve(data);
-      })
-      .catch((err) => {
-        console.log("promise error", err.stack);
-        reject(err.stack);
-      });
-  });
-  return promise;
-};
-exports.getOrders = getOrders;
+// const getOrders = () => {
+//   const promise = new Promise((resolve, reject) => {
+//     // console.log("in getOrders function");
+//     //Grabbing the function from queries.js
+//     queries
+//       .getOrders()
+//       // db.query(queryString)
+//       .then((data) => {
+//         console.log("in data getOrders");
+//         // console.log(data);
+//         // res.json({ menu_items });
+//         resolve(data);
+//       })
+//       .catch((err) => {
+//         console.log("promise error", err.stack);
+//         reject(err.stack);
+//       });
+//   });
+//   return promise;
+// };
+// exports.getOrders = getOrders;
 
-// Function to get a specific customer's order
-const getCustomerOrder = function (order_id) {
+const completeCustomerOrder = function (order_id) {
   const promise = new Promise((resolve, reject) => {
     queries
-      .getCustomerOrder(order_id)
+      .setCustomerOrderComplete(order_id)
       .then((data) => {
-        console.log("in getCustomerOrder. Retrieving customer's cart.");
+        console.log("in completeCustomerOrder. Completing customer's cart.");
         resolve(data);
       })
       .catch((err) => {
@@ -39,7 +38,44 @@ const getCustomerOrder = function (order_id) {
   });
   return promise;
 };
-exports.getCustomerOrder = getCustomerOrder;
+exports.completeCustomerOrder = completeCustomerOrder;
+
+const getCustomerPhone = function (order_id) {
+  const promise = new Promise((resolve, reject) => {
+    queries
+      .getCustomerPhone(order_id)
+      .then((data) => {
+        console.log(
+          "in getCustomerPhone. Finding the customer's phone number."
+        );
+        resolve(data);
+      })
+      .catch((err) => {
+        console.log("promise error", err.stack);
+        reject(err.stack);
+      });
+  });
+  return promise;
+};
+exports.getCustomerPhone = getCustomerPhone;
+
+// // Function to get a pending customer orders
+const getPendingOrders = function () {
+  const promise = new Promise((resolve, reject) => {
+    queries
+      .getPendingOrders()
+      .then((data) => {
+        console.log("in getPendingOrders. Retrieving customer's cart.");
+        resolve(data);
+      })
+      .catch((err) => {
+        console.log("promise error", err.stack);
+        reject(err.stack);
+      });
+  });
+  return promise;
+};
+exports.getPendingOrders = getPendingOrders;
 
 const placeOrder = function (order) {
   const promise = new Promise((resolve, reject) => {

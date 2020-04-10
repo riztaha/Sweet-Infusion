@@ -32,13 +32,15 @@
     <!-- main content here -->
     <main>
       <div class="order_note">
-        <pre><%= customer %></pre>
+        <pre><%= customer.name %></pre>
         <pre><%= cart %></pre>
 
         <h1>Your Order Details</h1>
         <div>
           <ul>
-            <li>This is your order: <%= cart %>. Thank you and enjoy!</li>
+            <li>Thank you <%= customer['address'] %>!</li>
+            <%= customer.name %>
+            <li>This is your order: <%= cart.name %>. Thank you and enjoy!</li>
             <li>Your order should be ready for pickup in approximately <%= maxPrepTime %> minutes.</li>
           </ul>
         </div>

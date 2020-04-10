@@ -173,7 +173,7 @@ app.post("/placeOrder", function (req, res) {
                 console.log("item name string ------->", itemNameString);
 
                 sendCustomerOrderText(itemNameString, phone, maxPrepTime);
-                // sendRestaurantSMSText(itemNameString);
+                sendRestaurantSMSText(itemNameString);
 
                 res.render("complete", {
                   order_id: invoiceNumber,

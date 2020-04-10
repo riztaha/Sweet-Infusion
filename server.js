@@ -117,7 +117,7 @@ app.get("/restaurant", function (req, res) {
 });
 
 app.post("/restaurant", function (req, res) {
-  // sendOrderCompleteText('+14165353345')
+  sendOrderCompleteText("+14165353345");
   res.render("restaurant");
 });
 
@@ -182,7 +182,19 @@ app.post("/placeOrder", function (req, res) {
                 phone = `+1${req.body.phone.split("-").join("")}`;
                 console.log("phone" + phone);
 
-                // sendCustomerOrderText(phone, maxPrepTime)
+                let itemNameArray = [];
+
+                for (const item of cart) {
+                  itemNameArray.push(item.name);
+                }
+                // let itemName = "";
+                // itemNameArray.forEach((value) => (itemName += value + ", "));
+
+                itemNameString = itemNameArray.join(", ");
+                console.log("item name string ------->", itemNameString);
+
+                sendCustomerOrderText(itemNameString, phone, time);
+                sendRestaurantSMSText(itemNameArray);
 
                 res.render("complete", {
                   order_id: invoiceNumber,
@@ -214,7 +226,7 @@ const accountSid = "";
 const authToken = "";
 // const client = require('twilio')(accountSid, authToken);
 // This function sends via text the estimated time the order will be completed to the customer
-const sendCustomerOrderText = function (phone, time) {
+const sendCustomerOrderText = function (itemNameString, phone, time) {
   client.messages
     .create({
       body: `Thank you for your order of ${itemNameString}. It will be ready for pick up in ${time} minutes.`,

@@ -68,6 +68,11 @@ app.get("/", (req, res) => {
     });
 });
 
+// About us Page
+app.get("/about", (req, res) => {
+  res.render("about");
+});
+
 // Menu Page
 app.get("/menu", (req, res) => {
   menuRoutes
@@ -78,12 +83,12 @@ app.get("/menu", (req, res) => {
     .catch((err) => {
       res.render("error", err);
     });
-    console.log("GET menu")
+  console.log("GET menu");
 });
 
 app.post("/menu", (req, res) => {
   console.log("Menu Req Body ------>", req.body);
-  console.log("POST menu")
+  console.log("POST menu");
 });
 
 // We do not want people to access the cart directly. Only through the menu page.
@@ -98,20 +103,23 @@ app.get("/cart", (req, res, err) => {
 // After the user chooses their items, it gets posted to the checkout page where they can pay
 app.post("/checkout", function (req, res) {
   let cart = JSON.parse(req.body.cart);
-  console.log("Cart ------->", cart);
 
   res.render("cart", {
     cart: JSON.stringify(cart),
-    cartObj: cart, //sending to ejs as an object so we can display it there
   });
 });
 
-//Placing the order after the customer checks out.
+//Helper function to get the longest prep time item in a customer's cart.
+const getMaxPrepTime = function (cart) {
+  const max = cart.reduce(function (prev, current) {
+    return prev.prep_time > current.prep_time ? prev : current;
+  }); //returns object
+  return max.prep_time;
+};
+
 app.post("/placeOrder", function (req, res) {
   //Placing the customer's info into the database:
-  console.log("Posting to /placeOrder");
   console.log("Req.Body ------->", req.body);
-  console.log("Cart ------->", req.body.cart);
   let customer = {
     name: req.body.name,
     phone: req.body.phone,
@@ -120,47 +128,76 @@ app.post("/placeOrder", function (req, res) {
     credit_card: req.body.cc_number,
     credit_card_exp: req.body.cc_exp,
     credit_card_code: req.body.cc_code,
-    order: JSON.parse(req.body.order),
   };
+  let cart = JSON.parse(req.body.cart);
+
   customerRoutes
     .placeCustomerInfo(customer)
-    .then(() => {
-      res.render("complete", { customer });
-      // console.log("-----This is customer", customer)
-      console.log("-----This is customer.order.cart.cart", customer.order.cart.cart)
+    .then((customerInfo) => {
+      let order = {
+        customer_id: customerInfo[0].id,
+        is_order_complete: "false",
+      };
+      orderRoutes.placeOrder(order).then((results) => {
+        let invoiceNumber = results[0].id;
+        console.log("Invoice Number ------------>", invoiceNumber);
+        //Iterating through the array of cart, and adding each item to the order_menu_item db
+        let promises = [];
+        cart.forEach((item) => {
+          let order = {
+            order_id: invoiceNumber,
+            menu_item_id: item.id,
+            item_quantity: item.quantity,
+          };
+          promises.push(orderRoutes.createOrder(order));
 
+          Promise.all(promises)
+            .then((resolvedPromise) => {
+              if (promises.length === resolvedPromise.length) {
+                console.log("all promises fulfilled, orders are now in db");
+                // Render cart page and pass the cart and order number with it.
+                let maxPrepTime = getMaxPrepTime(cart);
+                console.log("maxPrepTime" + maxPrepTime);
+
+                let phone = "";
+                phone = `+1${req.body.phone.split("-").join("")}`;
+                console.log("phone" + phone);
+
+                let itemNameArray = [];
+
+                for (const item of cart) {
+                  itemNameArray.push(item.name);
+                }
+
+                itemNameString = itemNameArray.join(", ");
+                console.log("item name string ------->", itemNameString);
+
+                // sendCustomerOrderText(itemNameString, phone, maxPrepTime);
+                // sendRestaurantSMSText(itemNameString);
+
+                res.render("complete", {
+                  order_id: invoiceNumber,
+                  cart: cart,
+                  customer: customer,
+                  maxPrepTime: maxPrepTime,
+                });
+              }
+              // } else {
+              //   // if within 10 seconds not all the orders have been placed, show error
+              //   setTimeout(() => {
+              //     res.render("error");
+              //   }, 10000);
+              // }
+            })
+            .catch((e) => {
+              // handle errors here
+            });
+        });
+      });
     })
     .catch((err) => {
       res.render("error", err);
     });
-
-  // console.log("THIS IS LINE 165 customer.order.cart.cart---->", typeof customer.order.cart.cart, customer.order.cart.cart);
-  let order = JSON.parse(customer.order.cart.cart)
-  // console.log("THIS IS LINE 167 order - post JSON---->", typeof order, order);
-  let timesArray = []
-  for (const item in order) {
-    timesArray.push(order[item].prep_time)
-  }
-  timesArray = timesArray.map((x) => Number.parseInt(x));
-  maxPrepTime = timesArray.reduce(function (a, b) {
-    return Math.max(a, b);
-  });
-
-  let phone = "";
-  let time = maxPrepTime
-  phone = `+1${req.body.phone.split('-').join('')}`;
-  // sendCustomerOrderText(phone, time)
-
-  let itemNameArray = []
-  for (const item in order) {
-    itemNameArray.push(order[item].name)
-  }
-  itemNameString = itemNameArray.join(", ")
-  // sendRestaurantSMSText(itemNameArray)
-  // console.log("--------FROM APP.POST ----- /complete-------")
-  // console.log("This is customer.name:", customer.name)
-  // console.log("This is order items:", itemNameArray)
-  // console.log("This is order completion time:", maxPrepTime)
 });
 
 //For the restaurant page
@@ -201,54 +238,42 @@ app.get("/error", function (req, res) {
   res.render("error");
 });
 
-//Helper function to get the longest prep time item in a customer's cart.
-const getMaxPrepTime = function (cart) {
-  const max = cart.reduce(function (prev, current) {
-    return prev.prep_time > current.prep_time ? prev : current;
-  }); //returns object
-  return max.prep_time;
-};
-
 // SMS Twilio API below
 //These are account login details for twilio to be able to send texts.
-const accountSid = '';
-const authToken = '';
+const accountSid = "";
+const authToken = "";
 // const client = require('twilio')(accountSid, authToken);
 // This function sends via text the estimated time the order will be completed to the customer
-const sendCustomerOrderText = function(phone, time) {
+const sendCustomerOrderText = function (phone, time) {
   client.messages
     .create({
       body: `Thank you for your order of ${itemNameString}. It will be ready for pick up in ${time} minutes.`,
-      from: '+15406573369',
-      to: phone
-    }).then(message => console.log(message.sid));
+      from: "+15406573369",
+      to: phone,
+    })
+    .then((message) => console.log(message.sid));
 };
 
 // This function sends a text to the customer to let them know thier order is ready.
-const sendOrderCompleteText = function(phone) {
+const sendOrderCompleteText = function (phone) {
   client.messages
     .create({
       body: `Your order is  complete and is ready to be picked up. Enjoy!`,
-      from: '+15406573369',
-      to: phone
-    }).then(message => console.log(message.sid));
+      from: "+15406573369",
+      to: phone,
+    })
+    .then((message) => console.log(message.sid));
 };
 
 // This function sends via text the order to the restaurant
-const sendRestaurantSMSText = function(itemNameString) {
+const sendRestaurantSMSText = function (itemNameString) {
   client.messages
     .create({
       body: `An order has been placed: ${itemNameString}`,
-<<<<<<< HEAD
       from: "+15406573369",
-      to: "+16479961093", //The restaraunt's phone number
+      to: "+14165353345", //The restaraunt's phone number
     })
     .then((message) => console.log(message.sid));
-=======
-      from: '+15406573369',
-      to: '+14165353345'
-    }).then(message => console.log(message.sid));
->>>>>>> c5a1592f59bd6b2bcfe51f4b3e7cda0a5bd0ee5c
 };
 
 //Server is listening to you and watching your every move. Evil.

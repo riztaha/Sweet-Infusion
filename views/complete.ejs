@@ -17,7 +17,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;500&family=Varela+Round&display=swap" rel="stylesheet">
 
 
-    <script type="text/javascript" src="db/queries/queries.js"></script>
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -35,17 +34,17 @@
     <main>
       <div class="order_note">
         <!-- Need to loop through the array 'cart', and print out each item's name/quantity of the item they ordered -->
-        <pre><%= cart[0].name %></pre>
-
         <h1>Your Order Details</h1>
         <div>
-          <ul>
-            <li>Thank you <%= customer.name %>!</li>
-            <li>This is your order: <%= cart %>. Thank you and enjoy!</li>
-            <li>Your order should be ready for pickup in approximately <%= maxPrepTime %> minutes.</li>
-            <li>You will receive a text message once your order is complete.</li>
+            <p>Thank you <%= customer.name %>!</p>
+            <p>This is your order:
+               <% for(let i = 0; i < cart.length; i ++) { %>
+              <span><%= cart[i].name %> with quantity <%= cart[i].quantity %>, </span>
+              <% } %>
+              Thank you and enjoy!</p>
+            <p>Your order should be ready for pickup in approximately <%= maxPrepTime %> minutes.</p>
+            <p>You will receive a text message once your order is complete.</p>
 
-          </ul>
         </div>
       </div>
     </main>

@@ -1,0 +1,42 @@
+
+.complete-order {
+  color: #fff;
+  background: rgb(89, 170, 170);
+  border-radius: 5px;
+  padding: 5px;
+  width: 20%;
+}
+
+.complete-order:hover {
+  color: #FFF;
+  text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
+  box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+  box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+  transition: all 0.4s ease 0s;
+}
+
+#pending-orders {
+  background: rgb(238, 236, 236);
+  box-shadow: 5px 10px 10px 5px rgba(0,0,0,0.05);
+  border-radius: 4px;
+  width: 30%;
+
+}
+
+.logo-res {
+  width: 150px;
+  margin: 0 auto;
+}
+
+.flex-grid {
+  display: flex;
+}
+.col {
+  flex: 1;
+}
+
+.hr {
+  width: 50%;
+  color: salmon;
+  border-style: dotted;
+}

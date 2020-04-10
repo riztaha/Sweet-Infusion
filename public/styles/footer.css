@@ -2,20 +2,20 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  color: brown;
-  font-size: 16px;
+  color: gray;
+  font-size: 14px;
 }
 
 .fab {
   padding: 10px 30px;
   padding-right: 0;
-  font-size: 18px;
+  font-size: 14px;
   text-decoration: none;
 
   color: inherit;
 }
 a {
-  color: brown;
+  color: gray;
   text-decoration: none;
 }
 

@@ -1,0 +1,20 @@
+.story {
+  width: 60%;
+  text-align: center;
+  color: gray;
+}
+
+.story h2 {
+  /* color: rgba(240, 131, 69); */
+  color: #5AAAAA;
+  font-family: 'Raleway', sans-serif, bold;
+}
+
+.story p {
+  line-height: 1.5em;
+}
+
+iframe {
+  display: block;
+  margin: 0 auto;
+}

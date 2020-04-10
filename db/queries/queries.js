@@ -28,7 +28,7 @@ const getAllMenuItems = function () {
         resolve(res.rows);
       })
       .catch((err) => {
-        console.error("query error", err.stack);
+        console.log("get menu items query error", err.stack);
         reject(err);
       });
   });
@@ -50,7 +50,7 @@ const getOneMenuItem = function (id) {
     .then((res) => {
       return res.rows[0];
     })
-    .catch((err) => console.error("query error", err.stack));
+    .catch((err) => console.log("get one Menu item query error", err.stack));
 };
 exports.getOneMenuItem = getOneMenuItem;
 
@@ -65,26 +65,25 @@ const getOrders = function () {
     .then((res) => {
       return res.rows;
     })
-    .catch((err) => console.error("query error", err.stack));
+    .catch((err) => console.log("get orders query error", err.stack));
 };
 exports.getOrders = getOrders;
 
 // Function to get a specific customer's order using the order_menu_item table
-const getCustomerOrder = function (customer_id) {
+const getCustomerOrder = function (order_id) {
   const queryString = `
   SELECT *
   FROM order_menu_item
   JOIN menu_items ON menu_item_id = menu_items.id
   JOIN orders ON order_id = orders.id
-  WHERE customer_id = $1;
-  `;
-  const values = [customer_id];
+  WHERE order_id = $1;`;
+  const values = [order_id];
   return pool
     .query(queryString, values)
     .then((res) => {
       return res.rows;
     })
-    .catch((err) => console.error("query error", err.stack));
+    .catch((err) => console.log("get customer order query error", err.stack));
 };
 exports.getCustomerOrder = getCustomerOrder;
 
@@ -99,7 +98,7 @@ const getCustomers = function () {
     .then((res) => {
       return res.rows;
     })
-    .catch((err) => console.error("query error", err.stack));
+    .catch((err) => console.log("get customers query error", err.stack));
 };
 exports.getCustomers = getCustomers;
 
@@ -107,7 +106,8 @@ exports.getCustomers = getCustomers;
 const placeOrder = function (order) {
   const queryString = `
   INSERT INTO orders (customer_id, is_order_complete)
-  VALUES ($1, $2);
+  VALUES ($1, $2)
+  RETURNING id;
   `;
   const values = [order["customer_id"], order["is_order_complete"]];
   return pool
@@ -115,13 +115,13 @@ const placeOrder = function (order) {
     .then((res) => {
       return res.rows;
     })
-    .catch((err) => console.error("query error", err.stack));
+    .catch((err) => console.log("place order query error", err.stack));
 };
 exports.placeOrder = placeOrder;
 
 const createOrder = function (order) {
   const queryString = `
-  INSERT INTO order_menu_items (order_id, menu_item_id, item_quantity)
+  INSERT INTO order_menu_item (order_id, menu_item_id, item_quantity)
   VALUES ($1, $2, $3)
   `;
   const queryParams = [
@@ -134,34 +134,42 @@ const createOrder = function (order) {
     .then((res) => {
       return res.rows;
     })
-    .catch((err) => console.err("Query Error", err.stack));
+    .catch((err) => console.log("create order Query Error", err.stack));
 };
 exports.createOrder = createOrder;
 
-// Function to place customer's information into db
-const createEmptyCustomer = function () {
-  const queryString = `
-  INSERT INTO customers
-  (name)
-  VALUES ('undefined')
-  RETURNING id;
-  `;
-  return pool
-    .query(queryString)
-    .then((res) => {
-      // console.log(res.rows);
-      return res.rows;
-    })
-    .catch((err) => console.error("query error", err.stack));
-};
-exports.createEmptyCustomer = createEmptyCustomer;
+// // Function to place customer's information into db
+// const createEmptyCustomer = function () {
+//   const queryString = `
+//   INSERT INTO customers
+//   (name)
+//   VALUES ('undefined')
+//   RETURNING id;
+//   `;
+//   return pool
+//     .query(queryString)
+//     .then((res) => {
+//       // console.log(res.rows);
+//       return res.rows;
+//     })
+//     .catch((err) =>
+//       console.log("create empty customer query error", err.stack)
+//     );
+// };
+// exports.createEmptyCustomer = createEmptyCustomer;
 
 // Function to edit a customer's information
 const placeCustomerInfo = function (customer) {
+  // const queryString = `
+  // UPDATE customers
+  // SET name = $1, phone = $2, address = $3, zip_code = $4, credit_card = $5, credit_card_exp = $6, credit_card_code = $7
+  // WHERE name = 'undefined';
+  // `;
   const queryString = `
-  UPDATE customers
-  SET name = $1, phone = $2, address = $3, zip_code = $4, credit_card = $5, credit_card_exp = $6, credit_card_code = $7
-  WHERE name = 'undefined';
+  INSERT INTO customers
+  (name, phone, address, zip_code, credit_card, credit_card_exp, credit_card_code)
+  VALUES ($1, $2, $3, $4, $5, $6, $7)
+  RETURNING id;
   `;
   const queryParams = [
     customer["name"],
@@ -178,7 +186,7 @@ const placeCustomerInfo = function (customer) {
       // console.log(res.rows);
       return res.rows;
     })
-    .catch((err) => console.error("query error", err.stack));
+    .catch((err) => console.log("place customer info query error", err.stack));
 };
 exports.placeCustomerInfo = placeCustomerInfo;
 
@@ -195,6 +203,6 @@ const getLastCustomer = function () {
     .then((res) => {
       return res.rows;
     })
-    .catch((err) => console.error("query error", err.stack));
+    .catch((err) => console.log("get last customer query error", err.stack));
 };
 exports.getLastCustomer = getLastCustomer;

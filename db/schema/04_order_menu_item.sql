@@ -5,5 +5,5 @@ CREATE TABLE order_menu_item (
   order_id INTEGER REFERENCES orders(id) ON DELETE CASCADE,
   menu_item_id INTEGER REFERENCES menu_items(id) ON DELETE CASCADE,
 
-  item_quantity INTEGER NOT NULL
+  item_quantity INTEGER DEFAULT 1
 );

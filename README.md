@@ -19,7 +19,7 @@ The following steps are only for _one_ of the group members to perform.
   - username: `labber` 
   - password: `labber` 
   - database: `midterm`
-3. Install dependencies: `npm i`
+3. Install dependencies: `npm i` (eg. 'npm i Twilio')
 4. Fix to binaries for sass: `npm rebuild node-sass`
 5. Reset database: `npm run db:reset`
   - Check the db folder to see what gets created and seeded in the SDB
@@ -42,3 +42,4 @@ The following steps are only for _one_ of the group members to perform.
 - NPM 5.x or above
 - PG 6.x
 - Twilio (In server.js, lines 245 & 246 need to have your Twilio account login info. Lines 175, 177, & 215 need to be commented out after the account login info have been placed in so that the server actually sends the texts.)
+

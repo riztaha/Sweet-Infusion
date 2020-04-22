@@ -15,7 +15,7 @@ The restaraunt sends an order complete SMS to the client when they click the 'Co
 !["Menu Page"](https://github.com/riztaha/midterm_project/blob/master/docs/Menu%20Page.png)
 !["Customer's Payment Page"](https://github.com/riztaha/midterm_project/blob/master/docs/Payment%20Page.png)
 !["Customer's Order Summary Page"](https://github.com/riztaha/midterm_project/blob/master/docs/Customer%20Order%20Summary.png)
-!["Restaraunt's Page for Orders"](https://github.com/riztaha/midterm_project/blob/master/docs/Restaraunt%20Order%20Summary.png)
+!["Restaurant's Page for Orders"](https://github.com/riztaha/midterm_project/blob/master/docs/Restaraunt%20Order%20Summary.png)
 !["About Us Page"](https://github.com/riztaha/midterm_project/blob/master/docs/Restaraunt%20About%20Us.png)
 
 =========

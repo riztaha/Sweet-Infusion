@@ -1,4 +1,23 @@
-LHL Node Skeleton
+# About the Project
+
+A food ordering experience for a single restaurant. Hungry clients of this fictitious restaurant can visit its website, select one or more dishes and place an order for pick-up. They will receive an SMS notification when their order is ready.
+
+When an order is placed the restaurant receives the order via SMS. The restaurant can then specify how long it will take to fulfill it. Once they provide this information, the website updates for the client and also notifies them via SMS.
+
+Built front-end using HTML/CSS and the Back-end using Node.js, Express.js, Javascript, jQuery, & psql. Also used Twilio API for SMS functionality.
+
+The client receives an order summary SMS once they have fulfilled the payment requirements.
+The restaraunt receives a new order summary SMS at this point as well.
+The restaraunt sends an order complete SMS to the client when they click the 'Complete Order' button.
+
+## Screenshots
+!["Index Page"](https://github.com/riztaha/midterm_project/blob/master/docs/Main%20Page.png)
+!["Menu Page"](https://github.com/riztaha/midterm_project/blob/master/docs/Menu%20Page.png)
+!["Customer's Payment Page"](https://github.com/riztaha/midterm_project/blob/master/docs/Payment%20Page.png)
+!["Customer's Order Summary Page"](https://github.com/riztaha/midterm_project/blob/master/docs/Customer%20Order%20Summary.png)
+!["Restaraunt's Page for Orders"](https://github.com/riztaha/midterm_project/blob/master/docs/Restaraunt%20Order%20Summary.png)
+!["About Us Page"](https://github.com/riztaha/midterm_project/blob/master/docs/Restaraunt%20About%20Us.png)
+
 =========
 
 ## Project Setup

@@ -23,8 +23,8 @@ $(() => {
     } else {
       cart[itemIndex] = tmp;
     }
-    console.log("Cart: ");
-    console.table(cart);
+    // console.log("Cart: ");
+    // console.table(cart);
     renderCart();
   }
 
@@ -136,7 +136,7 @@ $(() => {
 
   function markAsComplete(order_id) {
     $.post("/completeOrder", { order_id }).done(function (data) {
-      console.log(data);
+      // console.log(data);
       delete orders[order_id];
       renderPendingOrders();
     });
@@ -151,7 +151,7 @@ $(() => {
     $.get("/pendingOrders", function (data) {
       orders = JSON.parse(data);
       orders = groupItemsByOrderId();
-      console.log("Grouped orders by Order ID: ");
+      // console.log("Grouped orders by Order ID: ");
       console.table(orders); // process results here
       renderPendingOrders();
 

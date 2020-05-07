@@ -44,7 +44,7 @@ const queries = require("../db/queries/queries");
 // Function to place customer's information into db
 const placeCustomerInfo = function (customer) {
   const promise = new Promise((resolve, reject) => {
-    console.log("in placeCustomerInfo");
+    // console.log("in placeCustomerInfo");
 
     //Grabbing the function from queries.js
     queries

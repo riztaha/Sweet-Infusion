@@ -83,12 +83,12 @@ app.get("/menu", (req, res) => {
     .catch((err) => {
       res.render("error", err);
     });
-  console.log("GET menu");
+  // console.log("GET menu");
 });
 
 app.post("/menu", (req, res) => {
-  console.log("Menu Req Body ------>", req.body);
-  console.log("POST menu");
+  // console.log("Menu Req Body ------>", req.body);
+  // console.log("POST menu");
 });
 
 // We do not want people to access the cart directly. Only through the menu page.
@@ -119,7 +119,7 @@ const getMaxPrepTime = function (cart) {
 
 app.post("/placeOrder", function (req, res) {
   //Placing the customer's info into the database:
-  console.log("Req.Body ------->", req.body);
+  // console.log("Req.Body ------->", req.body);
   let customer = {
     name: req.body.name,
     phone: req.body.phone,
@@ -140,7 +140,7 @@ app.post("/placeOrder", function (req, res) {
       };
       orderRoutes.placeOrder(order).then((results) => {
         let invoiceNumber = results[0].id;
-        console.log("Invoice Number ------------>", invoiceNumber);
+        // console.log("Invoice Number ------------>", invoiceNumber);
         //Iterating through the array of cart, and adding each item to the order_menu_item db
         let promises = [];
         cart.forEach((item) => {
@@ -157,7 +157,7 @@ app.post("/placeOrder", function (req, res) {
                 console.log("all promises fulfilled, orders are now in db");
                 // Render cart page and pass the cart and order number with it.
                 let maxPrepTime = getMaxPrepTime(cart);
-                console.log("maxPrepTime" + maxPrepTime);
+                // console.log("maxPrepTime" + maxPrepTime);
 
                 let phone = "";
                 phone = `+1${req.body.phone.split("-").join("")}`;
@@ -170,7 +170,7 @@ app.post("/placeOrder", function (req, res) {
                 }
 
                 itemNameString = itemNameArray.join(", ");
-                console.log("item name string ------->", itemNameString);
+                // console.log("item name string ------->", itemNameString);
 
                 // sendCustomerOrderText(itemNameString, phone, maxPrepTime);
                 console.log("SENDING customer their order details");
@@ -204,7 +204,7 @@ app.post("/placeOrder", function (req, res) {
 
 //For the restaurant page
 app.post("/completeOrder", function (req, res) {
-  console.log("COMPLETE ORDER REQ BODY =======>", req.body);
+  // console.log("COMPLETE ORDER REQ BODY =======>", req.body);
   let order_id = req.body.order_id;
   //This complete's the customer's order and removes it from the page. Sets it in the DB as complete.
   orderRoutes.completeCustomerOrder(order_id).then((result) => {

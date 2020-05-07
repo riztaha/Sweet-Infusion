@@ -28,7 +28,7 @@ const completeCustomerOrder = function (order_id) {
     queries
       .setCustomerOrderComplete(order_id)
       .then((data) => {
-        console.log("in completeCustomerOrder. Completing customer's cart.");
+        // console.log("in completeCustomerOrder. Completing customer's cart.");
         resolve(data);
       })
       .catch((err) => {
@@ -45,9 +45,9 @@ const getCustomerPhone = function (order_id) {
     queries
       .getCustomerPhone(order_id)
       .then((data) => {
-        console.log(
-          "in getCustomerPhone. Finding the customer's phone number."
-        );
+        // console.log(
+        //   "in getCustomerPhone. Finding the customer's phone number."
+        // );
         resolve(data);
       })
       .catch((err) => {
@@ -65,7 +65,7 @@ const getPendingOrders = function () {
     queries
       .getPendingOrders()
       .then((data) => {
-        console.log("in getPendingOrders. Retrieving customer's cart.");
+        // console.log("in getPendingOrders. Retrieving customer's cart.");
         resolve(data);
       })
       .catch((err) => {
@@ -83,7 +83,7 @@ const placeOrder = function (order) {
     queries
       .placeOrder(order)
       .then((data) => {
-        console.log("in placeOrder, creating empty order table");
+        // console.log("in placeOrder, creating empty order table");
         resolve(data);
       })
       .catch((err) => {
